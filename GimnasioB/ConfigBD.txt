@@ -1,0 +1,5 @@
+jdbc=jdbc:sqlserver://
+servidor=IVANSERVER
+usuario=Sora
+password=Shin Shan
+conexiones=3

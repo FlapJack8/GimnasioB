@@ -34,7 +34,7 @@ public class PoolConnection {
 		{
 			//Setear driver
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-			String dbConnectString = "jdbc:sqlserver://localhost;databaseName=Interactivas;integratedSecurity=true"; //jdbc + servidor; //Esto es para conectarlo en la db de casa 
+			String dbConnectString = "jdbc:sqlserver://localhost;databaseName=gymb;integratedSecurity=true"; //jdbc + servidor; //Esto es para conectarlo en la db de casa 
             //dbConnectString += jdbc + servidor; 
             Connection con = DriverManager.getConnection (dbConnectString, usuario, password);
             return con;

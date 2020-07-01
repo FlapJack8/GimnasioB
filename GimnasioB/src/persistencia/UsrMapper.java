@@ -43,7 +43,7 @@ public class UsrMapper {
 				Persona per = (Persona) p;
 				Connection con = PoolConnection.getPoolConnection().getConnection();
 				/*----STATEMENT QUERY DEL INSERT----*/
-				PreparedStatement s = con.prepareStatement("insert into dbo.Usuarios (nombreusuario,contraseña,nombre,email,dni,fechaNacimiento,domicilio,rol,estado) values (?,?,?,?,?,?,?,?,?)");
+				PreparedStatement s = con.prepareStatement("insert into dbo.Usuarios (nombreusuario,password,nombre,email,dni,fechaNacimiento,domicilio,rol,estado) values (?,?,?,?,?,?,?,?,?)");
 				/*----CAMPOS DE CLIENTE----*/			
 				s.setString(1, per.getNombreUsuario());
 				s.setString(2, per.getPassword());
