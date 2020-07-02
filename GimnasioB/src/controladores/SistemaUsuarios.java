@@ -404,13 +404,16 @@ public class SistemaUsuarios {
 		/*----Si no esta, buscamos en BD----*/
 
 		Cliente c=UsrMapper.getInstance().buscarCliente(nombreUsuario);
+
 		
 		/*----AGREGAMOS USUARIO PARA FUTURAS BUSQUEDAS----*/
 		
 		if(c!=null)
 			vClientes.add(c);
-		
+
 		return c;
+		
+
 	}
 	
 	/*-----------------*/
@@ -491,7 +494,7 @@ public class SistemaUsuarios {
 	public Administrador buscarAdministrador(String nombreUsuario) {
 		
 		/*----Buscamos en memoria----*/
-		Persona p = new Persona("Ivan", "hola123", "Ivan", "123", "domicilio", 12345, Date.valueOf("2009-10-10"), "operador");
+		Persona p = new Persona("Ivan", "hola123", "Ivan", "123", "domicilio", 12345, Date.valueOf("2009-10-10"), "administrador");
         Administrador vAdm= new Administrador(p,"administrador");
 		vAdministradores.add(vAdm);
 		for(Administrador c: vAdministradores)
@@ -503,11 +506,13 @@ public class SistemaUsuarios {
 		/*----Si no esta, buscamos en BD----*/
 		
 		Administrador c=UsrMapper.getInstance().buscarAdministrador(nombreUsuario);
+		 
 		
 		/*----AGREGAMOS USUARIO PARA FUTURAS BUSQUEDAS----*/
 		
 		if(c!=null)
 			vAdministradores.add(c);
+
 		return c;
 		
 	}
@@ -548,12 +553,16 @@ public class SistemaUsuarios {
 		
 		/*----Si no esta, buscamos en BD----*/
 		
+
 		Operador c=UsrMapper.getInstance().buscarOperador(nombreUsuario);
+		 
 		
 		/*----AGREGAMOS USUARIO PARA FUTURAS BUSQUEDAS----*/
 		
 		if(c!=null)
 			vOperadores.add(c);
+			
+		
 		return c;
 		
 	}
