@@ -1,0 +1,5 @@
+jdbc=jdbc:sqlserver://
+servidor=gymb
+usuario=sa
+password=ivan1996
+conexiones=3
