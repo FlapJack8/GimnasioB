@@ -13,13 +13,13 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class EliminarCliente extends JFrame {
+public class EliminarSocio extends JFrame {
 
 	private JTextField txtNombreUsuarioEliminar;
 	
-	public EliminarCliente(SistemaUsuarios usuariosControlador) {
+	public EliminarSocio(SistemaUsuarios usuariosControlador) {
 
-		setTitle("Eliminar Usuario");
+		setTitle("Eliminar Socio");
 		setBounds(450, 250, 368, 204);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);

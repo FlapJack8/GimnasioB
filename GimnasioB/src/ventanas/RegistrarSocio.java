@@ -13,7 +13,7 @@ import javax.swing.border.EmptyBorder;
 
 import controladores.SistemaUsuarios;
 
-public class RegistrarCliente extends JFrame {
+public class RegistrarSocio extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textUsuario;
@@ -27,8 +27,8 @@ public class RegistrarCliente extends JFrame {
 
 	/*---------CREO VENTANA DE REGISTRO----*/
 	
-	public RegistrarCliente(SistemaUsuarios usuariosControlador) {
-		setTitle("Registrar");
+	public RegistrarSocio(SistemaUsuarios usuariosControlador) {
+		setTitle("Registrar Socio");
 		setResizable(false);
 		toFront();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

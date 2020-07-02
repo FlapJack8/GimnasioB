@@ -14,11 +14,11 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ModificarCliente extends JFrame{
+public class ModificarSocio extends JFrame{
 	private JTextField txtNombreUsuarioModif;
 
-	public ModificarCliente(SistemaUsuarios usuariosControlador) {
-		setTitle("Modificar Usuario");
+	public ModificarSocio(SistemaUsuarios usuariosControlador) {
+		setTitle("Modificar Socio");
 		
 		setBounds(450, 250, 401, 185);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
