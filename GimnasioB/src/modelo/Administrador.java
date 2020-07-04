@@ -8,15 +8,15 @@ public class Administrador extends Empleado {
 
 
 	//CONSTRUCTOR 
-	public Administrador(Persona persona,String rol) {
-		super(persona, rol);
+	public Administrador(Persona persona,String rol,Float sueldo,String diasLaborales) {
+		super(persona, rol,diasLaborales,sueldo);
 
 	}
 
 	/*----CONSTRUCTOR BAJA LOGICA----*/
 	
-	public Administrador(Persona persona,String rol, String estado) {
-		super(persona, rol);
+	public Administrador(Persona persona,String rol, String estado,Float sueldo,String diasLaborales) {
+		super(persona, rol,diasLaborales,sueldo);
 
 	}
 

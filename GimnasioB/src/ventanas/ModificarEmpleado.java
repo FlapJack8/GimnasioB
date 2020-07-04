@@ -8,7 +8,7 @@ import controladores.SistemaUsuarios;
 import modelo.Administrador;
 import modelo.Cliente;
 import modelo.Operador;
-import modelo.VendedorBoleteria;
+//import modelo.VendedorBoleteria;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

@@ -6,14 +6,14 @@ public class Cliente extends Rol {
 	
 	private boolean clienteFrecuente;
 
-	public Cliente(Persona persona, boolean clienteFrecuente,String rol) {
+	public Cliente(Persona persona,String rol) {
 		super(persona, rol);
 		this.clienteFrecuente = clienteFrecuente;
 	}
 	
 	/*----CONSTRUCTOR BAJA LOGICA----*/
 	
-	public Cliente(Persona persona, boolean clienteFrecuente,String rol, String estado) {
+	public Cliente(Persona persona,String rol, String estado) {
 		super(persona, rol);
 		this.clienteFrecuente = clienteFrecuente;
 	}
