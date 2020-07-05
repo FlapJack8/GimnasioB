@@ -6,14 +6,14 @@ public class Operador extends Empleado {
 		
 	
 	
-	public Operador(Persona persona,String rol) {
-		super(persona, rol);
+	public Operador(Persona persona,String rol,Float sueldo,String diasLaborales) {
+		super(persona, rol,diasLaborales,sueldo);
 	}
 	
 	/*----CONSTRUCTOR BAJA LOGICA----*/
 	
-	public Operador(Persona persona,String rol, String estado) {
-		super(persona, rol);
+	public Operador(Persona persona,String rol, String estado,Float sueldo,String diasLaborales) {
+		super(persona, rol,diasLaborales,sueldo);
 	}
 
 	public boolean soyOperador(Persona p){

@@ -84,10 +84,15 @@ public class Rol {
 
 	public void setFechaDeNac(Date fechaDeNac) {
 		persona.setFechaDeNac(fechaDeNac);
-	} 
+	}
 	
+	public Date getFechaInicioActividades() {
+		return persona.getFechaInicioActividades();
+	}
 	
-	
+	public void setFechaInicioActividades(Date fechaInicioActividades) {
+		persona.setFechaInicioActividades(fechaInicioActividades);
+	}
 	
 	
 	

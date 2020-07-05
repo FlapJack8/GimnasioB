@@ -4,14 +4,18 @@ import java.util.Date;
 
 public class Empleado extends Rol {
 
-	public Empleado(Persona persona,String rol) {
+	private Float sueldo; 
+	private String diasLaborales;
+	
+	public Empleado(Persona persona,String rol, String diasLaborales, Float sueldo) {
 		super(persona, rol);	
 	}
 	
 	/*----CONSTRUCTOR BAJA LOGICA----*/
 	
-	public Empleado(Persona persona,String rol, String estado) {
+	public Empleado(Persona persona,String rol, String estado,String diasLaborales, Float sueldo) {
 		super(persona, rol);
+		
 	}
 	
 	/*----Metodos BD----*/
@@ -79,10 +83,32 @@ public class Empleado extends Rol {
 	public void setFechaDeNac(Date fechaDeNac) {
 		persona.setFechaDeNac(fechaDeNac);
 	}
+	
+	public Date getInicioActividades() {
+		return persona.getFechaInicioActividades();
+	}
+
+	public void setFechaInicioActividades(Date fechaInicioActividades) {
+		persona.setFechaInicioActividades(fechaInicioActividades);
+	}
 
 	public String getEstado() {
 		return persona.getEstado();
 	}
 	
+	public Float getSueldo() {
+		return sueldo;
+	}
 	
+	public void setSueldo(Float sueldo) {
+		this.sueldo = sueldo;
+	}
+	
+	public String getDiasLaborales() {
+		return diasLaborales;
+	}
+	
+	public void setDiasLaborales(String diasLaborales) {
+		this.diasLaborales = diasLaborales;
+	}
 }
