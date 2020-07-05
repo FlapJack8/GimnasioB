@@ -247,36 +247,41 @@ public class RegistrarEmpleado extends JFrame{
 							textUsuario.requestFocus();
 						}
 						else {
-							
-							/**Concatenamos el String de diasLaborales
-							 **/
-							
-							if(chckbxLunes.isSelected()){
-								diasLaborales = diasLaborales.concat("lunes-");
-							}
-							if(chckbxMartes.isSelected()){
-								diasLaborales = diasLaborales.concat("martes-");
-							}
-							if(chckbxMiercoles.isSelected()){
-								diasLaborales = diasLaborales.concat("miercoles-");
-							}
-							if(chckbxJueves.isSelected()) {
-								diasLaborales = diasLaborales.concat("jueves-");
-							}
-							if(chckbxViernes.isSelected()){
-								diasLaborales = diasLaborales.concat("viernes-");
-							}
-							if(chckbxSabado.isSelected()) {
-								diasLaborales = diasLaborales.concat("sabado-");
-							}
-							if(chckbxDomingo.isSelected()) {
-								diasLaborales.concat("domingo-");
-							}
+							if(textContra1.getText().equals(textContra2.getText())) {
+
+								/**Concatenamos el String de diasLaborales
+								 **/
 								
-							usuariosControlador.altaUsuario(txtNombre.getText(), textMail.getText(), textContra1.getText(), textUsuario.getText(), textDomicilio.getText(), Integer.parseInt(textDNI.getText()), fechaN, rol,fechaInicioActs,Float.parseFloat(txtSueldo.getText()),diasLaborales,clases, null, null);
-							JOptionPane.showMessageDialog(null, "Ingreso correcto");
-							usuariosControlador.imprimirEmpleados();
-							dispose();
+								if(chckbxLunes.isSelected()){
+									diasLaborales = diasLaborales.concat("lunes-");
+								}
+								if(chckbxMartes.isSelected()){
+									diasLaborales = diasLaborales.concat("martes-");
+								}
+								if(chckbxMiercoles.isSelected()){
+									diasLaborales = diasLaborales.concat("miercoles-");
+								}
+								if(chckbxJueves.isSelected()) {
+									diasLaborales = diasLaborales.concat("jueves-");
+								}
+								if(chckbxViernes.isSelected()){
+									diasLaborales = diasLaborales.concat("viernes-");
+								}
+								if(chckbxSabado.isSelected()) {
+									diasLaborales = diasLaborales.concat("sabado-");
+								}
+								if(chckbxDomingo.isSelected()) {
+									diasLaborales.concat("domingo-");
+								}
+									
+								usuariosControlador.altaUsuario(txtNombre.getText(), textMail.getText(), textContra1.getText(), textUsuario.getText(), textDomicilio.getText(), Integer.parseInt(textDNI.getText()), fechaN, rol,fechaInicioActs,Float.parseFloat(txtSueldo.getText()),diasLaborales,clases, null, null);
+								JOptionPane.showMessageDialog(null, "Ingreso correcto");
+								usuariosControlador.imprimirEmpleados();
+								dispose();
+							}
+							else{
+								JOptionPane.showMessageDialog(null, "Los campos de claves no coinciden","Error",JOptionPane.ERROR_MESSAGE);
+							}
 						}
 					}
 				}
