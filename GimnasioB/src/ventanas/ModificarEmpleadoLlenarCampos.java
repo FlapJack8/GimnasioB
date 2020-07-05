@@ -3,6 +3,8 @@ package ventanas;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Date;
 
 import javax.swing.JButton;
@@ -35,6 +37,8 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 	private JTextField textContra2;
 	private JTextField textNombre;
 	private final ButtonGroup roles = new ButtonGroup();
+	private JTextField txtSueldo;
+	private JTextField txtFechaInicioActs;
 	
 	public ModificarEmpleadoLlenarCampos(SistemaUsuarios usuariosControlador, String nombreUsuario) {
 		setTitle("Modificar Empleado");
@@ -44,7 +48,7 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 			setResizable(false);
 			toFront();
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			setBounds(400, 200, 470, 404);
+			setBounds(400, 200, 622, 590);
 			contentPane = new JPanel();
 			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 			setContentPane(contentPane);
@@ -77,11 +81,11 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 			contentPane.add(lblFechaNacimiento);
 			
 			JLabel lblIngreseSuContrasea = new JLabel("Ingrese su contrase\u00F1a:");
-			lblIngreseSuContrasea.setBounds(10, 221, 142, 14);
+			lblIngreseSuContrasea.setBounds(11, 389, 142, 14);
 			contentPane.add(lblIngreseSuContrasea);
 			
 			JLabel lblIngresaNuevamente = new JLabel("Ingresa nuevamente:");
-			lblIngresaNuevamente.setBounds(11, 251, 191, 14);
+			lblIngresaNuevamente.setBounds(12, 419, 191, 14);
 			contentPane.add(lblIngresaNuevamente);
 
 			textUsuario = new JTextField();
@@ -112,14 +116,32 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 			textFechaNac.setColumns(10);
 			
 			textContra1 = new JTextField();
-			textContra1.setBounds(212, 218, 152, 20);
+			textContra1.setBounds(213, 386, 152, 20);
 			contentPane.add(textContra1);
 			textContra1.setColumns(10);
+			textContra1.addMouseListener(new MouseAdapter(){
+		            @Override
+		            public void mouseClicked(MouseEvent e){
+		            	if(textContra1.getText().equals("***********")) {
+			            	textContra1.setText("");
+			                textContra2.setText("");
+		                }
+		            }
+		        });
 			
 			textContra2 = new JTextField();
-			textContra2.setBounds(212, 248, 152, 20);
+			textContra2.setBounds(213, 416, 152, 20);
 			contentPane.add(textContra2);
 			textContra2.setColumns(10);
+			textContra2.addMouseListener(new MouseAdapter(){
+	            @Override
+	            public void mouseClicked(MouseEvent e){
+	                if(textContra2.getText().equals("***********")) {
+		            	textContra1.setText("");
+		                textContra2.setText("");
+	                }
+	            }
+	        });
 			
 			JLabel lblIngreseSuNombre_1 = new JLabel("Nombre:");
 			lblIngreseSuNombre_1.setBounds(11, 65, 141, 14);
@@ -131,48 +153,70 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 			textNombre.setColumns(10);
 			
 			JLabel lblRol = new JLabel("Rol:");
-			lblRol.setBounds(11, 283, 46, 14);
+			lblRol.setBounds(11, 449, 46, 14);
 			contentPane.add(lblRol);
 			
 			JCheckBox chBxAdministrador = new JCheckBox("Administrador");
 			chBxAdministrador.setEnabled(false);
 			roles.add(chBxAdministrador);
-			chBxAdministrador.setBounds(133, 282, 97, 23);
+			chBxAdministrador.setBounds(133, 448, 125, 23);
 			contentPane.add(chBxAdministrador);
-			
-			JCheckBox chBxAgenteComercial = new JCheckBox("Agente Comercial");
-			chBxAgenteComercial.setEnabled(false);
-			roles.add(chBxAgenteComercial);
-			chBxAgenteComercial.setBounds(133, 308, 117, 23);
-			contentPane.add(chBxAgenteComercial);
 			
 			JCheckBox chBxOperador = new JCheckBox("Operador");
 			chBxOperador.setEnabled(false);
 			roles.add(chBxOperador);
-			chBxOperador.setBounds(262, 282, 97, 23);
+			chBxOperador.setBounds(262, 448, 97, 23);
 			contentPane.add(chBxOperador);
 			
-			JCheckBox chckbxVendedor = new JCheckBox("Vendedor");
-			chckbxVendedor.setEnabled(false);
-			roles.add(chckbxVendedor);
-			chckbxVendedor.setBounds(262, 308, 97, 23);
-			contentPane.add(chckbxVendedor);
+			JCheckBox chckbxProfe = new JCheckBox("Profesor");
+			chckbxProfe.setEnabled(false);
+			roles.add(chckbxProfe);
+			chckbxProfe.setBounds(133, 476, 97, 23);
+			contentPane.add(chckbxProfe);
 			
 			textUsuario.setText(nombreUsuario);
-								
+			
+			txtSueldo = new JTextField();
+			txtSueldo.setBounds(212, 212, 152, 20);
+			contentPane.add(txtSueldo);
+			txtSueldo.setColumns(10);
+			
+			txtFechaInicioActs = new JTextField();
+			txtFechaInicioActs.setBounds(212, 241, 152, 20);
+			contentPane.add(txtFechaInicioActs);
+			txtFechaInicioActs.setColumns(10);
+			
+			JCheckBox chckbxLunes = new JCheckBox("Lunes");
+			chckbxLunes.setBounds(128, 298, 113, 25);
+			contentPane.add(chckbxLunes);
+			
+			JCheckBox chckbxMiercoles = new JCheckBox("Miercoles");
+			chckbxMiercoles.setBounds(245, 298, 113, 25);
+			contentPane.add(chckbxMiercoles);
+			
+			JCheckBox chckbxMartes = new JCheckBox("Martes");
+			chckbxMartes.setBounds(128, 338, 113, 25);
+			contentPane.add(chckbxMartes);
+			
+			JCheckBox chckbxJueves = new JCheckBox("Jueves");
+			chckbxJueves.setBounds(245, 338, 113, 25);
+			contentPane.add(chckbxJueves);
+			
+			JCheckBox chckbxViernes = new JCheckBox("Viernes");
+			chckbxViernes.setBounds(377, 298, 113, 25);
+			contentPane.add(chckbxViernes);
+			
+			JCheckBox chckbxSabado = new JCheckBox("Sabado");
+			chckbxSabado.setBounds(377, 338, 113, 25);
+			contentPane.add(chckbxSabado);
+			
+			JCheckBox chckbxDomingo = new JCheckBox("Domingo");
+			chckbxDomingo.setBounds(494, 298, 113, 25);
+			contentPane.add(chckbxDomingo);
+			
 			/*----BUSCAR EL USUARIO Y LLENA LOS CAMPOS----*/
 			java.util.Date fechaN;
-			/*VendedorBoleteria vb = usuariosControlador.buscarVendedorBoleteria(textUsuario.getText());
-			if(vb!=null) {
-				textNombre.setText(vb.getNombre());
-				textDNI.setText(Integer.toString(vb.getDni()));
-				textDomicilio.setText(vb.getDomicilio());
-				fechaN=vb.getFechaDeNac();
-				textFechaNac.setText(fechaN.toString());
-				textMail.setText(vb.getEmail());
-				chckbxVendedor.setSelected(true);
-				textContra1.setText("****");
-			}*/
+			
 			Administrador a = usuariosControlador.buscarAdministrador(textUsuario.getText());
 			if(a!=null) {
 				textNombre.setText(a.getNombre());
@@ -184,7 +228,38 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 				textFechaNac.setText(fecha);
 				textMail.setText(a.getEmail());
 				chBxAdministrador.setSelected(true);
-				textContra1.setText("****");
+				textContra1.setText("***********");
+				textContra2.setText("***********");
+				
+				String fechaInicioActs=a.getInicioActividades().toString();
+				
+				txtFechaInicioActs.setText(fechaInicioActs);
+				txtSueldo.setText(Float.toString(a.getSueldo()));
+				
+				String diasLab = new String();
+				diasLab = a.getDiasLaborales();
+
+				if(diasLab.contains("lunes")) {
+					chckbxLunes.setSelected(true);
+				}
+				if(diasLab.contains("martes")) {
+					chckbxMartes.setSelected(true);
+				}
+				if(diasLab.contains("miercoles")) {
+					chckbxMiercoles.setSelected(true);
+				}
+				if(diasLab.contains("jueves")) {
+					chckbxJueves.setSelected(true);
+				}
+				if(diasLab.contains("viernes")) {
+					chckbxViernes.setSelected(true);
+				}
+				if(diasLab.contains("sabado")) {
+					chckbxSabado.setSelected(true);
+				}
+				if(diasLab.contains("domingo")) {
+					chckbxDomingo.setSelected(true);
+				}
 			}
 			else
 			{
@@ -197,14 +272,63 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 					textFechaNac.setText(fecha);
 					textMail.setText(o.getEmail());
 					chBxOperador.setSelected(true);
-					textContra1.setText("****");
+					textContra1.setText("***********");
+					textContra2.setText("***********");
+					
+					String fechaInicioActs=o.getFechaInicioActividades().toString();
+					txtFechaInicioActs.setText(fechaInicioActs);
+					txtSueldo.setText(Float.toString(o.getSueldo()));
+					
+					String diasLab = new String();
+					diasLab = o.getDiasLaborales();
+
+					if(diasLab.contains("lunes")) {
+						chckbxLunes.setSelected(true);
+					}
+					if(diasLab.contains("martes")) {
+						chckbxMartes.setSelected(true);
+					}
+					if(diasLab.contains("miercoles")) {
+						chckbxMiercoles.setSelected(true);
+					}
+					if(diasLab.contains("jueves")) {
+						chckbxJueves.setSelected(true);
+					}
+					if(diasLab.contains("viernes")) {
+						chckbxViernes.setSelected(true);
+					}
+					if(diasLab.contains("sabado")) {
+						chckbxSabado.setSelected(true);
+					}
+					if(diasLab.contains("domingo")) {
+						chckbxDomingo.setSelected(true);
+					}
 				}
+				/*else{
+					Profesor pro = usuariosControlador.buscarProfesor(textUsuario.getText());
+					if(pro!=null){
+						textNombre.setText(pro.getNombre());
+						textDNI.setText(Integer.toString(pro.getDni()));
+						textDomicilio.setText(pro.getDomicilio());
+						String fecha=pro.getFechaDeNac().toString();
+						textFechaNac.setText(fecha);
+						textMail.setText(pro.getEmail());
+						chBxProfe.setSelected(true);
+						textContra1.setText("***********");
+						textContra2.setText("***********");
+						
+						String fechaInicioActs=pro.getInicioActividades().toString();
+						
+						txtFechaInicioActs.setText(fechaInicioActs);
+						txtSueldo.setText(Float.toString(pr.getSueldo()));
+					}
+				}*/
 			}
 			
 			/*----BOTON MODIFICAR----*/
 			
 			JButton btnModificar = new JButton("Modificar");
-			btnModificar.setBounds(156, 338, 152, 23);
+			btnModificar.setBounds(160, 508, 152, 23);
 			btnModificar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					
@@ -212,9 +336,11 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 					
 					String rol = new String();
 					rol = null;
+					String diasLaborales = new String();
+					diasLaborales = "-";
 					
-					if(chckbxVendedor.isSelected()) {
-						rol = "Vendedor";
+					if(chckbxProfe.isSelected()) {
+						rol = "Profesor";
 					}
 					else {
 						if(chBxAdministrador.isSelected()) {		
@@ -224,22 +350,39 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 							if(chBxOperador.isSelected()) {
 								rol = "Operador";
 							}
-							else {
-								if(chBxAgenteComercial.isSelected()) {
-									rol = "Agente Comercial";
-								}
-							}
 						}		
 					}
 					
 					/*----VALIDA QUE TODOS LOS CAMPOS ESTEN LLENOS----*/
 					Date fechaN=Date.valueOf(textFechaNac.getText());
+					Date fechaInicioActs=Date.valueOf(txtFechaInicioActs.getText());
 					if(textNombre.getText().equals("")||textContra1.getText().equals("")||textContra2.getText().equals("")||textDNI.getText().equals("")||textDomicilio.getText().equals("")||fechaN.equals("")||textMail.getText().equals("")||textUsuario.getText().equals("")||rol==null) {
 						JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
 
 					}
 					else {
-						usuariosControlador.modificarEmpleado(textUsuario.getText(), textMail.getText(), textContra1.getText(), textNombre.getText(), textDomicilio.getText(), Integer.parseInt(textDNI.getText()), fechaN, rol);
+						if(chckbxLunes.isSelected()){
+							diasLaborales = diasLaborales.concat("lunes-");
+						}
+						if(chckbxMartes.isSelected()){
+							diasLaborales = diasLaborales.concat("martes-");
+						}
+						if(chckbxMiercoles.isSelected()){
+							diasLaborales = diasLaborales.concat("miercoles-");
+						}
+						if(chckbxJueves.isSelected()) {
+							diasLaborales = diasLaborales.concat("jueves-");
+						}
+						if(chckbxViernes.isSelected()){
+							diasLaborales = diasLaborales.concat("viernes-");
+						}
+						if(chckbxSabado.isSelected()) {
+							diasLaborales = diasLaborales.concat("sabado-");
+						}
+						if(chckbxDomingo.isSelected()) {
+							diasLaborales = diasLaborales.concat("domingo-");
+						}
+						usuariosControlador.modificarEmpleado(textUsuario.getText(), textMail.getText(), textContra1.getText(), textNombre.getText(), textDomicilio.getText(), Integer.parseInt(textDNI.getText()), fechaN, rol,fechaInicioActs,Float.parseFloat(txtSueldo.getText()),diasLaborales);
 						JOptionPane.showMessageDialog(null, "Modificado!");
 						usuariosControlador.imprimirEmpleados();
 						dispose();
@@ -248,6 +391,18 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 				}
 			});
 			contentPane.add(btnModificar);
+			
+			JLabel lblSueldo = new JLabel("Sueldo:");
+			lblSueldo.setBounds(11, 215, 56, 16);
+			contentPane.add(lblSueldo);
+			
+			JLabel lblFechaInicioActs = new JLabel("Fecha Inicio de Actividades:");
+			lblFechaInicioActs.setBounds(11, 244, 168, 16);
+			contentPane.add(lblFechaInicioActs);
+			
+			JLabel lblDiasLaborales = new JLabel("Dias Laborales:");
+			lblDiasLaborales.setBounds(11, 273, 152, 16);
+			contentPane.add(lblDiasLaborales);
 
 		}
 }

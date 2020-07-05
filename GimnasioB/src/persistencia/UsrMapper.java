@@ -202,30 +202,45 @@ public class UsrMapper {
 				Connection con = PoolConnection.getPoolConnection().getConnection();
 				/*----STATEMENT QUERY DEL UPDATE----*/
 				PreparedStatement s = con.prepareStatement("update dbo.Usuarios " +
-						"set contraseña =?," +
-						" nombre =?," +
-						" domicilio =?," +
-						" email =?," +
-						" dni = ?," +
-						" fechaNacimiento = ?," +
-						" frecuente = ?," +
-						" rol = ?," +
-						" estado = ?" +
+						"set password =?," +
+						" rol =?" +
 						" where nombreUsuario = ?");
 				/*----CAMPOS DE EMPLEADO----*/
 				
 				s.setString(1, e.getPassword());
-				s.setString(2, e.getNombre());
-				s.setString(3, e.getDomicilio());
-				s.setString(4, e.getEmail());
-				s.setInt(5, e.getDni());
-				s.setDate(6, (Date) e.getFechaDeNac());
-			
-				s.setInt(7, 0);//PREGUNTAR
-				s.setString(8, e.getRol());
-				s.setString(9, e.getEstado());
-				s.setString(10, e.getNombreUsuario());
+				s.setString(2, e.getRol());
+				
+				s.setString(3, e.getNombreUsuario());
+				
+				/*----STATEMENT QUERY DEL UPDATE----*/
+				PreparedStatement s2 = con.prepareStatement("update dbo.Empleados " +
+						"set nombre =?," +
+						" domicilio =?," +
+						" email =?," +
+						" dni = ?," +
+						" fechaNacimiento = ?," +
+						" estado = ?," +
+						" sueldo = ?," +
+						" fechaInicioActividades = ?," +
+						" diasLaborales = ?" +
+						" where nombreUsuario = ?");
+				/*----CAMPOS DE EMPLEADO----*/
+				
+				s2.setString(1, e.getNombre());
+				s2.setString(2, e.getDomicilio());
+				s2.setString(3, e.getEmail());
+				s2.setInt(4, e.getDni());
+				s2.setDate(5, (Date) e.getFechaDeNac());
+				s2.setString(6,e.getEstado());
+				s2.setFloat(7,e.getSueldo());
+				s2.setDate(8, (Date) e.getFechaInicioActividades());
+
+				s2.setString(9,e.getDiasLaborales());
+				
+				s2.setString(10, e.getNombreUsuario());
+				
 				s.execute();
+				s2.execute();
 				PoolConnection.getPoolConnection().realeaseConnection(con);
 			}
 			catch (Exception e)
@@ -447,7 +462,8 @@ public class UsrMapper {
 					Date fechaDeNac = res.getDate(6);
 					String estado = res.getString(7);
 					Float sueldo = res.getFloat(8);
-					Date fechaInicioActividades =res.getDate(9);
+					
+					Date fechaInicioActividades = res.getDate(9);
 					String diasLaborales = res.getString(10);
 					
 					Persona p = new Persona(nombreUsuario,mail,nombre,password,domicilio,dni,fechaDeNac,rol,estado,fechaInicioActividades);

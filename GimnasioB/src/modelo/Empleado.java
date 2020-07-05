@@ -8,13 +8,17 @@ public class Empleado extends Rol {
 	private String diasLaborales;
 	
 	public Empleado(Persona persona,String rol, String diasLaborales, Float sueldo) {
-		super(persona, rol);	
+		super(persona, rol);
+		this.diasLaborales = diasLaborales;
+		this.sueldo = sueldo;
 	}
 	
 	/*----CONSTRUCTOR BAJA LOGICA----*/
 	
 	public Empleado(Persona persona,String rol, String estado,String diasLaborales, Float sueldo) {
 		super(persona, rol);
+		this.diasLaborales = diasLaborales;
+		this.sueldo = sueldo;
 		
 	}
 	

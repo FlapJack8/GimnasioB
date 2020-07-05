@@ -43,6 +43,7 @@ public class Persona {
 		this.fechaDeNac = fechaDeNac;
 		this.rol = rol;
 		this.estado = estado;
+		this.fechaInicioActividades = fechaInicioActividades;
 	}
 
 	public void isActivo() {

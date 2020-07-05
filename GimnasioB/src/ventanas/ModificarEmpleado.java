@@ -57,13 +57,16 @@ public class ModificarEmpleado extends JFrame{
 
 							ModificarEmpleadoLlenarCampos modifEmpleadoLC = new ModificarEmpleadoLlenarCampos(usuariosControlador,txtNombreUsuarioModif.getText());
 							modifEmpleadoLC.setVisible(true);
+							dispose();
 						}
 						else {
 							JOptionPane.showMessageDialog(null, "No se econtro el usuario","Error",JOptionPane.ERROR_MESSAGE);
 						}
 					}
+					else {
+						JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
+					}
 				}
-				dispose();
 			}
 		});
 		btnModificar.setBounds(157, 100, 89, 23);

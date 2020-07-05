@@ -98,20 +98,10 @@ public class SistemaUsuarios {
 	        	Administrador vAdm= new Administrador(p,rol,sueldo,diasLaborales);
 				vAdministradores.add(vAdm);
 	            break;
-	        /*case "agente comercial":
-	        	AgenteComercial vAgCom= new AgenteComercial(p,rol);
-				vAgenteComercial.add(vAgCom);
-	            break;
-	        */
 	          case "operador":
 	        	Operador vOp= new Operador(p,rol,sueldo,diasLaborales);
 				vOperadores.add(vOp);
 	            break;
-	        /*case "vendedor":
-	        	VendedorBoleteria vVen= new VendedorBoleteria(p,rol);
-				vVendedorBoleteria.add(vVen);
-	            break;
-	        */
 			}
 			p.isActivo();
 			UsrMapper.getInstance().insert(p,sueldo,diasLaborales,clases, tipoAbono, fechaVen);
@@ -262,7 +252,7 @@ public class SistemaUsuarios {
 	 *-------------------------------------
 	 */
 	
-	public void modificarEmpleado(String nombreUsuario, String email, String password, String nombre, String domicilio, int dni, Date fechaNacimiento, String rol){
+	public void modificarEmpleado(String nombreUsuario, String email, String password, String nombre, String domicilio, int dni, Date fechaNacimiento, String rol, Date fechaInicioActividades, Float sueldo, String diasLaborales){
 		
 		/*----Dependiendo el rol modificamos el empleado----*/
 		
@@ -293,6 +283,9 @@ public class SistemaUsuarios {
 						a.setFechaDeNac(fechaNacimiento);
 						a.setRol(rol); 
 						a.esActivo();
+						a.setDiasLaborales(diasLaborales);
+						a.setSueldo(sueldo);
+						a.setFechaInicioActividades(fechaInicioActividades);
 						UsrMapper.getInstance().updateEmpleado(a);
 					}
 				}
@@ -323,6 +316,9 @@ public class SistemaUsuarios {
 						o.setFechaDeNac(fechaNacimiento);
 						o.setRol(rol);
 						o.esActivo();
+						o.setDiasLaborales(diasLaborales);
+						o.setSueldo(sueldo);
+						o.setFechaInicioActividades(fechaInicioActividades);
 						UsrMapper.getInstance().updateEmpleado(o);
 					}
 				}
@@ -354,14 +350,14 @@ public class SistemaUsuarios {
 		Administrador a = buscarAdministrador(nombreUsuario);
 		
 		if(a!=null)
-			if(a.getPassword().equals(password))
+			if(a.getPassword().equals(password)&&a.getEstado().equals("Activo"))
 				return "Administrador";
 	/*----------------------------------------------------------*/	
 		
 		Operador o = buscarOperador(nombreUsuario);
 		
 		if(o!=null)
-			if(o.getPassword().equals(password))
+			if(o.getPassword().equals(password)&&o.getEstado().equals("Activo"))
 				return "Operador";
 	/*----------------------------------------------------------*/	
 
@@ -497,9 +493,6 @@ public class SistemaUsuarios {
 	public Administrador buscarAdministrador(String nombreUsuario) {
 		
 		/*----Buscamos en memoria----*/
-		Persona p = new Persona("Ivan", "hola123", "Ivan", "123", "domicilio", 12345, Date.valueOf("2009-10-10"), "administrador",Date.valueOf("2012-10-10"));
-        Administrador vAdm= new Administrador(p,"administrador",1900.00f,"lunes,martes");
-		vAdministradores.add(vAdm);
 		for(Administrador c: vAdministradores)
 		{
 			if(c.getNombreUsuario().equals(nombreUsuario)) {

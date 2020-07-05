@@ -209,7 +209,7 @@ public class RegistrarEmpleado extends JFrame{
 					 */
 					
 					String diasLaborales = new String();
-					diasLaborales = ",";
+					diasLaborales = "-";
 					
 					if(chBxAdministrador.isSelected()) {		
 						rol = "Administrador";
@@ -252,27 +252,26 @@ public class RegistrarEmpleado extends JFrame{
 							 **/
 							
 							if(chckbxLunes.isSelected()){
-								diasLaborales = diasLaborales.concat("lunes,");
+								diasLaborales = diasLaborales.concat("lunes-");
 							}
 							if(chckbxMartes.isSelected()){
-								diasLaborales = diasLaborales.concat("martes,");
+								diasLaborales = diasLaborales.concat("martes-");
 							}
 							if(chckbxMiercoles.isSelected()){
-								diasLaborales = diasLaborales.concat("miercoles,");
+								diasLaborales = diasLaborales.concat("miercoles-");
 							}
 							if(chckbxJueves.isSelected()) {
-								diasLaborales = diasLaborales.concat("jueves,");
+								diasLaborales = diasLaborales.concat("jueves-");
 							}
 							if(chckbxViernes.isSelected()){
-								diasLaborales = diasLaborales.concat("viernes,");
+								diasLaborales = diasLaborales.concat("viernes-");
 							}
 							if(chckbxSabado.isSelected()) {
-								diasLaborales = diasLaborales.concat("sabado,");
+								diasLaborales = diasLaborales.concat("sabado-");
 							}
 							if(chckbxDomingo.isSelected()) {
-								diasLaborales.concat("domingo,");
+								diasLaborales.concat("domingo-");
 							}
-							System.out.println(diasLaborales);
 								
 							usuariosControlador.altaUsuario(txtNombre.getText(), textMail.getText(), textContra1.getText(), textUsuario.getText(), textDomicilio.getText(), Integer.parseInt(textDNI.getText()), fechaN, rol,fechaInicioActs,Float.parseFloat(txtSueldo.getText()),diasLaborales,clases, null, null);
 							JOptionPane.showMessageDialog(null, "Ingreso correcto");

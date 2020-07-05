@@ -56,6 +56,7 @@ public class EliminarEmpleado extends JFrame {
 						{
 							JOptionPane.showMessageDialog(null, "Eliminado!");
 							flag=0;
+							dispose();
 						}
 						else {
 							JOptionPane.showMessageDialog(null, "No se econtro el usuario","Error",JOptionPane.ERROR_MESSAGE);
@@ -65,7 +66,7 @@ public class EliminarEmpleado extends JFrame {
 						usuariosControlador.imprimirEmpleados();
 					}
 				}
-				dispose();
+				
 			}
 		});
 		btnEliminar.setBounds(208, 113, 89, 23);
