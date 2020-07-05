@@ -10,7 +10,7 @@ import javax.swing.text.DateFormatter;
 
 import modelo.Administrador;
 //import modelo.AgenteComercial;
-import modelo.Cliente;
+import modelo.Socio;
 //import modelo.ContadoVentanilla;
 import modelo.Empleado;
 import modelo.Operador;
@@ -27,7 +27,7 @@ public class SistemaUsuarios {
 	
 	/*----CREO VECTORES DE USUARIOS----*/
 	
-	private static Vector <Cliente> vClientes;
+	private static Vector <Socio> vSocios;
 	private static Vector <Operador> vOperadores;
 	private static Vector <Administrador> vAdministradores;
 	//private static Vector <VendedorBoleteria> vVendedorBoleteria;
@@ -42,7 +42,7 @@ public class SistemaUsuarios {
 	public static SistemaUsuarios getInstancia(){
 		if(instanciaSistemaUsuarios==null){
 			instanciaSistemaUsuarios=new SistemaUsuarios();
-			vClientes=new Vector<Cliente>();
+			vSocios=new Vector<Socio>();
 			
 			vAdministradores=new Vector<Administrador>();
 			
@@ -83,19 +83,19 @@ public class SistemaUsuarios {
 	 *-------------------------------
 	 */
 	
-	public void altaUsuario(String nombre, String email, String password, String nombreUsuario, String domicilio, int dni, Date fechaNac, String rol,Boolean frecuente)
+	public void altaUsuario(String nombre, String email, String password, String nombreUsuario, String domicilio, int dni, Date fechaNac, String rol,Date fechaInicioActividades, Float sueldo, String diasLaborales,String clases, String tipoAbono, Date fechaVen)
 	{
 		if(!existeUsuario(nombreUsuario)) {
 	
-			Persona p = new Persona(nombreUsuario, email, nombre, password, domicilio, dni, fechaNac,rol);
+			Persona p = new Persona(nombreUsuario, email, nombre, password, domicilio, dni, fechaNac,rol,fechaInicioActividades);
 	
 			switch (rol.toLowerCase()) {
-			case "cliente":
-				Cliente v1= new Cliente(p,frecuente,rol);
-				vClientes.add(v1);
+			case "socio":
+				Socio v1= new Socio(p, tipoAbono, fechaVen);
+				vSocios.add(v1);
 				break;
 	        case "administrador":
-	        	Administrador vAdm= new Administrador(p,rol);
+	        	Administrador vAdm= new Administrador(p,rol,sueldo,diasLaborales);
 				vAdministradores.add(vAdm);
 	            break;
 	        /*case "agente comercial":
@@ -104,7 +104,7 @@ public class SistemaUsuarios {
 	            break;
 	        */
 	          case "operador":
-	        	Operador vOp= new Operador(p,rol);
+	        	Operador vOp= new Operador(p,rol,sueldo,diasLaborales);
 				vOperadores.add(vOp);
 	            break;
 	        /*case "vendedor":
@@ -114,7 +114,7 @@ public class SistemaUsuarios {
 	        */
 			}
 			p.isActivo();
-			UsrMapper.getInstance().insert(p);
+			UsrMapper.getInstance().insert(p,sueldo,diasLaborales,clases, tipoAbono, fechaVen);
 		}
 	}
 
@@ -125,8 +125,9 @@ public class SistemaUsuarios {
 	 *----------------------------------
 	 */
 	
-	public int bajaCliente(String nombreUsuario,int flag)
-	{
+	/**
+	 * public int bajaCliente(String nombreUsuario,int flag){
+
 		if(nombreUsuario !=null) {
 			Cliente v=buscarCliente(nombreUsuario);
 			if(v!=null) {
@@ -137,7 +138,7 @@ public class SistemaUsuarios {
 			}
 		}
 		return flag;
-	}
+	}*/
 	
 	/*-----------------*/
 	
@@ -147,7 +148,7 @@ public class SistemaUsuarios {
 	 */
 
 	public void modificarCliente(String nombreUsuario, String email, String password, String nombre, String domicilio, int dni, Date fechaNacimiento){
-		for(Cliente c: vClientes) {
+		for(Socio c: vSocios) {
 			if(c.getNombreUsuario().toString().equals(nombreUsuario)) {
 				c.setNombre(nombre);
 				c.setEmail(email);
@@ -371,14 +372,14 @@ public class SistemaUsuarios {
 				return "Agente Comercial";
 		*/
 		
-		/*----VERIFICO VECTOR CLIENTES----*/
+		/**----VERIFICO VECTOR CLIENTES----
 
 		Cliente c = buscarCliente(nombreUsuario);
 
 		if(c!=null) {
 			if(c.getPassword().equals(password))
 				return "Cliente";
-		}
+		}*/
 		return null;
 		
 	}
@@ -392,26 +393,31 @@ public class SistemaUsuarios {
 	
 	/*-----BUSCAR USUARIO DENTRO DEL VECTOR vClientes------------*/
 
-	public Cliente buscarCliente(String nombreUsuario) {
+	/**
+	 * public Cliente buscarCliente(String nombreUsuario) {
+	 */
 		
-		/*----Buscamos en memoria----*/
+		/*----Buscamos en memoria----
 		for(Cliente c: vClientes)
 		{
 			if(c.getNombreUsuario().equals(nombreUsuario)) {
 					return c;	
 			}
 		}
-		/*----Si no esta, buscamos en BD----*/
+		/*----Si no esta, buscamos en BD----
 
 		Cliente c=UsrMapper.getInstance().buscarCliente(nombreUsuario);
+
 		
-		/*----AGREGAMOS USUARIO PARA FUTURAS BUSQUEDAS----*/
+		/*----AGREGAMOS USUARIO PARA FUTURAS BUSQUEDAS----
 		
 		if(c!=null)
 			vClientes.add(c);
-		
+
 		return c;
-	}
+		
+
+	}*/
 	
 	/*-----------------*/
 	
@@ -446,17 +452,17 @@ public class SistemaUsuarios {
 		
 	}
 	
-	public boolean existeCliente (String nombreUsuario) {//Hace mas o menos lo mismo que buscarCliente pero devuelve un boolean
+	/**public boolean existeCliente (String nombreUsuario) {//Hace mas o menos lo mismo que buscarCliente pero devuelve un boolean
 
 		Cliente c= buscarCliente(nombreUsuario);
 		
-		/*----AGREGAMOS USUARIO PARA FUTURAS BUSQUEDAS----*/
+		/*----AGREGAMOS USUARIO PARA FUTURAS BUSQUEDAS----
 		
 		if(c!=null)
 			return true;
 
 		return false;
-	}
+	}*/
 	
 	/**---------------------------------
 	 *  *    10) BUSCAR EMPLEADO    *  *
@@ -491,8 +497,8 @@ public class SistemaUsuarios {
 	public Administrador buscarAdministrador(String nombreUsuario) {
 		
 		/*----Buscamos en memoria----*/
-		Persona p = new Persona("Ivan", "hola123", "Ivan", "123", "domicilio", 12345, Date.valueOf("2009-10-10"), "operador");
-        Administrador vAdm= new Administrador(p,"administrador");
+		Persona p = new Persona("Ivan", "hola123", "Ivan", "123", "domicilio", 12345, Date.valueOf("2009-10-10"), "administrador",Date.valueOf("2012-10-10"));
+        Administrador vAdm= new Administrador(p,"administrador",1900.00f,"lunes,martes");
 		vAdministradores.add(vAdm);
 		for(Administrador c: vAdministradores)
 		{
@@ -503,11 +509,13 @@ public class SistemaUsuarios {
 		/*----Si no esta, buscamos en BD----*/
 		
 		Administrador c=UsrMapper.getInstance().buscarAdministrador(nombreUsuario);
+		 
 		
 		/*----AGREGAMOS USUARIO PARA FUTURAS BUSQUEDAS----*/
 		
 		if(c!=null)
 			vAdministradores.add(c);
+
 		return c;
 		
 	}
@@ -548,12 +556,16 @@ public class SistemaUsuarios {
 		
 		/*----Si no esta, buscamos en BD----*/
 		
+
 		Operador c=UsrMapper.getInstance().buscarOperador(nombreUsuario);
+		 
 		
 		/*----AGREGAMOS USUARIO PARA FUTURAS BUSQUEDAS----*/
 		
 		if(c!=null)
 			vOperadores.add(c);
+			
+		
 		return c;
 		
 	}
@@ -566,8 +578,9 @@ public class SistemaUsuarios {
 	public boolean existeUsuario(String nombreUsuario) {
 		if(existeEmpleado(nombreUsuario))
 			return true;
-		else
-			return existeCliente(nombreUsuario);
+		return false;
+		/**else
+			return existeCliente(nombreUsuario);*/
 	}
 
 	/*-------------------------------------------
@@ -589,11 +602,11 @@ public class SistemaUsuarios {
 	
 	public void imprimir() {
 		
-		for(Cliente c: vClientes) { //For each
+		for(Socio s: vSocios) { //For each
 			String nombre = new String();
 			int dni;
-			nombre=c.getNombreUsuario();
-			dni=c.getDni();
+			nombre=s.getNombre();
+			dni=s.getDni();
 			
 			System.out.printf("%d %s\n",dni,nombre);
 			

@@ -6,9 +6,9 @@ import javax.swing.JFrame;
 
 import controladores.SistemaUsuarios;
 import modelo.Administrador;
-import modelo.Cliente;
+import modelo.Socio;
 import modelo.Operador;
-import modelo.VendedorBoleteria;
+//import modelo.VendedorBoleteria;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

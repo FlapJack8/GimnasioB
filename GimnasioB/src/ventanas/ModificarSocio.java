@@ -5,7 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 
 import controladores.SistemaUsuarios;
-import modelo.Cliente;
+import modelo.Socio;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -14,11 +14,11 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ModificarCliente extends JFrame{
+public class ModificarSocio extends JFrame{
 	private JTextField txtNombreUsuarioModif;
 
-	public ModificarCliente(SistemaUsuarios usuariosControlador) {
-		setTitle("Modificar Usuario");
+	public ModificarSocio(SistemaUsuarios usuariosControlador) {
+		setTitle("Modificar Socio");
 		
 		setBounds(450, 250, 401, 185);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -45,7 +45,7 @@ public class ModificarCliente extends JFrame{
 					/*----CONFIRMA QUE NO ESTE VACIO EL CAMPO----*/
 					
 					if(!txtNombreUsuarioModif.getText().equals("")) {
-						Cliente v = usuariosControlador.buscarCliente(txtNombreUsuarioModif.getText());
+						Socio v = usuariosControlador.buscarCliente(txtNombreUsuarioModif.getText());
 						
 						/*----ENVIA CONTROLADOR DE USUARIO A LA SIGUIENTE VISTA----*/
 						

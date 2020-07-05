@@ -12,9 +12,10 @@ public class Persona {
 	private Date fechaDeNac;
 	private String rol;
 	private String estado;
+	private Date fechaInicioActividades;
 
 	public Persona(String nombreUsuario, String email, String nombre, String password, String domicilio, int dni,
-			Date fechaDeNac, String rol) {
+			Date fechaDeNac, String rol,Date fechaInicioActividades) {
 		super();
 		this.nombreUsuario = nombreUsuario;
 		this.email = email;
@@ -24,13 +25,14 @@ public class Persona {
 		this.dni = dni;
 		this.fechaDeNac = fechaDeNac;
 		this.rol = rol;
+		this.fechaInicioActividades = fechaInicioActividades;
 
 	}
 	
 	/*----CONSTRUCTOR BAJA LOGICA----*/
 	
 	public Persona(String nombreUsuario, String email, String nombre, String password, String domicilio, int dni,
-			Date fechaDeNac, String rol, String estado) {
+			Date fechaDeNac, String rol, String estado,Date fechaInicioActividades) {
 		super();
 		this.nombreUsuario = nombreUsuario;
 		this.email = email;
@@ -90,7 +92,7 @@ public class Persona {
 	public void setDomicilio(String domicilio) {
 		this.domicilio = domicilio;
 	}
-
+	
 	public int getDni() {
 		return dni;
 	}
@@ -123,6 +125,14 @@ public class Persona {
 	public String getEstado() {
 		return estado;
 	}
-
+	
+	public Date getFechaInicioActividades() {
+		return fechaInicioActividades;
+	}
+	
+	public void setFechaInicioActividades(Date fechaInicioActividades) {
+		this.fechaInicioActividades = fechaInicioActividades;
+	}
+	
 	
 }

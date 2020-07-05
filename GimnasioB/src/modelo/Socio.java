@@ -1,21 +1,32 @@
 package modelo;
 
+import java.sql.Blob;
 import java.util.Date;
 
-public class Cliente extends Rol {
+public class Socio extends Rol {
 	
-	private boolean clienteFrecuente;
+	Date fechaVen;
+	String tipoAbono;
+	Blob datosMedicos;
 
-	public Cliente(Persona persona, boolean clienteFrecuente,String rol) {
+	public Socio(Persona persona,String rol, Date fechaVen) {
 		super(persona, rol);
-		this.clienteFrecuente = clienteFrecuente;
+		//this.fechaIns = fechaIns;
+		//this.fechaVen = fechaVen;
+		//this.tipoAbono = tipoAbono;
+		//this.datosMedicos = datosMedicos;
+		//this.clienteFrecuente = clienteFrecuente;
 	}
 	
 	/*----CONSTRUCTOR BAJA LOGICA----*/
 	
-	public Cliente(Persona persona, boolean clienteFrecuente,String rol, String estado) {
+	public Socio(Persona persona,String rol, String estado) {
 		super(persona, rol);
-		this.clienteFrecuente = clienteFrecuente;
+		//this.fechaIns = fechaIns;
+		//this.fechaVen = fechaVen;
+		//this.tipoAbono = tipoAbono;
+		//this.datosMedicos = datosMedicos;
+		//this.clienteFrecuente = clienteFrecuente;
 	}
 
 	public void bajaLogica() {
@@ -26,13 +37,13 @@ public class Cliente extends Rol {
 		persona.isActivo();
 	}
 	
-	public boolean isClienteFrecuente() {
+	/*public boolean isClienteFrecuente() {
 		return clienteFrecuente;
-	}
+	}*/
 
-	public void setClienteFrecuente(boolean clienteFrecuente) {
+	/*public void setClienteFrecuente(boolean clienteFrecuente) {
 		this.clienteFrecuente = clienteFrecuente;
-	} 
+	} */
 	
 	public String getNombreUsuario() {
 		return persona.getNombreUsuario();
@@ -85,6 +96,14 @@ public class Cliente extends Rol {
 	public Date getFechaDeNac() {
 		return persona.getFechaDeNac();
 	}
+	
+	public Date getInicioActividades() {
+		return persona.getFechaInicioActividades();
+	}
+
+	public void setFechaInicioActividades(Date fechaInicioActividades) {
+		persona.setFechaInicioActividades(fechaInicioActividades);
+	}
 
 	public void setFechaDeNac(Date fechaDeNac) {
 		persona.setFechaDeNac(fechaDeNac);
@@ -94,6 +113,13 @@ public class Cliente extends Rol {
 		return persona.getEstado();
 	}
 
+	public Date getFechaVen() {
+		return fechaVen;
+	}
+
+	public void setFechaVen(Date fechaVen) {
+		this.fechaVen = fechaVen;
+	}
 
 
 }

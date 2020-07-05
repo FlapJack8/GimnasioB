@@ -1,5 +1,6 @@
 package ventanas;
 
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -16,17 +17,17 @@ public class OpcionesUsuarios extends JFrame{
 
 	/*----Inicializar Interfaz de Opciones de Usuarios----*/
 	
-	public OpcionesUsuarios(SistemaUsuarios usuariosControlador) {
+	public OpcionesUsuarios(SistemaUsuarios usuariosControlador, String rolLogeado) {
 		
 		setTitle("Usuarios");
 		setBounds(450, 250, 352, 225);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
-		JLabel lblClientes = new JLabel("Clientes:");
-		lblClientes.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblClientes.setBounds(48, 25, 79, 23);
-		getContentPane().add(lblClientes);
+		JLabel lblSocios = new JLabel("Socios:");
+		lblSocios.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblSocios.setBounds(48, 25, 79, 23);
+		getContentPane().add(lblSocios);
 		
 		JLabel lblEmpleados = new JLabel("Empleados:");
 		lblEmpleados.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -50,14 +51,14 @@ public class OpcionesUsuarios extends JFrame{
 		 *--------------------------------
 		 */
 		
-		JButton btnAltaCliente = new JButton("Alta Cliente");
+		JButton btnAltaCliente = new JButton("Registrar Socio");
 		btnAltaCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (usuariosControlador != null) {
 					
 					/*----ENVIA CONTROLADOR DE USUARIO A LA SIGUIENTE VISTA----*/
 					
-					RegistrarCliente altaUsuarios = new RegistrarCliente(usuariosControlador);
+					RegistrarSocio altaUsuarios = new RegistrarSocio(usuariosControlador);
 					altaUsuarios.setVisible(true);
 				}
 			}
@@ -69,14 +70,14 @@ public class OpcionesUsuarios extends JFrame{
 		 *  *    2) ELIMINAR CLIENTE      *  *
 		 *------------------------------------
 		 */
-		JButton btnBajaCliente = new JButton("Baja Cliente");
+		JButton btnBajaCliente = new JButton("Eliminar Socio");
 		btnBajaCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (usuariosControlador != null) {
 					
 					/*----ENVIA CONTROLADOR DE USUARIO A LA SIGUIENTE VISTA----*/
 					
-					EliminarCliente eliminarUsuarios = new EliminarCliente(usuariosControlador);
+					EliminarSocio eliminarUsuarios = new EliminarSocio(usuariosControlador);
 					eliminarUsuarios.setVisible(true);
 				}
 			}
@@ -89,14 +90,14 @@ public class OpcionesUsuarios extends JFrame{
 		 *-------------------------------------
 		 */
 		
-		JButton btnModificarCliente = new JButton("Modificar Cliente");
+		JButton btnModificarCliente = new JButton("Modificar Socio");
 		btnModificarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (usuariosControlador != null) {
 					
 					/*----ENVIA CONTROLADOR DE USUARIO A LA SIGUIENTE VISTA----*/
 					
-					ModificarCliente modifCliente = new ModificarCliente(usuariosControlador);
+					ModificarSocio modifCliente = new ModificarSocio(usuariosControlador);
 					modifCliente.setVisible(true);
 				}
 			}
@@ -109,7 +110,7 @@ public class OpcionesUsuarios extends JFrame{
 		 *---------------------------------
 		 */
 		
-		JButton btnAltaEmpleado = new JButton("Alta Empleado");
+		JButton btnAltaEmpleado = new JButton("Registrar Empleado");
 		btnAltaEmpleado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (usuariosControlador != null) {
@@ -126,7 +127,7 @@ public class OpcionesUsuarios extends JFrame{
 		 *---------------------------------
 		 */
 		
-		JButton btnBajaEmpleado = new JButton("Baja Empleado");
+		JButton btnBajaEmpleado = new JButton("Eliminar Empleado");
 		btnBajaEmpleado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (usuariosControlador != null) {
@@ -161,5 +162,29 @@ public class OpcionesUsuarios extends JFrame{
 		btnModificarEmpleado.setBounds(181, 123, 142, 23);
 		getContentPane().add(btnModificarEmpleado);
 		
+		switch (rolLogeado.toLowerCase()) {
+		case "operador":
+			btnAltaCliente.setEnabled(true);
+			btnBajaCliente.setEnabled(true);
+			btnModificarCliente.setEnabled(true);
+			btnAltaCliente.setBounds(100, 57, 142, 23);
+			btnBajaCliente.setBounds(100, 91, 142, 23);
+			btnModificarCliente.setBounds(100, 123, 142, 23);
+			btnAltaCliente.setLabel("Registrar Socio");
+			btnBajaCliente.setLabel("Eliminar Socio");
+			btnModificarCliente.setLabel("Modificar Socio");
+
+			
+			btnAltaEmpleado.setEnabled(false);
+			btnBajaEmpleado.setEnabled(false);
+			btnModificarEmpleado.setEnabled(false);
+			btnAltaEmpleado.setVisible(false);
+			btnBajaEmpleado.setVisible(false);
+			btnModificarEmpleado.setVisible(false);
+			lblEmpleados.setVisible(false);
+		break;
+		default://Administrador
+		break;
+		}
 	}
 }

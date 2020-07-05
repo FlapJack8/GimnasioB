@@ -148,14 +148,14 @@ public class Main extends JFrame{
 			 */
 			
 			JButton btnSistemaUsuarios = new JButton("Usuarios");
-			btnSistemaUsuarios.setBounds(233, 48, 169, 23);
+			btnSistemaUsuarios.setBounds(135, 75, 169, 23);
 			btnSistemaUsuarios.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (usuariosControlador != null) {
 						
 						/*----ENVIA CONTROLADOR DE USUARIO A LA SIGUIENTE VISTA----*/
 						
-						OpcionesUsuarios opcionesUsuarios = new OpcionesUsuarios(usuariosControlador);
+						OpcionesUsuarios opcionesUsuarios = new OpcionesUsuarios(usuariosControlador, rolLogeado);
 						opcionesUsuarios.setVisible(true);
 					}
 				}
@@ -283,6 +283,7 @@ public class Main extends JFrame{
 				//btnSistemaCines.setEnabled(false);
 				//btnSistemaPeliculas.setEnabled(true);
 				btnSistemaUsuarios.setEnabled(true);
+				btnSistemaUsuarios.setLabel("Socios");
 				//btnCompraEntradaCliente.setEnabled(false);
 				//btnCompraEntradaVendedor.setEnabled(false);
 				//btnImprimirEntradas.setEnabled(false);
@@ -395,11 +396,11 @@ public class Main extends JFrame{
 					}
 				}
 			});
-				btnIngresar.setBounds(254, 209, 110, 23);
+				btnIngresar.setBounds(145, 190, 110, 23);
 				cpLogin.add(btnIngresar);
 				
 				/*----BOTON REGISTRARSE----*/
-				
+				/*
 				JButton btnRegistrarse = new JButton("Registrarse");
 				btnRegistrarse.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -408,12 +409,12 @@ public class Main extends JFrame{
 						 *    EJECUTA REGISTRAR CLIENTE YA QUE EL RESTO DE LAS ALTAS 
 						 *    DE LOS USUARIOS LAS DARA EL ADMINISTRADOR
 						 *    
-						 *--------------------------------------------------------*/
+						 *--------------------------------------------------------
 						
 						if (usuariosControlador != null) {
 							
-							/*----ENVIA CONTROLADOR DE USUARIO A LA SIGUIENTE VISTA----*/
-							/*----INICIA LA VENTANA DE REGISTRO----*/
+							/*----ENVIA CONTROLADOR DE USUARIO A LA SIGUIENTE VISTA----
+							/*----INICIA LA VENTANA DE REGISTRO----
 							
 							RegistrarCliente altaUsuarios = new RegistrarCliente(usuariosControlador);
 							altaUsuarios.setVisible(true);
@@ -421,7 +422,7 @@ public class Main extends JFrame{
 				}
 			});
 			btnRegistrarse.setBounds(75, 209, 110, 23);
-			cpLogin.add(btnRegistrarse);
+			cpLogin.add(btnRegistrarse);*/
 
 	}
 }

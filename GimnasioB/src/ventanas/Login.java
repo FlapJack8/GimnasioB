@@ -139,7 +139,7 @@ public class Login extends JFrame {
 							/*----ENVIA CONTROLADOR DE USUARIO A LA SIGUIENTE VISTA----*/
 							/*----INICIA LA VENTANA DE REGISTRO----*/
 							
-							RegistrarCliente altaUsuarios = new RegistrarCliente(usuariosControlador);
+							RegistrarSocio altaUsuarios = new RegistrarSocio(usuariosControlador);
 							altaUsuarios.setVisible(true);
 						}
 				}
