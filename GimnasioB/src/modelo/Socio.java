@@ -9,22 +9,22 @@ public class Socio extends Rol {
 	String tipoAbono;
 	Blob datosMedicos;
 
-	public Socio(Persona persona,String rol, Date fechaVen) {
+	public Socio(Persona persona,String rol, Date fechaVen, String tipoAbono) {
 		super(persona, rol);
 		//this.fechaIns = fechaIns;
-		//this.fechaVen = fechaVen;
-		//this.tipoAbono = tipoAbono;
+		this.fechaVen = fechaVen;
+		this.tipoAbono = tipoAbono;
 		//this.datosMedicos = datosMedicos;
 		//this.clienteFrecuente = clienteFrecuente;
 	}
 	
 	/*----CONSTRUCTOR BAJA LOGICA----*/
 	
-	public Socio(Persona persona,String rol, String estado) {
+	public Socio(Persona persona,String rol, String estado, Date fechaVen, String tipoAbono) {
 		super(persona, rol);
 		//this.fechaIns = fechaIns;
-		//this.fechaVen = fechaVen;
-		//this.tipoAbono = tipoAbono;
+		this.fechaVen = fechaVen;
+		this.tipoAbono = tipoAbono;
 		//this.datosMedicos = datosMedicos;
 		//this.clienteFrecuente = clienteFrecuente;
 	}
@@ -44,14 +44,6 @@ public class Socio extends Rol {
 	/*public void setClienteFrecuente(boolean clienteFrecuente) {
 		this.clienteFrecuente = clienteFrecuente;
 	} */
-	
-	public String getNombreUsuario() {
-		return persona.getNombreUsuario();
-	}
-
-	public void setNombreUsuario(String nombreUsuario) {
-		persona.setNombreUsuario(nombreUsuario);
-	}
 
 	public String getEmail() {
 		return persona.getEmail();
@@ -67,14 +59,6 @@ public class Socio extends Rol {
 
 	public void setNombre(String nombre) {
 		persona.setNombre(nombre);
-	}
-
-	public String getPassword() {
-		return persona.getPassword();
-	}
-
-	public void setPassword(String password) {
-		persona.setPassword(password);
 	}
 
 	public String getDomicilio() {
@@ -97,16 +81,16 @@ public class Socio extends Rol {
 		return persona.getFechaDeNac();
 	}
 	
+	public void setFechaDeNac(Date fechaDeNac) {
+		persona.setFechaDeNac(fechaDeNac);
+	}
+	
 	public Date getInicioActividades() {
 		return persona.getFechaInicioActividades();
 	}
 
 	public void setFechaInicioActividades(Date fechaInicioActividades) {
 		persona.setFechaInicioActividades(fechaInicioActividades);
-	}
-
-	public void setFechaDeNac(Date fechaDeNac) {
-		persona.setFechaDeNac(fechaDeNac);
 	}
 	
 	public String getEstado() {
@@ -119,6 +103,13 @@ public class Socio extends Rol {
 
 	public void setFechaVen(Date fechaVen) {
 		this.fechaVen = fechaVen;
+	}
+	public String getTipoAbono() {
+		return tipoAbono;
+	}
+
+	public void setTipoAbono(String tipoAbono) {
+		this.tipoAbono = tipoAbono;
 	}
 
 

@@ -91,7 +91,7 @@ public class SistemaUsuarios {
 	
 			switch (rol.toLowerCase()) {
 			case "socio":
-				Socio v1= new Socio(p, tipoAbono, fechaVen);
+				Socio v1= new Socio(p, rol, fechaVen, tipoAbono);
 				vSocios.add(v1);
 				break;
 	        case "administrador":
@@ -111,42 +111,43 @@ public class SistemaUsuarios {
 	/*-----------------*/
 	
 	/*----------------------------------
-	 *  *    2)  ELIMINO CLIENTE    *  *
+	 *  *    2)  ELIMINO SOCIO    *  *
 	 *----------------------------------
 	 */
 	
-	/**
-	 * public int bajaCliente(String nombreUsuario,int flag){
+	 public int bajaSocio(int dni,int flag){
 
-		if(nombreUsuario !=null) {
-			Cliente v=buscarCliente(nombreUsuario);
+		if(dni != 0) {
+			Socio v=buscarSocio(dni);
 			if(v!=null) {
-				vClientes.remove(v);
+				vSocios.remove(v);
 				v.bajaLogica();
-				UsrMapper.getInstance().updateCliente(v);
+				UsrMapper.getInstance().updateSocio(v);
 				flag = 1;
 			}
 		}
 		return flag;
-	}*/
+	}
 	
 	/*-----------------*/
 	
 	/*------------------------------------
-	 *  *    3)  MODIFICAR CLIENTE    *  *
+	 *  *    3)  MODIFICAR SOCIO    *  *
 	 *------------------------------------
 	 */
 
-	public void modificarCliente(String nombreUsuario, String email, String password, String nombre, String domicilio, int dni, Date fechaNacimiento){
-		for(Socio c: vSocios) {
-			if(c.getNombreUsuario().toString().equals(nombreUsuario)) {
-				c.setNombre(nombre);
-				c.setEmail(email);
-				c.setPassword(password);
-				c.setDomicilio(domicilio);
-				c.setDni(dni);
-				c.setFechaDeNac(fechaNacimiento);
-				UsrMapper.getInstance().updateCliente(c);
+	public void modificarSocio(int dni, String nombre, String email, String domicilio, Date fechaNac, Date fechaIns, String tipoAbono, Date fechaVen){
+		for(Socio s: vSocios) {
+			if(s.getDni() == dni) {
+				s.setNombre(nombre);
+				s.setEmail(email);
+				s.setDomicilio(domicilio);
+				s.setEmail(email);
+				s.setFechaDeNac(fechaNac);
+				s.setFechaInicioActividades(fechaIns);
+				s.setTipoAbono(tipoAbono);
+				s.setFechaVen(fechaVen);
+				UsrMapper.getInstance().updateSocio(s);
 			}
 				
 		}
@@ -387,33 +388,24 @@ public class SistemaUsuarios {
 	 *--------------------------------
 	 */
 	
-	/*-----BUSCAR USUARIO DENTRO DEL VECTOR vClientes------------*/
+	/*-----BUSCAR USUARIO DENTRO DEL VECTOR vSocios------------*/
 
-	/**
-	 * public Cliente buscarCliente(String nombreUsuario) {
-	 */
+	  public Socio buscarSocio(int dni) {
 		
-		/*----Buscamos en memoria----
-		for(Cliente c: vClientes)
+		/*----Buscamos en memoria----*/
+		for(Socio s: vSocios)
 		{
-			if(c.getNombreUsuario().equals(nombreUsuario)) {
-					return c;	
+			if(s.getDni() == dni) {
+					return s;	
 			}
 		}
-		/*----Si no esta, buscamos en BD----
-
-		Cliente c=UsrMapper.getInstance().buscarCliente(nombreUsuario);
-
-		
-		/*----AGREGAMOS USUARIO PARA FUTURAS BUSQUEDAS----
-		
-		if(c!=null)
-			vClientes.add(c);
-
-		return c;
-		
-
-	}*/
+		/*----Si no esta, buscamos en BD----*/
+		Socio s=UsrMapper.getInstance().buscarSocio(dni);
+		/*----AGREGAMOS USUARIO PARA FUTURAS BUSQUEDAS----*/
+		if(s!=null)
+			vSocios.add(s);
+		return s;
+	}
 	
 	/*-----------------*/
 	
@@ -448,17 +440,14 @@ public class SistemaUsuarios {
 		
 	}
 	
-	/**public boolean existeCliente (String nombreUsuario) {//Hace mas o menos lo mismo que buscarCliente pero devuelve un boolean
+	public boolean existeSocios (int dni) {//Hace mas o menos lo mismo que buscarSocio pero devuelve un boolean
 
-		Cliente c= buscarCliente(nombreUsuario);
-		
-		/*----AGREGAMOS USUARIO PARA FUTURAS BUSQUEDAS----
-		
-		if(c!=null)
+		Socio s = buscarSocio(dni);
+		/*----AGREGAMOS USUARIO PARA FUTURAS BUSQUEDAS----*/
+		if(s!=null)
 			return true;
-
 		return false;
-	}*/
+	}
 	
 	/**---------------------------------
 	 *  *    10) BUSCAR EMPLEADO    *  *

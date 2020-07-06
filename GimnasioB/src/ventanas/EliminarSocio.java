@@ -15,7 +15,7 @@ import java.awt.event.ActionEvent;
 
 public class EliminarSocio extends JFrame {
 
-	private JTextField txtNombreUsuarioEliminar;
+	private JTextField txtDNI;
 	
 	public EliminarSocio(SistemaUsuarios usuariosControlador) {
 
@@ -26,14 +26,14 @@ public class EliminarSocio extends JFrame {
 		
 		/*----CAMPO NOMBRE DE USUARIO----*/
 		
-		JLabel lblNombreDeUsuario = new JLabel("Nombre de Usuario:");
-		lblNombreDeUsuario.setBounds(25, 47, 128, 14);
-		getContentPane().add(lblNombreDeUsuario);
+		JLabel lblDni = new JLabel("Dni del socio:");
+		lblDni.setBounds(25, 47, 128, 14);
+		getContentPane().add(lblDni);
 		
-		txtNombreUsuarioEliminar = new JTextField();
-		txtNombreUsuarioEliminar.setBounds(144, 44, 153, 20);
-		getContentPane().add(txtNombreUsuarioEliminar);
-		txtNombreUsuarioEliminar.setColumns(10);
+		txtDNI = new JTextField();
+		txtDNI.setBounds(144, 44, 153, 20);
+		getContentPane().add(txtDNI);
+		txtDNI.setColumns(10);
 		
 		/*----BOTON ELIMINAR----*/
 		
@@ -43,7 +43,7 @@ public class EliminarSocio extends JFrame {
 
 				/*----CONFIRMA QUE NO ESTE VACIO EL CAMPO----*/
 				
-				if(!txtNombreUsuarioEliminar.getText().equals("")) {
+				if(!txtDNI.getText().equals("")) {
 					
 					/*----CONFIRMA ELIMINACION----*/
 					
@@ -51,11 +51,12 @@ public class EliminarSocio extends JFrame {
 					int dialogResult = JOptionPane.showConfirmDialog (null, "Esta seguro que desea eliminar a este usuario?","Atencion",JOptionPane.WARNING_MESSAGE, dialogButton);
 					if(dialogResult == JOptionPane.YES_OPTION){
 						int flag = 0;
-						flag = usuariosControlador.bajaCliente(txtNombreUsuarioEliminar.getText(),flag);
+						flag = usuariosControlador.bajaSocio(Integer.parseInt(txtDNI.getText()),flag);
 						if(flag==1)
 						{
 							JOptionPane.showMessageDialog(null, "Eliminado!");
 							flag=0;
+							dispose();
 						}
 						else {
 							JOptionPane.showMessageDialog(null, "No se econtro el usuario","Error",JOptionPane.ERROR_MESSAGE);

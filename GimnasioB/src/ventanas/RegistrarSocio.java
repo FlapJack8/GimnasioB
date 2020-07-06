@@ -145,7 +145,6 @@ public class RegistrarSocio extends JFrame {
 			//}
 				if(textNombre.getText().equals("")||textTipoAbono.getText().equals("")||textFechaNacimiento.getText().equals("")||textDomicilio.getText().equals("")||fechaN.equals("")||fechaV.equals("")||fechaI.equals("")||textMail.getText().equals("")||textDNI.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
-
 				}
 				else {
 					if(usuariosControlador.existeUsuario(textDNI.getText())) {

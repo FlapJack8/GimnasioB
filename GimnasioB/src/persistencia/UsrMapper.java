@@ -129,38 +129,36 @@ public class UsrMapper {
 			}
 		}
 		
-		public void updateCliente(Socio cliente) 
+		public void updateSocio(Socio socio) 
 		{
 			/*----TRY DE LA CONECCION UPDATE----*/
 			
 			try
 			{
-				Socio c =(Socio) cliente;
+				Socio soc =(Socio) socio;
 				Connection con = PoolConnection.getPoolConnection().getConnection();
 				/*----STATEMENT QUERY DEL UPDATE----*/
-				PreparedStatement s = con.prepareStatement("update dbo.Usuarios " +
-						"set contraseña =?," +
-						" nombre =?," +
-						" domicilio =?," +
+				PreparedStatement s = con.prepareStatement("update dbo.Socios " +
+						" set nombre =?," +
 						" email =?," +
-						" dni = ?," +
+						" domicilio =?," +
 						" fechaNacimiento =?," +
-						" frecuente = ?," +
-						" rol = ?," +
+						" fechaInscipcion =?," +
+						" tipoAbono =?," +
+						" fechaVencimientoApto=?," +
 						" estado = ?" +
-						" where nombreUsuario = ?");
+						" where dni = ?");
 				/*----CAMPOS DE CLIENTE----*/
 				
-				s.setString(1, c.getPassword());
-				s.setString(2, c.getNombre());
-				s.setString(3, c.getDomicilio());
-				s.setString(4, c.getEmail());
-				s.setInt(5, c.getDni());
-				s.setDate(6, (Date) c.getFechaDeNac());
-				s.setString(7, c.getNombreUsuario());
-				//s.setBoolean(8, c.isClienteFrecuente());
-				s.setString(9, c.getRol());
-				s.setString(10, c.getEstado());
+				s.setString(1, soc.getNombre());
+				s.setString(2, soc.getEmail());
+				s.setString(3, soc.getDomicilio());
+				s.setDate(4, (Date) soc.getFechaDeNac());
+				s.setDate(5, (Date) soc.getFechaInicioActividades());
+				s.setString(6, soc.getTipoAbono());
+				s.setDate(7, (Date) soc.getFechaVen());
+				s.setString(8, soc.getEstado());
+				s.setInt(9, soc.getDni());
 				
 				s.executeUpdate();
 				PoolConnection.getPoolConnection().realeaseConnection(con);
@@ -168,7 +166,7 @@ public class UsrMapper {
 			catch (Exception e)
 			{
 				System.out.println("Stack Trace: " + e.getStackTrace() + e.getMessage());
-				System.out.println("rompio update cliente");
+				System.out.println("rompio update Socio");
 			}
 		}
 		
@@ -255,90 +253,53 @@ public class UsrMapper {
 			return null;
 		}
 		
-		/**
-		 * public Cliente buscarCliente(String nomUsu)
+		
+		 public Socio buscarSocio(int DNIdado)
 		 
 		{
-			/*----TRY DE LA CONECCION SELECT----
+			/*----TRY DE LA CONECCION SELECT----*/
 			
 			try
 			{
-				Cliente cliente = null;
+				Socio socio = null;
 				Connection con = PoolConnection.getPoolConnection().getConnection();
-				/*----STATEMENT QUERY DEL SELECT----
-				PreparedStatement s = con.prepareStatement("select * from dbo.Usuarios where nombreUsuario = ? and rol='Cliente'");			
-				/*----CAMPOS DE CLIENTE----
-				s.setString(1,nomUsu);
+				/*----STATEMENT QUERY DEL SELECT----*/
+				PreparedStatement s = con.prepareStatement("select * from dbo.Socios where dni = ?");			
+				/*----CAMPOS DE CLIENTE----*/
+				s.setInt(1, DNIdado);
 				ResultSet result = s.executeQuery();
 				while (result.next()) {
-					String nombreUsuario = result.getString(1);
-					String password = result.getString(2);
-					String nombre = result.getString(3);
+					String nombre = result.getString(1);
+					int dni = result.getInt(2);
+					String email = result.getString(3);
 					String domicilio = result.getString(4);
-					String mail = result.getString(5);
-					int dni = result.getInt(6);
-					Date fechaDeNac = result.getDate(7);
-					boolean frecuente = result.getBoolean(8);
-					String rol = result.getString(9);
-					String estado = result.getString(10);
-					Persona p = new Persona(nombreUsuario,mail,nombre,password,domicilio,dni,fechaDeNac,rol);
-					cliente = new Cliente(p,rol,estado);
+					Date fechaDeNac = result.getDate(5);
+					Date fechaDeInscripcion = result.getDate(6);
+					String estado = result.getString(7);
+					String tipoAbono = result.getString(8);
+					Date fechaVencimineto = result.getDate(9);
+					
+					Persona p = new Persona(null, email, nombre, null, domicilio, dni, fechaDeNac, null, fechaDeInscripcion);
+					socio = new Socio(p, "socio", estado, fechaVencimineto, tipoAbono);
 				}
 				PoolConnection.getPoolConnection().realeaseConnection(con);
-				return cliente;
+				return socio;
 			}
 			catch (Exception e)
 			{
-				System.out.println("rompio select cliente");
+				System.out.println("rompio select Socio");
 				System.out.println("Stack Trace: " + e.getStackTrace() + e.getMessage());
 			}
 			return null;
-		}*/
+		}
 		
-		public boolean existeEmpleado (String nombreUsuario) {
+		public boolean existeEmpleado (int dni) {
 			return false;
 		}
 		
-		public boolean existeCliente (String nombreUsuario) {
+		public boolean existeCliente (int dni) {
 			return false;
 		}
-		
-		/*public VendedorBoleteria buscarVendedorBoleteria(String nomUsu)
-		{
-			/*----TRY DE LA CONECCION SELECT----
-			
-			try
-			{
-				VendedorBoleteria vb = null;
-				Connection con = PoolConnection.getPoolConnection().getConnection();
-				/*----STATEMENT QUERY DEL SELECT----
-				PreparedStatement s = con.prepareStatement("select * from dbo.Usuarios where nombreUsuario = ? and rol='Vendedor'");			
-				/*----CAMPOS DE EMPLEADO----
-				s.setString(1,nomUsu);
-				ResultSet result = s.executeQuery();
-				while (result.next()) {
-					String nombreUsuario = result.getString(1);
-					String contraseña = result.getString(2);
-					String nombre = result.getString(3);
-					String domicilio = result.getString(4);
-					String mail = result.getString(5);
-					int dni = result.getInt(6);
-					Date fechaDeNac = result.getDate(7);
-					//boolean frecuente = result.getBoolean(8);
-					String rol = result.getString(9);
-					Persona p = new Persona(nombreUsuario,mail,nombre,contraseña,domicilio,dni,fechaDeNac,rol);
-					vb = new VendedorBoleteria(p,rol);
-				}
-				PoolConnection.getPoolConnection().realeaseConnection(con);
-				return vb;
-			}
-			catch (Exception e)
-			{
-				System.out.println("rompio select vb");
-				System.out.println("Stack Trace: " + e.getStackTrace() + e.getMessage());
-			}
-			return null;
-		}*/
 		
 		public Administrador buscarAdministrador(String nomUsu)
 		{
