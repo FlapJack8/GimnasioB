@@ -143,6 +143,7 @@ public class SistemaUsuarios {
 				s.setEmail(email);
 				s.setDomicilio(domicilio);
 				s.setEmail(email);
+				s.esActivo();
 				s.setFechaDeNac(fechaNac);
 				s.setFechaInicioActividades(fechaIns);
 				s.setTipoAbono(tipoAbono);
