@@ -134,6 +134,7 @@ public class ModificarSocioLlenarCampos extends JFrame{
 					JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
 				}
 				else {
+					//System.out.println(v.getEstado());
 					usuariosControlador.modificarSocio(Integer.parseInt(txtDni.getText()), txtNombre.getText(), txtEmail.getText(), txtDomicilio.getText(), fechaN, fechaIns, txtTipoAbono.getText(), fechaVen);
 					JOptionPane.showMessageDialog(null, "Modificado!");
 					usuariosControlador.imprimir();

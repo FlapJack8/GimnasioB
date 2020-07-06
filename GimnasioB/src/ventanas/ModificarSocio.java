@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class ModificarSocio extends JFrame{
-	private JTextField txtNombreUsuarioModif;
+	private JTextField txtDniModif;
 
 	public ModificarSocio(SistemaUsuarios usuariosControlador) {
 		setTitle("Modificar Socio");
@@ -26,14 +26,14 @@ public class ModificarSocio extends JFrame{
 		
 		/*----CAMPO NOMBRE DE USUARIO----*/
 		
-		JLabel lblNombreDeUsuario = new JLabel("Nombre de Usuario:");
-		lblNombreDeUsuario.setBounds(45, 40, 128, 14);
-		getContentPane().add(lblNombreDeUsuario);
+		JLabel lblDniSocio = new JLabel("DNI socio:");
+		lblDniSocio.setBounds(45, 40, 128, 14);
+		getContentPane().add(lblDniSocio);
 		
-		txtNombreUsuarioModif = new JTextField();
-		txtNombreUsuarioModif.setBounds(188, 37, 128, 20);
-		getContentPane().add(txtNombreUsuarioModif);
-		txtNombreUsuarioModif.setColumns(10);
+		txtDniModif = new JTextField();
+		txtDniModif.setBounds(188, 37, 128, 20);
+		getContentPane().add(txtDniModif);
+		txtDniModif.setColumns(10);
 		
 		/*----BOTON MODIFICAR----*/
 		
@@ -41,17 +41,13 @@ public class ModificarSocio extends JFrame{
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (usuariosControlador != null) {
-					
 					/*----CONFIRMA QUE NO ESTE VACIO EL CAMPO----*/
-					
-					if(!txtNombreUsuarioModif.getText().equals("")) {
-						Socio v = usuariosControlador.buscarCliente(txtNombreUsuarioModif.getText());
-						
+					if(!txtDniModif.getText().equals("")) {
+						Socio v = usuariosControlador.buscarSocio(Integer.parseInt(txtDniModif.getText()));
 						/*----ENVIA CONTROLADOR DE USUARIO A LA SIGUIENTE VISTA----*/
-						
 						if(v!=null)
 						{
-							ModificarClienteLlenarCampos modifClienteLC = new ModificarClienteLlenarCampos(usuariosControlador,v);
+							ModificarSocioLlenarCampos modifClienteLC = new ModificarSocioLlenarCampos(usuariosControlador,v);
 							modifClienteLC.setVisible(true);
 						}
 						else {

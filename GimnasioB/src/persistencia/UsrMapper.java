@@ -158,6 +158,7 @@ public class UsrMapper {
 				s.setString(6, soc.getTipoAbono());
 				s.setDate(7, (Date) soc.getFechaVen());
 				s.setString(8, soc.getEstado());
+				System.out.println(soc.getEstado());
 				s.setInt(9, soc.getDni());
 				
 				s.executeUpdate();
@@ -279,8 +280,10 @@ public class UsrMapper {
 					String tipoAbono = result.getString(8);
 					Date fechaVencimineto = result.getDate(9);
 					
-					Persona p = new Persona(null, email, nombre, null, domicilio, dni, fechaDeNac, null, fechaDeInscripcion);
-					socio = new Socio(p, "socio", estado, fechaVencimineto, tipoAbono);
+					
+					Persona p = new Persona(null, email, nombre, null, domicilio, dni, fechaDeNac, "socio", estado, fechaDeInscripcion);
+					socio = new Socio(p, "socio", fechaVencimineto, tipoAbono);
+					System.out.println(socio.getEstado());
 				}
 				PoolConnection.getPoolConnection().realeaseConnection(con);
 				return socio;
