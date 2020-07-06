@@ -15,7 +15,6 @@ public class Socio extends Rol {
 		this.fechaVen = fechaVen;
 		this.tipoAbono = tipoAbono;
 		//this.datosMedicos = datosMedicos;
-		//this.clienteFrecuente = clienteFrecuente;
 	}
 	
 	/*----CONSTRUCTOR BAJA LOGICA----*/
@@ -26,7 +25,6 @@ public class Socio extends Rol {
 		this.fechaVen = fechaVen;
 		this.tipoAbono = tipoAbono;
 		//this.datosMedicos = datosMedicos;
-		//this.clienteFrecuente = clienteFrecuente;
 	}
 
 	public void bajaLogica() {
@@ -36,14 +34,6 @@ public class Socio extends Rol {
 	public void esActivo() {
 		persona.isActivo();
 	}
-	
-	/*public boolean isClienteFrecuente() {
-		return clienteFrecuente;
-	}*/
-
-	/*public void setClienteFrecuente(boolean clienteFrecuente) {
-		this.clienteFrecuente = clienteFrecuente;
-	} */
 
 	public String getEmail() {
 		return persona.getEmail();

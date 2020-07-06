@@ -355,43 +355,6 @@ public class UsrMapper {
 			}
 			return null;
 		}
-		
-		/*public AgenteComercial buscarAgenteComercial(String nomUsu)
-		{
-			/*----TRY DE LA CONECCION SELECT----
-			
-			try
-			{
-				AgenteComercial ac = null;
-				Connection con = PoolConnection.getPoolConnection().getConnection();
-				/*----STATEMENT QUERY DEL SELECT----
-				PreparedStatement s = con.prepareStatement("select * from dbo.Usuarios where nombreUsuario = ? and rol='Agente Comercial'");			
-				/*----CAMPOS DE EMPLEADO----
-				s.setString(1,nomUsu);
-				ResultSet result = s.executeQuery();
-				while (result.next()) {
-					String nombreUsuario = result.getString(1);
-					String contraseña = result.getString(2);
-					String nombre = result.getString(3);
-					String domicilio = result.getString(4);
-					String mail = result.getString(5);
-					int dni = result.getInt(6);
-					Date fechaDeNac = result.getDate(7);
-					//boolean frecuente = result.getBoolean(8);
-					String rol = result.getString(9);
-					Persona p = new Persona(nombreUsuario,mail,nombre,contraseña,domicilio,dni,fechaDeNac,rol);
-					ac = new AgenteComercial(p,rol);
-				}
-				PoolConnection.getPoolConnection().realeaseConnection(con);
-				return ac;
-			}
-			catch (Exception e)
-			{
-				System.out.println("rompio select ac");
-				System.out.println("Stack Trace: " + e.getStackTrace() + e.getMessage());
-			}
-			return null;
-		}*/
 
 		public Operador buscarOperador(String nomUsu)
 		{

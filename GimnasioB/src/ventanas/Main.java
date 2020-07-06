@@ -9,15 +9,6 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
-/*import controladores.SistemaCines;
-import controladores.SistemaDescuento;
-import controladores.SistemaPeliculas;
-import controladores.SistemaVentas;
-
-import modelo.AgenteComercial;
-import modelo.Cliente;
-import modelo.VendedorBoleteria;
-*/
 import controladores.SistemaUsuarios;
 import modelo.Administrador;
 import modelo.Operador;
@@ -35,22 +26,13 @@ public class Main extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	private SistemaUsuarios usuariosControlador;
-	/*private SistemaVentas ventasControlador;
-	private SistemaCines cinesControlador;
-	private SistemaPeliculas peliculasControlador;
-	private SistemaDescuento descuentosControlador;
-	*/
+
 /*------Instancio Controladores-------*/
 	
 	public Main() {
 			super();
 
 			usuariosControlador = SistemaUsuarios.getInstancia();
-			/*ventasControlador = SistemaVentas.getInstancia();
-			cinesControlador = SistemaCines.getInstancia();
-			peliculasControlador =  SistemaPeliculas.getInstancia();
-			descuentosControlador = SistemaDescuento.getInstancia();
-			*/
 
 			/*----------------------------------------------
 			 *  *      MOSTRAMOS PANTALLA DE LOGIN      *  *
@@ -82,13 +64,13 @@ public class Main extends JFrame{
 			
 			/**
 			 **********************************
-			 * 1) COMPRA ENTRADA CLIENTE
-			 * 2) COMPRA ENTRADA VENDEDOR
-			 * 3) USUARIOS
-			 * 4) DESCUENTOS (AGENTE COMERCIAL)
-			 * 5) PELICULAS
-			 * 6) CINES
-			 * 7) IMPRIMIR ENTRADAS
+			 * 1) USUARIOS
+			 * 2) 
+			 * 3) 
+			 * 4) 
+			 * 5) 
+			 * 6) 
+			 * 7) 
 			 **********************************
 			 */
 			
@@ -100,52 +82,10 @@ public class Main extends JFrame{
 			setBounds(450, 250, 460, 220);
 			
 			/*-------------------------------------------
-			 *  *    1)  COMPRA ENTRADA CLIENTE      *  *
+			 *  *    1)        USUARIOS              *  *
 			 *-------------------------------------------
 			 */
-			/*
-			JButton btnCompraEntradaCliente = new JButton("Compra Entrada Cliente");
-			btnCompraEntradaCliente.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					if (ventasControlador != null) {
-						
-						/*----ENVIA CONTROLADOR DE VENTAS A LA SIGUIENTE VISTA----
-						Cliente usu=usuariosControlador.buscarCliente(usuario);
-						String nombre=usu.getNombre();
-						CompraEntradaOnline compraOnline = new CompraEntradaOnline(ventasControlador,usuariosControlador,cinesControlador,usuario,nombre);
-						compraOnline.setVisible(true);
-					}
-				}
-			});
-			btnCompraEntradaCliente.setBounds(40, 48, 164, 23);
-			getContentPane().add(btnCompraEntradaCliente);
-			
-			/*--------------------------------------------
-			 *  *    2)  COMPRA ENTRADA VENDEDOR      *  *
-			 *--------------------------------------------
-			 
-			
-			JButton btnCompraEntradaVendedor = new JButton("Compra Entrada Vendedor");
-			btnCompraEntradaVendedor.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					if (ventasControlador != null) {
-						
-						/*----ENVIA CONTROLADOR DE VENTAS A LA SIGUIENTE VISTA----
-						VendedorBoleteria usu = usuariosControlador.buscarVendedorBoleteria(usuario);
-						String nombre=usu.getNombre();	
-						int dni=usu.getDni();
-						RealizarCompraVendedor compraOnline = new RealizarCompraVendedor(cinesControlador,ventasControlador,usuariosControlador,nombre,dni);
-						compraOnline.setVisible(true);
-					}
-				}
-			});
-			btnCompraEntradaVendedor.setBounds(130, 15, 190, 23);
-			getContentPane().add(btnCompraEntradaVendedor);	
-			*/
-			/*-----------------------------
-			 *  *    3)  USUARIOS      *  *
-			 *-----------------------------
-			 */
+
 			
 			JButton btnSistemaUsuarios = new JButton("Usuarios");
 			btnSistemaUsuarios.setBounds(135, 75, 169, 23);
@@ -162,140 +102,24 @@ public class Main extends JFrame{
 			});
 			getContentPane().add(btnSistemaUsuarios);
 			
-			/*--------------------------------------------------
-			 *  *   4)   DESCUENTOS (AGENTE COMERCIAL)      *  *
-			 *--------------------------------------------------
-			 */
-			/*
-			JButton btnSistemaDescuentos = new JButton("Descuentos");
-			btnSistemaDescuentos.setBounds(40, 90, 164, 23);
-			btnSistemaDescuentos.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					if (descuentosControlador != null) {
-					/*----ENVIA CONTROLADOR DE DESCUENTOS A LA SIGUIENTE VISTA----
-					
-					MenuDescuentos vistaDescuentos = new MenuDescuentos(descuentosControlador);
-					vistaDescuentos.setVisible(true);
-					}
-				}
-			});
-			getContentPane().add(btnSistemaDescuentos);
-			
-			/*------------------------------
-			 *  *    5)  PELICULAS      *  *
-			 *------------------------------
-			 
-			
-			JButton btnSistemaPeliculas = new JButton("Peliculas y Funciones");
-			btnSistemaPeliculas.setBounds(233, 90, 169, 23);
-			btnSistemaPeliculas.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					if (peliculasControlador != null) {
-						
-						/*----ENVIA CONTROLADOR DE PELICULAS A LA SIGUIENTE VISTA----
-						
-						VistaOperador vistaOperador = new VistaOperador(peliculasControlador, cinesControlador);
-						vistaOperador.setVisible(true);
-					}
-				}
-			});
-			getContentPane().add(btnSistemaPeliculas);
-			
-			/*--------------------------
-			 *  *    6)  CINES      *  *
-			 *--------------------------
-			 
-			
-			JButton btnSistemaCines = new JButton("Cines y Salas");
-			btnSistemaCines.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					if(cinesControlador!=null) {
-						
-						/*----ENVIA CONTROLADOR DE CINES A LA SIGUIENTE VISTA----
-
-						VistaAdministrador vistaAdministrador = new VistaAdministrador(cinesControlador);
-						vistaAdministrador.setVisible(true);
-					}
-					
-				}
-			});
-			btnSistemaCines.setBounds(233, 133, 169, 23);
-			getContentPane().add(btnSistemaCines);
-			
-			/*--------------------------------------
-			 *  *    7)  IMPRIMIR ENTRADAS      *  *
-			 *--------------------------------------
-			 
-			
-			JButton btnImprimirEntradas = new JButton("Imprimir Entradas");
-			btnImprimirEntradas.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					if(ventasControlador!=null) {
-						
-						/*----ENVIA CONTROLADOR DE CINES A LA SIGUIENTE VISTA----
-
-						RetiroEntradas vImprimirEntradas = new RetiroEntradas(ventasControlador);
-						vImprimirEntradas.setVisible(true);
-					}
-					
-				}
-			});
-			btnImprimirEntradas.setBounds(40, 133, 169, 23);
-			getContentPane().add(btnImprimirEntradas);
-			*/
 			/*-------------------------------------------------------------
 			 *  *      DEPENDIENDO EL ROL HABILITAMOS LOS BOTONES      *  *
 			 *-------------------------------------------------------------
 			 */
 			
 			switch (rolLogeado.toLowerCase()) {
-			/*case "vendedor":
-				btnSistemaDescuentos.setEnabled(false);
-				btnSistemaCines.setEnabled(false);
-				btnSistemaPeliculas.setEnabled(false);
+			/*case "profesor":
 				btnSistemaUsuarios.setEnabled(false);
-				btnCompraEntradaCliente.setEnabled(false);
-				btnCompraEntradaVendedor.setEnabled(true);
-				btnImprimirEntradas.setEnabled(false);
 			break;*/
 			case "administrador":
-				//btnSistemaDescuentos.setEnabled(false);
-				//btnSistemaCines.setEnabled(true);
-				//btnSistemaPeliculas.setEnabled(false);
 				btnSistemaUsuarios.setEnabled(true);
-				//btnCompraEntradaCliente.setEnabled(false);
-				//btnCompraEntradaVendedor.setEnabled(false);
-				//btnImprimirEntradas.setEnabled(false);
 			break;
-			/*case "agente comercial":
-				btnSistemaDescuentos.setEnabled(true);
-				btnSistemaCines.setEnabled(false);
-				btnSistemaPeliculas.setEnabled(false);
-				btnSistemaUsuarios.setEnabled(false);
-				btnCompraEntradaCliente.setEnabled(false);
-				btnCompraEntradaVendedor.setEnabled(false);
-				btnImprimirEntradas.setEnabled(false);
-
-				break;
-			*/
 			case "operador":
-				//btnSistemaDescuentos.setEnabled(false);
-				//btnSistemaCines.setEnabled(false);
-				//btnSistemaPeliculas.setEnabled(true);
 				btnSistemaUsuarios.setEnabled(true);
 				btnSistemaUsuarios.setLabel("Socios");
-				//btnCompraEntradaCliente.setEnabled(false);
-				//btnCompraEntradaVendedor.setEnabled(false);
-				//btnImprimirEntradas.setEnabled(false);
 				break;
-			/*default://Cliente
-				btnSistemaDescuentos.setEnabled(false);
-				btnSistemaCines.setEnabled(false);
-				btnSistemaPeliculas.setEnabled(false);
+			/*default://Socio
 				btnSistemaUsuarios.setEnabled(false);
-				btnCompraEntradaCliente.setEnabled(true);
-				btnCompraEntradaVendedor.setEnabled(false);
-				btnImprimirEntradas.setEnabled(true);
 				
 				break;*/
 			}
@@ -391,38 +215,13 @@ public class Main extends JFrame{
 							
 							/*----USUARIO NO EXISTE----*/
 							
-							JOptionPane.showMessageDialog(null, "Usuario y/o contrase�a incorrectos","Error",JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Usuario y/o clave incorrectos","Error",JOptionPane.ERROR_MESSAGE);
 						}
 					}
 				}
 			});
 				btnIngresar.setBounds(145, 190, 110, 23);
 				cpLogin.add(btnIngresar);
-				
-				/*----BOTON REGISTRARSE----*/
-				/*
-				JButton btnRegistrarse = new JButton("Registrarse");
-				btnRegistrarse.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						
-						/*----------------------------------------------------------
-						 *    EJECUTA REGISTRAR CLIENTE YA QUE EL RESTO DE LAS ALTAS 
-						 *    DE LOS USUARIOS LAS DARA EL ADMINISTRADOR
-						 *    
-						 *--------------------------------------------------------
-						
-						if (usuariosControlador != null) {
-							
-							/*----ENVIA CONTROLADOR DE USUARIO A LA SIGUIENTE VISTA----
-							/*----INICIA LA VENTANA DE REGISTRO----
-							
-							RegistrarCliente altaUsuarios = new RegistrarCliente(usuariosControlador);
-							altaUsuarios.setVisible(true);
-						}
-				}
-			});
-			btnRegistrarse.setBounds(75, 209, 110, 23);
-			cpLogin.add(btnRegistrarse);*/
 
 	}
 }

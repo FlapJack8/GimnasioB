@@ -36,9 +36,9 @@ public class OpcionesUsuarios extends JFrame{
 		
 		/**
 		 *************************
-		 * 1) ALTA CLIENTE
-		 * 2) ELIMINAR CLIENTE
-		 * 3) MODIFICAR CLIENTE
+		 * 1) ALTA SOCIO
+		 * 2) ELIMINAR SOCIO
+		 * 3) MODIFICAR SOCIO
 		 * 4) ALTA EMPLEADO
 		 * 5) BAJA EMPLEADO
 		 * 6) MODIFICAR EMPLEADO
@@ -47,7 +47,7 @@ public class OpcionesUsuarios extends JFrame{
 		 */
 		
 		/*--------------------------------
-		 *  *    1) ALTA CLIENTE      *  *
+		 *  *    1) ALTA SOCIO      *  *
 		 *--------------------------------
 		 */
 		
@@ -67,7 +67,7 @@ public class OpcionesUsuarios extends JFrame{
 		getContentPane().add(btnAltaCliente);
 		
 		/*------------------------------------
-		 *  *    2) ELIMINAR CLIENTE      *  *
+		 *  *    2) ELIMINAR SOCIO      *  *
 		 *------------------------------------
 		 */
 		JButton btnBajaCliente = new JButton("Eliminar Socio");
@@ -86,7 +86,7 @@ public class OpcionesUsuarios extends JFrame{
 		getContentPane().add(btnBajaCliente);
 		
 		/*-------------------------------------
-		 *  *    3) MODIFICAR CLIENTE      *  *
+		 *  *    3) MODIFICAR SOCIO      *  *
 		 *-------------------------------------
 		 */
 		

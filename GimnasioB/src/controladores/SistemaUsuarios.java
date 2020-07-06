@@ -169,42 +169,17 @@ public class SistemaUsuarios {
         	Administrador vAdm= new Administrador(p,0);
 			vAdministradores.add(vAdm);
             break;
-        case "agente comercial":
-        	AgenteComercial vAgCom= new AgenteComercial(p,0);
-			vAgenteComercial.add(vAgCom);
-            break;
         case "operador":
         	Operador vOp= new Operador(p,0);
 			vOperadores.add(vOp);
             break;
-        case "vendedor":
-        	VendedorBoleteria vVen= new VendedorBoleteria(p,0);
-			vVendedorBoleteria.add(vVen);
+        case "profesor":
+        	Profesor vPro= new Profesor(p,0);
+			vProfes.add(vPro);
             break;		
-			
+	
 		}
-		/*if(rol.equals("Vendedor")){
-			VendedorBoleteria vVen= new VendedorBoleteria(p,0);
-			vVendedorBoleteria.add(vVen);
-		}
-		else {
-			if(rol.equals("Administrador")) {
-				Administrador vAdm= new Administrador(p,0);
-				vAdministradores.add(vAdm);
-			}
-			else {
-				if(rol.equals("Agente Comercial")) {
-					AgenteComercial vAgCom= new AgenteComercial(p,0);
-					vAgenteComercial.add(vAgCom);
-				}
-				else {
-					if(rol.equals("Operador")){
-						Operador vOp= new Operador(p,0);
-						vOperadores.add(vOp);
-					}
-				}
-			}
-		}
+	}
 
 	}*/
 	
@@ -216,13 +191,6 @@ public class SistemaUsuarios {
 	public int bajaEmpleado(String nombreUsuario,int flag)
 	{
 		if(nombreUsuario !=null) {
-			/*VendedorBoleteria v=buscarVendedorBoleteria(nombreUsuario);
-			if(v!=null) {
-				vVendedorBoleteria.remove(v);
-				v.bajaLogica();
-				UsrMapper.getInstance().updateEmpleado(v);
-				return 1;
-			}*/
 			Administrador a=buscarAdministrador(nombreUsuario);
 			if(a!=null) {
 				vAdministradores.remove(a);
@@ -237,11 +205,11 @@ public class SistemaUsuarios {
 				UsrMapper.getInstance().updateEmpleado(o);
 				return 1;
 			}/*
-			AgenteComercial ag=buscarAgenteComercial(nombreUsuario);
-			if(ag!=null) {
-				vAgenteComercial.remove(ag);
-				ag.bajaLogica();
-				UsrMapper.getInstance().updateEmpleado(ag);
+			Profesor pro=buscarProfesor(nombreUsuario);
+			if(pro!=null) {
+				vPrfoes.remove(pro);
+				pro.bajaLogica();
+				UsrMapper.getInstance().updateEmpleado(pro);
 				return 1;
 			}*/
 		}
@@ -259,21 +227,6 @@ public class SistemaUsuarios {
 		/*----Dependiendo el rol modificamos el empleado----*/
 		
 		switch (rol.toLowerCase()) {
-			/*case "vendedor":
-				for(VendedorBoleteria v: vVendedorBoleteria) {
-					if(v.getNombreUsuario().toString().equals(nombreUsuario)) {
-						v.setNombre(nombre);
-						v.setEmail(email);
-						v.setPassword(password);
-						v.setDomicilio(domicilio);
-						v.setDni(dni);
-						v.setFechaDeNac(fechaNacimiento);	
-						v.setRol(rol); 
-						v.esActivo();
-						UsrMapper.getInstance().updateEmpleado(v);
-					}
-				}
-			break;*/
 			case "administrador":
 				for(Administrador a: vAdministradores) {
 					if(a.getNombreUsuario().toString().equals(nombreUsuario)) {
@@ -292,18 +245,21 @@ public class SistemaUsuarios {
 					}
 				}
 			break;
-			/*case "agente comercial":
-				for(AgenteComercial ag: vAgenteComercial) {
-					if(ag.getNombreUsuario().toString().equals(nombreUsuario)) {
-						ag.setNombre(nombre);
-						ag.setEmail(email);
-						ag.setPassword(password);
-						ag.setDomicilio(domicilio);
-						ag.setDni(dni);
-						ag.setFechaDeNac(fechaNacimiento);
-						ag.setRol(rol); 
-						ag.esActivo();
-						UsrMapper.getInstance().updateEmpleado(ag);
+			/*case "profesor":
+				for(Profesor pro: vProfes) {
+					if(pro.getNombreUsuario().toString().equals(nombreUsuario)) {
+						pro.setNombre(nombre);
+						pro.setEmail(email);
+						pro.setPassword(password);
+						pro.setDomicilio(domicilio);
+						pro.setDni(dni);
+						pro.setFechaDeNac(fechaNacimiento);
+						pro.setRol(rol); 
+						pro.esActivo();
+						pro.setDiasLaborales(diasLaborales);
+						pro.setSueldo(sueldo);
+						pro.setFechaInicioActividades(fechaInicioActividades);
+						UsrMapper.getInstance().updateEmpleado(pro);
 					}
 				}
 			break;*/
@@ -340,21 +296,14 @@ public class SistemaUsuarios {
 		
 		/*----Primero buscamos en memoria, luego en BD----*/
 		
-		/*VendedorBoleteria v = buscarVendedorBoleteria(nombreUsuario);
-			
-		if(v!=null)
-			if(v.getPassword().equals(password))
-				return "Vendedor";
-		*/
-		
-		/*----Lo mismo con los demas roles----*/
 		
 		Administrador a = buscarAdministrador(nombreUsuario);
 		
 		if(a!=null)
 			if(a.getPassword().equals(password)&&a.getEstado().equals("Activo"))
 				return "Administrador";
-	/*----------------------------------------------------------*/	
+		
+		/*----Lo mismo con los demas roles----*/
 		
 		Operador o = buscarOperador(nombreUsuario);
 		
@@ -363,20 +312,20 @@ public class SistemaUsuarios {
 				return "Operador";
 	/*----------------------------------------------------------*/	
 
-		/*AgenteComercial ag = buscarAgenteComercial(nombreUsuario);
+		/*Profesor pro = buscarAgenteComercial(nombreUsuario);
 
-		if(ag!=null)
-			if(ag.getPassword().equals(password))
-				return "Agente Comercial";
+		if(pro!=null)
+			if(pro.getPassword().equals(password))
+				return "profesor";
 		*/
 		
-		/**----VERIFICO VECTOR CLIENTES----
+		/**----(Implementar si socios necesitan password) VERIFICO VECTOR CLIENTES----
 
-		Cliente c = buscarCliente(nombreUsuario);
+		Socio c = buscarCliente(nombreUsuario);
 
 		if(c!=null) {
 			if(c.getPassword().equals(password))
-				return "Cliente";
+				return "socio";
 		}*/
 		return null;
 		
@@ -385,11 +334,11 @@ public class SistemaUsuarios {
 	/*-----------------*/
 	
 	/*--------------------------------
-	 *  *    8) BUSCAR CLIENTE    *  *
+	 *  *    8) BUSCAR SOCIO    *  *
 	 *--------------------------------
 	 */
 	
-	/*-----BUSCAR USUARIO DENTRO DEL VECTOR vSocios------------*/
+	/*-----BUSCAR SOCIO DENTRO DEL VECTOR vSocios------------*/
 
 	  public Socio buscarSocio(int dni) {
 		
@@ -416,19 +365,14 @@ public class SistemaUsuarios {
 	 */
 	public boolean existeEmpleado (String nombreUsuario) {//Hace mas o menos lo mismo que buscarX pero devuelve un boolean
 
-		/*VendedorBoleteria v = buscarVendedorBoleteria(nombreUsuario);
-		
-		if(v!=null)
-			return true;
-		*/
 		Administrador a = buscarAdministrador(nombreUsuario);
 
 		if(a!=null)
 			return true;
 
-		/*AgenteComercial ag = buscarAgenteComercial(nombreUsuario);
+		/*Profesor pro = buscarProfesor(nombreUsuario);
 
-		if(ag!=null)
+		if(pro!=null)
 			return true;
 		*/
 		
@@ -441,7 +385,7 @@ public class SistemaUsuarios {
 		
 	}
 	
-	public boolean existeSocios (int dni) {//Hace mas o menos lo mismo que buscarSocio pero devuelve un boolean
+	public boolean existeSocio (int dni) {//Hace mas o menos lo mismo que buscarSocio pero devuelve un boolean
 
 		Socio s = buscarSocio(dni);
 		/*----AGREGAMOS USUARIO PARA FUTURAS BUSQUEDAS----*/
@@ -458,28 +402,7 @@ public class SistemaUsuarios {
 	/**-----BUSCAR USUARIO DENTRO DE LOS ROLES DE EMPLEADOS------------**/
 
 		/*----a)----*/
-	/*public VendedorBoleteria buscarVendedorBoleteria(String nombre) {
-		
-		/*----Buscamos en memoria----
-		for(VendedorBoleteria c: vVendedorBoleteria)
-		{
-			if(c.getNombreUsuario().equals(nombre)) {
-					return c;	
-			}
-		}
-		
-		/*----Si no esta, buscamos en BD----
-		
-		VendedorBoleteria c=UsrMapper.getInstance().buscarVendedorBoleteria(nombre);
-		
-		/*----AGREGAMOS USUARIO PARA FUTURAS BUSQUEDAS----
-		
-		if(c!=null)
-			vVendedorBoleteria.add(c);
-		return c;
-		
-	}*/
-		/*----b)----*/
+
 	public Administrador buscarAdministrador(String nombreUsuario) {
 		
 		/*----Buscamos en memoria----*/
@@ -502,12 +425,13 @@ public class SistemaUsuarios {
 		return c;
 		
 	}
-		/*----c)----*/
-	/*public AgenteComercial buscarAgenteComercial(String nombreUsuario) {
+		/*----b)----*/
+	
+	/*public Profesor buscarProfesor(String nombreUsuario) {
 		
 		/*----Buscamos en memoria----
 
-		for(AgenteComercial c: vAgenteComercial)
+		for(Profesor c: vProfes)
 		{
 			if(c.getNombreUsuario().equals(nombreUsuario)) {
 					return c;	
@@ -516,16 +440,18 @@ public class SistemaUsuarios {
 		
 		/*----Si no esta, buscamos en BD----
 		
-		AgenteComercial c=UsrMapper.getInstance().buscarAgenteComercial(nombreUsuario);
+		Profesor c=UsrMapper.getInstance().buscarProfesor(nombreUsuario);
 		
 		/*----AGREGAMOS USUARIO PARA FUTURAS BUSQUEDAS----
 		
 		if(c!=null)
-			vAgenteComercial.add(c);
+			vProfes.add(c);
 		return c;
 		
 	}*/
-		/*----d)----*/
+
+		/*----c)----*/
+	
 	public Operador buscarOperador(String nombreUsuario) {
 		
 		/*----Buscamos en memoria----*/
@@ -547,8 +473,7 @@ public class SistemaUsuarios {
 		
 		if(c!=null)
 			vOperadores.add(c);
-			
-		
+
 		return c;
 		
 	}
@@ -562,7 +487,7 @@ public class SistemaUsuarios {
 		if(existeEmpleado(nombreUsuario))
 			return true;
 		return false;
-		/**else
+		/**else Si se implementa login de usuarios
 			return existeCliente(nombreUsuario);*/
 	}
 
@@ -612,12 +537,12 @@ public class SistemaUsuarios {
 		}
 		System.out.println("\n");
 		
-		/*for(AgenteComercial agCom: vAgenteComercial) { //For each
+		/*for(Profesor pro: vProfes) { //For each
 			String nombre = new String();
 			int dni;
 			String r = new String();
-			nombre=agCom.getNombreUsuario();
-			dni=agCom.getDni();
+			nombre=pro.getNombreUsuario();
+			dni=pro.getDni();
 			r=agCom.getRol();
 			
 			System.out.printf("%d -  %s  - Empleado: %s \n",dni,nombre,r);
@@ -635,17 +560,7 @@ public class SistemaUsuarios {
 			System.out.printf("%d -  %s  - Empleado: %s \n",dni,nombre,r);
 			
 		}
-		/*for(VendedorBoleteria vvb: vVendedorBoleteria) { //For each
-			String nombre = new String();
-			int dni;
-			String r = new String();
-			nombre=vvb.getNombreUsuario();
-			dni=vvb.getDni();
-			r=vvb.getRol();
-			
-			System.out.printf("%d -  %s  - Empleado: %s \n",dni,nombre,r);
-			
-		}*/
+
 	}
 
 }
