@@ -9,19 +9,16 @@ import java.sql.Date;
 import javax.swing.text.DateFormatter;
 
 import modelo.Administrador;
-//import modelo.AgenteComercial;
 import modelo.Socio;
-//import modelo.ContadoVentanilla;
 import modelo.Empleado;
 import modelo.Operador;
 import modelo.Persona;
-//import modelo.VendedorBoleteria;
+import modelo.Profesor;
 import persistencia.UsrMapper;
 
 
 /*----CONTROLADOR DE USUARIOS----*/
 
-//TODO LEGAJO EMPLEADOS HACERLO AUTOINCREMENTAL
 
 public class SistemaUsuarios {
 	
@@ -30,8 +27,7 @@ public class SistemaUsuarios {
 	private static Vector <Socio> vSocios;
 	private static Vector <Operador> vOperadores;
 	private static Vector <Administrador> vAdministradores;
-	//private static Vector <VendedorBoleteria> vVendedorBoleteria;
-	//private static Vector <AgenteComercial> vAgenteComercial;
+	private static Vector <Profesor> vProfes;
 	
 	private static SistemaUsuarios instanciaSistemaUsuarios;
 	
@@ -46,9 +42,9 @@ public class SistemaUsuarios {
 			
 			vAdministradores=new Vector<Administrador>();
 			
-			//vAgenteComercial=new Vector<AgenteComercial>();
 			vOperadores=new Vector<Operador>();
-			//vVendedorBoleteria=new Vector<VendedorBoleteria>();
+			
+			vProfes=new Vector<Profesor>();
 			 
 		}
 		return instanciaSistemaUsuarios;
@@ -68,9 +64,9 @@ public class SistemaUsuarios {
 	 * 8) BUSCAR CLIENTE
 	 * 9) EXISTE USUARIO (EMPLEADO - CLIENTE)
 	 * 10) BUSCAR EMPLEADO
-	 *     a) Vendedor Boleteria
+	 *     a) 
 	 *     b) Administrador
-	 *     c) Agente Comercial
+	 *     c) 
 	 *     d) Operador
 	 * 11) EXISTE USUARIO EN MEMORIA
 	 * 12) GET Y SET DEL CONTROLADOR
@@ -83,28 +79,32 @@ public class SistemaUsuarios {
 	 *-------------------------------
 	 */
 	
-	public void altaUsuario(String nombre, String email, String password, String nombreUsuario, String domicilio, int dni, Date fechaNac, String rol,Date fechaInicioActividades, Float sueldo, String diasLaborales,String clases, String tipoAbono, Date fechaVen)
+	public void altaUsuario(String nombre, String email, String password, String nombreUsuario, String domicilio, int dni, Date fechaNac, String rol,Date fechaInicioActividades, Float sueldo, String diasLaborales,String actividades, String tipoAbono, Date fechaVen)
 	{
 		if(!existeUsuario(nombreUsuario)) {
 	
 			Persona p = new Persona(nombreUsuario, email, nombre, password, domicilio, dni, fechaNac,rol,fechaInicioActividades);
 	
 			switch (rol.toLowerCase()) {
-			case "socio":
-				Socio v1= new Socio(p, rol, fechaVen, tipoAbono);
-				vSocios.add(v1);
-				break;
-	        case "administrador":
-	        	Administrador vAdm= new Administrador(p,rol,sueldo,diasLaborales);
-				vAdministradores.add(vAdm);
-	            break;
-	          case "operador":
-	        	Operador vOp= new Operador(p,rol,sueldo,diasLaborales);
-				vOperadores.add(vOp);
-	            break;
+				case "socio":
+					Socio v1= new Socio(p, rol, fechaVen, tipoAbono);
+					vSocios.add(v1);
+					break;
+		        case "administrador":
+		        	Administrador vAdm= new Administrador(p,rol,sueldo,diasLaborales);
+					vAdministradores.add(vAdm);
+		            break;
+		        case "operador":
+		        	Operador vOp= new Operador(p,rol,sueldo,diasLaborales);
+					vOperadores.add(vOp);
+		            break;
+		        case "profesor":
+		        	Profesor vPr= new Profesor(p,rol,sueldo,diasLaborales,actividades);
+					vProfes.add(vPr);
+		            break;
 			}
 			p.isActivo();
-			UsrMapper.getInstance().insert(p,sueldo,diasLaborales,clases, tipoAbono, fechaVen);
+			UsrMapper.getInstance().insert(p,sueldo,diasLaborales,actividades, tipoAbono, fechaVen);
 		}
 	}
 
@@ -204,14 +204,14 @@ public class SistemaUsuarios {
 				o.bajaLogica();
 				UsrMapper.getInstance().updateEmpleado(o);
 				return 1;
-			}/*
+			}
 			Profesor pro=buscarProfesor(nombreUsuario);
 			if(pro!=null) {
-				vPrfoes.remove(pro);
+				vProfes.remove(pro);
 				pro.bajaLogica();
 				UsrMapper.getInstance().updateEmpleado(pro);
 				return 1;
-			}*/
+			}
 		}
 		
 		return flag;
@@ -222,7 +222,7 @@ public class SistemaUsuarios {
 	 *-------------------------------------
 	 */
 	
-	public void modificarEmpleado(String nombreUsuario, String email, String password, String nombre, String domicilio, int dni, Date fechaNacimiento, String rol, Date fechaInicioActividades, Float sueldo, String diasLaborales){
+	public void modificarEmpleado(String nombreUsuario, String email, String password, String nombre, String domicilio, int dni, Date fechaNacimiento, String rol, Date fechaInicioActividades, Float sueldo, String diasLaborales, String actividades){
 		
 		/*----Dependiendo el rol modificamos el empleado----*/
 		
@@ -245,7 +245,7 @@ public class SistemaUsuarios {
 					}
 				}
 			break;
-			/*case "profesor":
+			case "profesor":
 				for(Profesor pro: vProfes) {
 					if(pro.getNombreUsuario().toString().equals(nombreUsuario)) {
 						pro.setNombre(nombre);
@@ -259,10 +259,11 @@ public class SistemaUsuarios {
 						pro.setDiasLaborales(diasLaborales);
 						pro.setSueldo(sueldo);
 						pro.setFechaInicioActividades(fechaInicioActividades);
+						pro.setActividades(actividades);
 						UsrMapper.getInstance().updateEmpleado(pro);
 					}
 				}
-			break;*/
+			break;
 			case "operador":
 				for(Operador o: vOperadores) {
 					if(o.getNombreUsuario().toString().equals(nombreUsuario)) {
@@ -370,11 +371,10 @@ public class SistemaUsuarios {
 		if(a!=null)
 			return true;
 
-		/*Profesor pro = buscarProfesor(nombreUsuario);
+		Profesor pro = buscarProfesor(nombreUsuario);
 
 		if(pro!=null)
 			return true;
-		*/
 		
 		Operador o = buscarOperador(nombreUsuario);
 		
@@ -427,9 +427,9 @@ public class SistemaUsuarios {
 	}
 		/*----b)----*/
 	
-	/*public Profesor buscarProfesor(String nombreUsuario) {
+	public Profesor buscarProfesor(String nombreUsuario) {
 		
-		/*----Buscamos en memoria----
+		/*----Buscamos en memoria----*/
 
 		for(Profesor c: vProfes)
 		{
@@ -438,17 +438,17 @@ public class SistemaUsuarios {
 			}
 		}
 		
-		/*----Si no esta, buscamos en BD----
+		/*----Si no esta, buscamos en BD----*/
 		
 		Profesor c=UsrMapper.getInstance().buscarProfesor(nombreUsuario);
 		
-		/*----AGREGAMOS USUARIO PARA FUTURAS BUSQUEDAS----
+		/*----AGREGAMOS USUARIO PARA FUTURAS BUSQUEDAS----*/
 		
 		if(c!=null)
 			vProfes.add(c);
 		return c;
 		
-	}*/
+	}
 
 		/*----c)----*/
 	

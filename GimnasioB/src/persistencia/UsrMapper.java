@@ -6,12 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import modelo.Administrador;
-//import modelo.AgenteComercial;
 import modelo.Socio;
 import modelo.Empleado;
 import modelo.Operador;
 import modelo.Persona;
-//import modelo.VendedorBoleteria;
+import modelo.Profesor;
 
 public class UsrMapper {
 
@@ -34,7 +33,7 @@ public class UsrMapper {
 		}
 		/*----DELETE FISICO (NO USAMOS)----*/
 		
-		public void insert(Persona p, Float sueldo, String diasLaborales,String clases, String tipoAbono, Date fechaVen) 
+		public void insert(Persona p, Float sueldo, String diasLaborales,String actividades, String tipoAbono, Date fechaVen) 
 		{
 			/*----TRY DE LA CONECCION INSERT----*/
 			
@@ -43,13 +42,13 @@ public class UsrMapper {
 				Persona per = (Persona) p;
 				Float sue = (Float) sueldo;
 				String diasLab = (String) diasLaborales;
-				String clas = (String) clases;
-				String Abono = (String) tipoAbono;
+				String acts = (String) actividades;
+				String tipoAb = (String) tipoAbono;
 				Date vencimiento = (Date) fechaVen;
 				
 				Connection con = PoolConnection.getPoolConnection().getConnection();
 				/*----STATEMENT QUERY DEL INSERT----*/
-				if(p.getRol().equalsIgnoreCase("socio")) {
+				if(per.getRol().equalsIgnoreCase("socio")) {
 					PreparedStatement s = con.prepareStatement("insert into dbo.Socios(nombre, dni, email, domicilio, fechaNacimiento, fechaInscipcion, estado, tipoAbono, fechaVencimientoApto) values (?,?,?,?,?,?,?,?,?)");
 					/*-----CAMPOS DEL SOCIO----*/
 					s.setString(1, per.getNombre());
@@ -59,46 +58,61 @@ public class UsrMapper {
 					s.setDate(5, (Date) per.getFechaDeNac());
 					s.setDate(6, (Date) per.getFechaInicioActividades());
 					s.setString(7, per.getEstado());
-					s.setString(8, tipoAbono);
-					s.setDate(9, (Date) fechaVen);
+					s.setString(8, tipoAb);
+					s.setDate(9, (Date) vencimiento);
 					s.execute();
 					PoolConnection.getPoolConnection().realeaseConnection(con);
 				}
 				else {
-					if(p.getRol().equalsIgnoreCase("profesor")) {
-						PreparedStatement s = con.prepareStatement("insert into dbo.Profesores (nombreusuario,clases) values (?,?)");
-						/*----CAMPOS DE CLIENTE----*/			
+					if(per.getRol().equalsIgnoreCase("profesor")) {
+						PreparedStatement s = con.prepareStatement("insert into dbo.Profesores (nombreusuario,actividades) values (?,?)");
+						/*----CAMPOS DE PROFESORES----*/			
 						s.setString(1, per.getNombreUsuario());
-						s.setString(2, per.getPassword());
+						s.setString(2, acts);
+						
+						PreparedStatement sProfes = con.prepareStatement("insert into dbo.Empleados (nombreusuario,nombre,domicilio,email,dni,fechaNacimiento,estado,sueldo,fechaInicioActividades,diasLaborales,rol) values (?,?,?,?,?,?,?,?,?,?,?)");
+						/*----CAMPOS DE EMPLEADOS----*/			
+						sProfes.setString(1, per.getNombreUsuario());
+						sProfes.setString(2, per.getNombre());
+						sProfes.setString(3, per.getDomicilio());
+						sProfes.setString(4, per.getEmail());
+						sProfes.setInt(5, per.getDni());
+						sProfes.setDate(6, (Date) per.getFechaDeNac());
+						sProfes.setString(7, per.getEstado());
+						sProfes.setFloat(8, sue);
+						sProfes.setDate(9, (Date) per.getFechaInicioActividades());
+						sProfes.setString(10, diasLab);
+						sProfes.setString(11, per.getRol());
 						
 						s.execute();
+						sProfes.execute();
 						PoolConnection.getPoolConnection().realeaseConnection(con);
 					}
 					else {
-					PreparedStatement s = con.prepareStatement("insert into dbo.Empleados (nombreusuario,nombre,domicilio,email,dni,fechaNacimiento,estado,sueldo,fechaInicioActividades,diasLaborales,rol) values (?,?,?,?,?,?,?,?,?,?,?)");
-					/*----CAMPOS DE EMPLEADOS----*/			
-					s.setString(1, per.getNombreUsuario());
-					s.setString(2, per.getNombre());
-					s.setString(3, per.getDomicilio());
-					s.setString(4, per.getEmail());
-					s.setInt(5, per.getDni());
-					s.setDate(6, (Date) per.getFechaDeNac());
-					s.setString(7, per.getEstado());
-					s.setFloat(8, sue);
-					s.setDate(9, (Date) per.getFechaInicioActividades());
-					s.setString(10, diasLab);
-					s.setString(11, per.getRol());
-					
-					PreparedStatement sUsrs = con.prepareStatement("insert into dbo.Usuarios (nombreUsuario,password,rol) values (?,?,?)");
-					/*----CAMPOS DE USUARIOS----*/			
-					sUsrs.setString(1, per.getNombreUsuario());
-					sUsrs.setString(2, per.getPassword());
-					sUsrs.setString(3, per.getRol());
-					
-					s.execute();
-					sUsrs.execute();
-	
-					PoolConnection.getPoolConnection().realeaseConnection(con);
+						PreparedStatement s = con.prepareStatement("insert into dbo.Empleados (nombreusuario,nombre,domicilio,email,dni,fechaNacimiento,estado,sueldo,fechaInicioActividades,diasLaborales,rol) values (?,?,?,?,?,?,?,?,?,?,?)");
+						/*----CAMPOS DE EMPLEADOS----*/			
+						s.setString(1, per.getNombreUsuario());
+						s.setString(2, per.getNombre());
+						s.setString(3, per.getDomicilio());
+						s.setString(4, per.getEmail());
+						s.setInt(5, per.getDni());
+						s.setDate(6, (Date) per.getFechaDeNac());
+						s.setString(7, per.getEstado());
+						s.setFloat(8, sue);
+						s.setDate(9, (Date) per.getFechaInicioActividades());
+						s.setString(10, diasLab);
+						s.setString(11, per.getRol());
+						
+						PreparedStatement sUsrs = con.prepareStatement("insert into dbo.Usuarios (nombreUsuario,password,rol) values (?,?,?)");
+						/*----CAMPOS DE USUARIOS----*/			
+						sUsrs.setString(1, per.getNombreUsuario());
+						sUsrs.setString(2, per.getPassword());
+						sUsrs.setString(3, per.getRol());
+						
+						s.execute();
+						sUsrs.execute();
+		
+						PoolConnection.getPoolConnection().realeaseConnection(con);
 					}
 				}
 			}
@@ -403,6 +417,58 @@ public class UsrMapper {
 			catch (Exception e)
 			{
 				System.out.println("rompio select o");
+				System.out.println("Stack Trace: " + e.getStackTrace() + e.getMessage());
+			}
+			return null;
+		}
+		
+		public Profesor buscarProfesor(String nomUsu)
+		{
+			/*----TRY DE LA CONECCION SELECT----*/
+			
+			try
+			{
+				Profesor o = null;
+				String nombreUsuario = new String();
+				String actividades = new String();
+				Connection con = PoolConnection.getPoolConnection().getConnection();
+				/*----STATEMENT QUERY DEL SELECT----*/
+				PreparedStatement s = con.prepareStatement("select * from dbo.Profesores where nombreUsuario = ?");			
+				/*----CAMPOS DE USUARIOS----*/
+				s.setString(1,nomUsu);
+				ResultSet result = s.executeQuery();
+				while (result.next()) {
+					nombreUsuario = result.getString(1);
+					actividades = result.getString(2);
+				}
+				
+				PreparedStatement s2 = con.prepareStatement("select * from dbo.Empleados where nombreUsuario = ? and rol='profesor'");			
+				/*----CAMPOS DE EMPLEADOS----*/
+				s2.setString(1,nomUsu);
+				ResultSet res = s2.executeQuery();
+				while(res.next()) {
+					//nombreUsuario = res.getString(1);
+					String nombre = res.getString(2);
+					String domicilio = res.getString(3);
+					String mail = res.getString(4);
+					int dni = res.getInt(5);
+					Date fechaDeNac = res.getDate(6);
+					String estado = res.getString(7);
+					Float sueldo = res.getFloat(8);
+					Date fechaInicioActividades = res.getDate(9);
+					String diasLaborales = res.getString(10);
+					String rol= res.getString(11);
+
+					Persona p = new Persona(nombreUsuario,mail,nombre,null,domicilio,dni,fechaDeNac,rol,estado,fechaInicioActividades);
+					o = new Profesor(p,rol,sueldo,diasLaborales,actividades);
+				}
+				PoolConnection.getPoolConnection().realeaseConnection(con);
+				return o;
+
+			}
+			catch (Exception e)
+			{
+				System.out.println("rompio select profes");
 				System.out.println("Stack Trace: " + e.getStackTrace() + e.getMessage());
 			}
 			return null;

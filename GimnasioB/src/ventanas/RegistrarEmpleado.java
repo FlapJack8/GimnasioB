@@ -202,14 +202,14 @@ public class RegistrarEmpleado extends JFrame{
 					String rol = new String();
 					rol = null;
 					
-					String clases = new String();
-					
 					/**Llenamos diasLaborales seleccionando los checkbox y concatenando los dias seleccionados dentro del
 					 * String como => [lunes,martes,jueves,sabado,]
 					 */
 					
 					String diasLaborales = new String();
 					diasLaborales = "-";
+					String actividades = new String();
+					actividades = "zumba-yoga-";
 					
 					if(chBxAdministrador.isSelected()) {		
 						rol = "Administrador";
@@ -235,20 +235,19 @@ public class RegistrarEmpleado extends JFrame{
 					
 					Date fechaN=Date.valueOf(textFechaNac.getText());
 					Date fechaInicioActs=Date.valueOf(txtInicioActs.getText());
-					
-					if(txtNombre.getText().equals("")||textContra1.getText().equals("")||textContra2.getText().equals("")||textDNI.getText().equals("")||textDomicilio.getText().equals("")||fechaN.equals("")||textMail.getText().equals("")||textUsuario.getText().equals("")||rol==null||txtInicioActs.getText().equals("")||txtSueldo.getText().equals("")||flagDiasSelected==0) {
+					if(rol.equals("Profesor")) {
+						if(txtNombre.getText().equals("")||textDNI.getText().equals("")||textDomicilio.getText().equals("")||fechaN.equals("")||textMail.getText().equals("")||textUsuario.getText().equals("")||rol==null||txtInicioActs.getText().equals("")||txtSueldo.getText().equals("")||flagDiasSelected==0) {
 							JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
 
-					}
-					else {
-						if(usuariosControlador.existeUsuario(textUsuario.getText())) {
-							JOptionPane.showMessageDialog(null, "Usuario ya existe","Atencion",JOptionPane.WARNING_MESSAGE);
-							textUsuario.selectAll();
-							textUsuario.requestFocus();
 						}
 						else {
-							if(textContra1.getText().equals(textContra2.getText())) {
-
+							if(usuariosControlador.existeUsuario(textUsuario.getText())) {
+								JOptionPane.showMessageDialog(null, "Usuario ya existe","Atencion",JOptionPane.WARNING_MESSAGE);
+								textUsuario.selectAll();
+								textUsuario.requestFocus();
+							}
+							else {
+								
 								/**Concatenamos el String de diasLaborales
 								 **/
 								
@@ -273,14 +272,62 @@ public class RegistrarEmpleado extends JFrame{
 								if(chckbxDomingo.isSelected()) {
 									diasLaborales.concat("domingo-");
 								}
-									
-								usuariosControlador.altaUsuario(txtNombre.getText(), textMail.getText(), textContra1.getText(), textUsuario.getText(), textDomicilio.getText(), Integer.parseInt(textDNI.getText()), fechaN, rol,fechaInicioActs,Float.parseFloat(txtSueldo.getText()),diasLaborales,clases, null, null);
+								
+								
+								usuariosControlador.altaUsuario(txtNombre.getText(), textMail.getText(), null, textUsuario.getText(), textDomicilio.getText(), Integer.parseInt(textDNI.getText()), fechaN, rol,fechaInicioActs,Float.parseFloat(txtSueldo.getText()),diasLaborales,actividades, null, null);
 								JOptionPane.showMessageDialog(null, "Ingreso correcto");
 								usuariosControlador.imprimirEmpleados();
 								dispose();
 							}
-							else{
-								JOptionPane.showMessageDialog(null, "Los campos de claves no coinciden","Error",JOptionPane.ERROR_MESSAGE);
+						}
+					}
+					else {
+						if(txtNombre.getText().equals("")||textContra1.getText().equals("")||textContra2.getText().equals("")||textDNI.getText().equals("")||textDomicilio.getText().equals("")||fechaN.equals("")||textMail.getText().equals("")||textUsuario.getText().equals("")||rol==null||txtInicioActs.getText().equals("")||txtSueldo.getText().equals("")||flagDiasSelected==0) {
+								JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
+	
+						}
+						else {
+							if(usuariosControlador.existeUsuario(textUsuario.getText())) {
+								JOptionPane.showMessageDialog(null, "Usuario ya existe","Atencion",JOptionPane.WARNING_MESSAGE);
+								textUsuario.selectAll();
+								textUsuario.requestFocus();
+							}
+							else {
+								if(textContra1.getText().equals(textContra2.getText())) {
+	
+									/**Concatenamos el String de diasLaborales
+									 **/
+									
+									if(chckbxLunes.isSelected()){
+										diasLaborales = diasLaborales.concat("lunes-");
+									}
+									if(chckbxMartes.isSelected()){
+										diasLaborales = diasLaborales.concat("martes-");
+									}
+									if(chckbxMiercoles.isSelected()){
+										diasLaborales = diasLaborales.concat("miercoles-");
+									}
+									if(chckbxJueves.isSelected()) {
+										diasLaborales = diasLaborales.concat("jueves-");
+									}
+									if(chckbxViernes.isSelected()){
+										diasLaborales = diasLaborales.concat("viernes-");
+									}
+									if(chckbxSabado.isSelected()) {
+										diasLaborales = diasLaborales.concat("sabado-");
+									}
+									if(chckbxDomingo.isSelected()) {
+										diasLaborales.concat("domingo-");
+									}
+										
+									usuariosControlador.altaUsuario(txtNombre.getText(), textMail.getText(), textContra1.getText(), textUsuario.getText(), textDomicilio.getText(), Integer.parseInt(textDNI.getText()), fechaN, rol,fechaInicioActs,Float.parseFloat(txtSueldo.getText()),diasLaborales,null, null, null);
+									JOptionPane.showMessageDialog(null, "Ingreso correcto");
+									usuariosControlador.imprimirEmpleados();
+									dispose();
+								}
+								else{
+									JOptionPane.showMessageDialog(null, "Los campos de claves no coinciden","Error",JOptionPane.ERROR_MESSAGE);
+								}
 							}
 						}
 					}

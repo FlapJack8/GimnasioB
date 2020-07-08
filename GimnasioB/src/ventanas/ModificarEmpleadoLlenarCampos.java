@@ -20,6 +20,7 @@ import modelo.Administrador;
 //import modelo.AgenteComercial;
 import modelo.Operador;
 //import modelo.VendedorBoleteria;
+import modelo.Profesor;
 
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
@@ -216,6 +217,7 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 			
 			/*----BUSCAR EL USUARIO Y LLENA LOS CAMPOS----*/
 			java.util.Date fechaN;
+			String actividades = new String();
 			
 			Administrador a = usuariosControlador.buscarAdministrador(textUsuario.getText());
 			if(a!=null) {
@@ -302,25 +304,53 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 						chckbxDomingo.setSelected(true);
 					}
 				}
-				/*else{
+				else{
 					Profesor pro = usuariosControlador.buscarProfesor(textUsuario.getText());
-					if(pro!=null){
-						textNombre.setText(pro.getNombre());
-						textDNI.setText(Integer.toString(pro.getDni()));
-						textDomicilio.setText(pro.getDomicilio());
-						String fecha=pro.getFechaDeNac().toString();
-						textFechaNac.setText(fecha);
-						textMail.setText(pro.getEmail());
-						chBxProfe.setSelected(true);
-						textContra1.setText("***********");
-						textContra2.setText("***********");
+					if(pro!=null) {
+						String diasLab = new String();
+						diasLab = pro.getDiasLaborales();
+						actividades = pro.getActividades();
 						
-						String fechaInicioActs=pro.getInicioActividades().toString();
-						
-						txtFechaInicioActs.setText(fechaInicioActs);
-						txtSueldo.setText(Float.toString(pr.getSueldo()));
+						if(pro!=null){
+							textNombre.setText(pro.getNombre());
+							textDNI.setText(Integer.toString(pro.getDni()));
+							textDomicilio.setText(pro.getDomicilio());
+							String fecha=pro.getFechaDeNac().toString();
+							textFechaNac.setText(fecha);
+							textMail.setText(pro.getEmail());
+							chckbxProfe.setSelected(true);
+							textContra1.setEnabled(false);
+							textContra2.setEnabled(false);
+							
+							String fechaInicioActs=pro.getInicioActividades().toString();
+							
+							txtFechaInicioActs.setText(fechaInicioActs);
+							txtSueldo.setText(Float.toString(pro.getSueldo()));
+							
+							if(diasLab.contains("lunes")) {
+								chckbxLunes.setSelected(true);
+							}
+							if(diasLab.contains("martes")) {
+								chckbxMartes.setSelected(true);
+							}
+							if(diasLab.contains("miercoles")) {
+								chckbxMiercoles.setSelected(true);
+							}
+							if(diasLab.contains("jueves")) {
+								chckbxJueves.setSelected(true);
+							}
+							if(diasLab.contains("viernes")) {
+								chckbxViernes.setSelected(true);
+							}
+							if(diasLab.contains("sabado")) {
+								chckbxSabado.setSelected(true);
+							}
+							if(diasLab.contains("domingo")) {
+								chckbxDomingo.setSelected(true);
+							}
+						}
 					}
-				}*/
+				}
 			}
 			
 			/*----BOTON MODIFICAR----*/
@@ -352,54 +382,90 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 					}
 					
 					/*----VALIDA QUE TODOS LOS CAMPOS ESTEN LLENOS----*/
+					
 					Date fechaN=Date.valueOf(textFechaNac.getText());
 					Date fechaInicioActs=Date.valueOf(txtFechaInicioActs.getText());
-					if(textNombre.getText().equals("")||textContra1.getText().equals("")||textContra2.getText().equals("")||textDNI.getText().equals("")||textDomicilio.getText().equals("")||fechaN.equals("")||textMail.getText().equals("")||textUsuario.getText().equals("")||rol==null) {
-						JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
+					if(rol.equals("Profesor")) {
+						if(textNombre.getText().equals("")||textDNI.getText().equals("")||textDomicilio.getText().equals("")||fechaN.equals("")||textMail.getText().equals("")||textUsuario.getText().equals("")||rol==null) {
+							JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
 
-					}
-					else {
-						if(textContra1.getText().equals(textContra2.getText())) {
-							if(textContra1.getText().equals("***********")){
-								JOptionPane.showMessageDialog(null, "Password inaceptable","Error",JOptionPane.ERROR_MESSAGE);
-							}
-							else {
-								if(chckbxLunes.isSelected()){
-									diasLaborales = diasLaborales.concat("lunes-");
-								}
-								if(chckbxMartes.isSelected()){
-									diasLaborales = diasLaborales.concat("martes-");
-								}
-								if(chckbxMiercoles.isSelected()){
-									diasLaborales = diasLaborales.concat("miercoles-");
-								}
-								if(chckbxJueves.isSelected()) {
-									diasLaborales = diasLaborales.concat("jueves-");
-								}
-								if(chckbxViernes.isSelected()){
-									diasLaborales = diasLaborales.concat("viernes-");
-								}
-								if(chckbxSabado.isSelected()) {
-									diasLaborales = diasLaborales.concat("sabado-");
-								}
-								if(chckbxDomingo.isSelected()) {
-									diasLaborales = diasLaborales.concat("domingo-");
-								}
-								String contraNueva = new String();
-								
-								usuariosControlador.modificarEmpleado(textUsuario.getText(), textMail.getText(), textContra1.getText(), textNombre.getText(), textDomicilio.getText(), Integer.parseInt(textDNI.getText()), fechaN, rol,fechaInicioActs,Float.parseFloat(txtSueldo.getText()),diasLaborales);
-								JOptionPane.showMessageDialog(null, "Modificado!");
-								usuariosControlador.imprimirEmpleados();
-								dispose();
-						
-							}
 						}
-						else{
-							JOptionPane.showMessageDialog(null, "Los campos de claves no coinciden","Error",JOptionPane.ERROR_MESSAGE);
-						}
-					}
-						
+						else {
+							if(chckbxLunes.isSelected()){
+								diasLaborales = diasLaborales.concat("lunes-");
+							}
+							if(chckbxMartes.isSelected()){
+								diasLaborales = diasLaborales.concat("martes-");
+							}
+							if(chckbxMiercoles.isSelected()){
+								diasLaborales = diasLaborales.concat("miercoles-");
+							}
+							if(chckbxJueves.isSelected()) {
+								diasLaborales = diasLaborales.concat("jueves-");
+							}
+							if(chckbxViernes.isSelected()){
+								diasLaborales = diasLaborales.concat("viernes-");
+							}
+							if(chckbxSabado.isSelected()) {
+								diasLaborales = diasLaborales.concat("sabado-");
+							}
+							if(chckbxDomingo.isSelected()) {
+								diasLaborales = diasLaborales.concat("domingo-");
+							}
+							
+							usuariosControlador.modificarEmpleado(textUsuario.getText(), textMail.getText(), null, textNombre.getText(), textDomicilio.getText(), Integer.parseInt(textDNI.getText()), fechaN, rol,fechaInicioActs,Float.parseFloat(txtSueldo.getText()),diasLaborales,"-zumba-yoga-");
+							JOptionPane.showMessageDialog(null, "Modificado!");
+							usuariosControlador.imprimirEmpleados();
+							dispose();
 					
+						}
+					}
+					else{
+						if(textNombre.getText().equals("")||textContra1.getText().equals("")||textContra2.getText().equals("")||textDNI.getText().equals("")||textDomicilio.getText().equals("")||fechaN.equals("")||textMail.getText().equals("")||textUsuario.getText().equals("")||rol==null) {
+							JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
+	
+						}
+						else {
+							if(textContra1.getText().equals(textContra2.getText())) {
+								if(textContra1.getText().equals("***********")){
+									JOptionPane.showMessageDialog(null, "Password inaceptable","Error",JOptionPane.ERROR_MESSAGE);
+								}
+								else {
+									if(chckbxLunes.isSelected()){
+										diasLaborales = diasLaborales.concat("lunes-");
+									}
+									if(chckbxMartes.isSelected()){
+										diasLaborales = diasLaborales.concat("martes-");
+									}
+									if(chckbxMiercoles.isSelected()){
+										diasLaborales = diasLaborales.concat("miercoles-");
+									}
+									if(chckbxJueves.isSelected()) {
+										diasLaborales = diasLaborales.concat("jueves-");
+									}
+									if(chckbxViernes.isSelected()){
+										diasLaborales = diasLaborales.concat("viernes-");
+									}
+									if(chckbxSabado.isSelected()) {
+										diasLaborales = diasLaborales.concat("sabado-");
+									}
+									if(chckbxDomingo.isSelected()) {
+										diasLaborales = diasLaborales.concat("domingo-");
+									}
+									String contraNueva = new String();
+									
+									usuariosControlador.modificarEmpleado(textUsuario.getText(), textMail.getText(), textContra1.getText(), textNombre.getText(), textDomicilio.getText(), Integer.parseInt(textDNI.getText()), fechaN, rol,fechaInicioActs,Float.parseFloat(txtSueldo.getText()),diasLaborales, null);
+									JOptionPane.showMessageDialog(null, "Modificado!");
+									usuariosControlador.imprimirEmpleados();
+									dispose();
+							
+								}
+							}
+							else{
+								JOptionPane.showMessageDialog(null, "Los campos de claves no coinciden","Error",JOptionPane.ERROR_MESSAGE);
+							}
+						}
+					}
 				}
 			});
 			contentPane.add(btnModificar);
