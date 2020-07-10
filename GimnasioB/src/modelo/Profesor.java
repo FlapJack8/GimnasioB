@@ -1,16 +1,19 @@
 package modelo;
 
 public class Profesor extends Empleado {
-	String actividades;
+	private String actividades;
 
 	public Profesor(Persona persona,String rol,Float sueldo,String diasLaborales, String actividades) {
 		super(persona, rol,diasLaborales,sueldo);
+		this.actividades = actividades;
 	}
 	
 	/*----CONSTRUCTOR BAJA LOGICA----*/
 	
 	public Profesor(Persona persona,String rol, String estado,Float sueldo,String diasLaborales,String actividades) {
 		super(persona, rol,diasLaborales,sueldo);
+		this.actividades = actividades;
+
 	}
 
 	public boolean soyProfesor(Persona p){

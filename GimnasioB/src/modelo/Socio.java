@@ -5,9 +5,9 @@ import java.util.Date;
 
 public class Socio extends Rol {
 	
-	Date fechaVen;
-	String tipoAbono;
-	Blob datosMedicos;
+	private Date fechaVen;
+	private String tipoAbono;
+	private Blob datosMedicos;
 
 	public Socio(Persona persona,String rol, Date fechaVen, String tipoAbono) {
 		super(persona, rol);

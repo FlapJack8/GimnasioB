@@ -461,6 +461,7 @@ public class UsrMapper {
 
 					Persona p = new Persona(nombreUsuario,mail,nombre,null,domicilio,dni,fechaDeNac,rol,estado,fechaInicioActividades);
 					o = new Profesor(p,rol,sueldo,diasLaborales,actividades);
+
 				}
 				PoolConnection.getPoolConnection().realeaseConnection(con);
 				return o;
