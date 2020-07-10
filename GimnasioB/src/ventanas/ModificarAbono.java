@@ -10,21 +10,21 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import controladores.SistemasAbonos;
+import controladores.SistemaAbonos;
 import modelo.Abono;
 
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import javax.swing.ButtonGroup;
 
-public class ModificacionAbono extends JFrame{
+public class ModificarAbono extends JFrame{
 	
 	private JTextField textTipoAbono;
 	private JTextField txtPrecio;
 	private JPanel contentPane;
 	private JTextField textPrecio;
 	private JTextField textDuracion;
-public ModificacionAbono(SistemasAbonos SistemasAbonos, String tipoAbono) {
+public ModificarAbono(SistemaAbonos SistemasAbonos, String tipoAbono) {
 	
 	setTitle("Modificar Abono");
 	/*---------CREO VENTANA DE MODIFICACION DE EMPLEADO----*/

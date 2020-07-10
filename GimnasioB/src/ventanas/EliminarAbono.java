@@ -6,15 +6,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import controladores.SistemasAbonos;
+import controladores.SistemaAbonos;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-public class EliminacionAbono extends JFrame{
+public class EliminarAbono extends JFrame{
 private JTextField txtAbonoEliminar;
 	
-	public EliminacionAbono(SistemasAbonos abonosControlador) {
+	public EliminarAbono(SistemaAbonos abonosControlador) {
 
 		setTitle("Eliminar Abono");
 		setBounds(450, 250, 368, 204);

@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import controladores.SistemasAbonos;
+import controladores.SistemaAbonos;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import javax.swing.ButtonGroup;
@@ -23,7 +23,7 @@ public class AltaAbono extends JFrame{
 	private JTextField textTipoAbono;
 	private JTextField textPrecio;
 	private JTextField textDuracion;
-	public AltaAbono(SistemasAbonos AbonosControlador) {
+	public AltaAbono(SistemaAbonos AbonosControlador) {
 		setTitle("Nuevo Abono");
 
 		/*---------CREO VENTANA DE REGISTRO----*/

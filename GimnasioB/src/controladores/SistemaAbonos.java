@@ -15,15 +15,15 @@ import persistencia.UsrMapper;
 
 
 
-public class SistemasAbonos {
+public class SistemaAbonos {
 	
 	private static Vector <Abono> vAbonos;
-	private static SistemasAbonos instanciaSistemasAbonos;
+	private static SistemaAbonos instanciaSistemasAbonos;
 	/*----SINGLETON----*/
 	
-	public static SistemasAbonos getInstancia(){
+	public static SistemaAbonos getInstancia(){
 		if(instanciaSistemasAbonos==null){
-			instanciaSistemasAbonos=new SistemasAbonos();
+			instanciaSistemasAbonos=new SistemaAbonos();
 			vAbonos=new Vector<Abono>();
 					
 			 
