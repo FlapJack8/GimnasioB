@@ -3,12 +3,8 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import modelo.Abono;
-import modelo.Administrador;
-import modelo.Empleado;
-import modelo.Operador;
-import modelo.Persona;
-import modelo.Socio;
 
 public class AbonoMapping {
 	
@@ -29,32 +25,32 @@ public class AbonoMapping {
 			instancia = new AbonoMapping();
 		return instancia;
 	}
+	/*----DELETE FISICO (NO USAMOS)----*/
 	
-	
-
-	public void insertAbono(Abono A, Float precio, String tipoAbono,int duracion) 
+	public void insert(Abono p, String tipoAbono,String estado,Float precio,int duracion,int idAbono) 
 	{
 		/*----TRY DE LA CONECCION INSERT----*/
 		
 		try
 		{
-			Abono abo = (Abono) A;
+			Abono per = (Abono) p;
 			Float pre = (Float) precio;
-			String tipoAb = (String) tipoAbono;
-			int dur = (int) duracion;
+			String tipoA = (String) tipoAbono;
+			int dura = (int) duracion;
+			int id = (int) idAbono;
+
 			Connection con = PoolConnection.getPoolConnection().getConnection();
 			/*----STATEMENT QUERY DEL INSERT----*/
-				PreparedStatement s = con.prepareStatement("insert into dbo.Abonos(precio, tipoAbono, duracion) values (?,?,?)");
+				PreparedStatement s = con.prepareStatement("insert into dbo.Abono(idAbono, tipoAbono,duracion,precio) values (?,?,?,?)");
 				/*-----CAMPOS DEL SOCIO----*/
-				s.setFloat(1, abo.getPrecio());
-				s.setString(2, abo.getTipoAbono());
-				s.setInt(3, abo.getDuracion());
+				s.setInt(1, per.getIdAbono());
+				s.setString(2, per.getTipoAbono());
+				s.setInt(3, per.getDuracion());
+				s.setFloat(4, per.getPrecio());
 				s.execute();
 				PoolConnection.getPoolConnection().realeaseConnection(con);
 			
-				PoolConnection.getPoolConnection().realeaseConnection(con);
-				
-			
+							
 		}
 		catch (Exception e)
 		{
@@ -63,17 +59,17 @@ public class AbonoMapping {
 		}
 	}
 
-	public void deleteAbono(Abono A) 
+	public void deleteAbono(Abono abono) 
 	{
 		/*----TRY DE LA CONECCION ELIMINAR----*/
 
 		try
 		{
-			Abono AB = (Abono) A;
+			Abono c = (Abono) abono;
 			Connection con = PoolConnection.getPoolConnection().getConnection();
 			/*----STATEMENT QUERY DEL DELETE----*/
-			PreparedStatement s = con.prepareStatement("delete from dbo.abonos where tipoAbono = ? ");
-			s.setString(1, AB.getTipoAbono());
+			PreparedStatement s = con.prepareStatement("delete from dbo.Abono where tipoAbono = ? ");
+			s.setString(1, c.getTipoAbono());
 			s.execute();
 			PoolConnection.getPoolConnection().realeaseConnection(con);
 		}
@@ -83,21 +79,22 @@ public class AbonoMapping {
 		}
 	}
 	
-	public void updateAbono(Abono A) 
+	public void updateAbono(Abono abono) 
 	{
 		/*----TRY DE LA CONECCION UPDATE----*/
 		
 		try
 		{
-			Abono c =(Abono) A;
+			Abono soc =(Abono) abono;
 			Connection con = PoolConnection.getPoolConnection().getConnection();
 			/*----STATEMENT QUERY DEL UPDATE----*/
-			PreparedStatement s = con.prepareStatement("update dbo.Abonos " +
-					"set precio =?," +
+			PreparedStatement s = con.prepareStatement("update dbo.Socios " +
+					" set precio =?," +
 					" where tipoAbono = ?");
 			/*----CAMPOS DE CLIENTE----*/
 			
-			s.setFloat(1, c.getPrecio());
+			s.setFloat(1, soc.getPrecio());
+			
 			
 			s.executeUpdate();
 			PoolConnection.getPoolConnection().realeaseConnection(con);
@@ -105,62 +102,39 @@ public class AbonoMapping {
 		catch (Exception e)
 		{
 			System.out.println("Stack Trace: " + e.getStackTrace() + e.getMessage());
-			System.out.println("rompio update cliente");
+			System.out.println("rompio update abono");
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	public Abono buscarAbono(String tipoAbono)
+		public Abono buscarAbono(String tipoAbono)
 	{
 		/*----TRY DE LA CONECCION SELECT----*/
 		
 		try
 		{
-			String tipoAb = new String();
-			Abono adm = null;
-			String nombreUsuario = new String();
-			String password = new String();
-			String rol = new String();
-			
-			Connection con = PoolConnection.getPoolConnection().getConnection(); //busca la coneccion
+			Abono o = null;
+			String tipoAbono1 = new String();
+			Connection con = PoolConnection.getPoolConnection().getConnection();
 			/*----STATEMENT QUERY DEL SELECT----*/
-			PreparedStatement s = con.prepareStatement("select * from dbo.Abonos where tipoAbono = ?");			
+			PreparedStatement s = con.prepareStatement("select * from dbo.Abono where tipoAbono = ? ");			
 			/*----CAMPOS DE USUARIOS----*/
-			s.setString(1,tipoAb);
+			s.setString(1,tipoAbono1);
 			ResultSet result = s.executeQuery();
 			while (result.next()) {
-				tipoAb = result.getString(1);
+				tipoAbono1 = result.getString(1);
 			}
 			
-			PreparedStatement s2 = con.prepareStatement("select * from dbo.Abonos where tipoAbono = ?");			
-			/*----CAMPOS DE EMPLEADOS----*/
-			s2.setString(1,tipoAb);
-			ResultSet res = s2.executeQuery();
-			
-			while(res.next()) {
-				String tipoAbon2 = res.getString(2);
-				int duracion = res.getInt(3);
-				Float precio = res.getFloat(4);
-			}
 			PoolConnection.getPoolConnection().realeaseConnection(con);
-			return adm;
+			return o;
+
 		}
 		catch (Exception e)
 		{
-			System.out.println("rompio select abono");
+			System.out.println("rompio select o");
 			System.out.println("Stack Trace: " + e.getStackTrace() + e.getMessage());
 		}
 		return null;
 	}
 	
 	
-
-	
-
 }
