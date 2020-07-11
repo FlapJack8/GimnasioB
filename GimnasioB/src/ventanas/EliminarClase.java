@@ -107,7 +107,7 @@ public class EliminarClase extends JFrame {
 				
 			//}
 		});
-		btnEliminar.setBounds(305, 416, 89, 23);
+		btnEliminar.setBounds(268, 397, 89, 23);
 		getContentPane().add(btnEliminar);
 
 	}

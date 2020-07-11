@@ -145,6 +145,9 @@ public class ClasesMapper {
 			/*for(int i=0; i<=vClases.size()+1; i++){
 				System.out.println(vClases.elementAt(i).getActividad());
 			}*/
+			
+			PoolConnection.getPoolConnection().realeaseConnection(con);
+
 			return result;
 		} 
 		catch (Exception e) {
