@@ -40,6 +40,7 @@ public class ModificarClase extends JFrame {
 		tbClases.setBounds(36, 50, 616, 295);
 		tbClases.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbClases.setModel(DbUtils.resultSetToTableModel(listaClases));
+		tbClases.setDefaultEditor(Object.class, null);
 		getContentPane().add(tbClases);
 
 		/*----BOTON MODIFICAR----*/
