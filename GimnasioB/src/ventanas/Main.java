@@ -291,6 +291,5 @@ public class Main extends JFrame{
 			});
 				btnIngresar.setBounds(145, 190, 110, 23);
 				cpLogin.add(btnIngresar);
-
 	}
 }
