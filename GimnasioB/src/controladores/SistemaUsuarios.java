@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.Vector;
 import java.sql.Date;
+import java.sql.ResultSet;
 
 import javax.swing.text.DateFormatter;
 
@@ -14,6 +15,7 @@ import modelo.Empleado;
 import modelo.Operador;
 import modelo.Persona;
 import modelo.Profesor;
+import persistencia.ClasesMapper;
 import persistencia.UsrMapper;
 
 
@@ -561,6 +563,14 @@ public class SistemaUsuarios {
 			
 		}
 
+	}
+	
+	public ResultSet listarProfesores(){
+		
+		ResultSet rs = null;
+		rs = UsrMapper.getInstance().listarProfesores();
+		
+		return rs;
 	}
 
 }
