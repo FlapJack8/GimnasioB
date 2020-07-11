@@ -1,114 +1,72 @@
 package ventanas;
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Date;
-import javax.swing.JButton;
+
 import javax.swing.JFrame;
+
+import controladores.SistemasAbonos;
+import modelo.Administrador;
+import modelo.Socio;
+import modelo.Operador;
+//import modelo.VendedorBoleteria;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-import controladores.SistemaAbonos;
-import modelo.Abono;
 
-import javax.swing.JComboBox;
-import javax.swing.JCheckBox;
-import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class ModificarAbono extends JFrame{
-	
-	private JTextField textTipoAbono;
-	private JTextField txtPrecio;
-	private JPanel contentPane;
-	private JTextField textPrecio;
-	private JTextField textDuracion;
-public ModificarAbono(SistemaAbonos SistemasAbonos, String tipoAbono) {
-	
-	setTitle("Modificar Abono");
-	/*---------CREO VENTANA DE MODIFICACION DE EMPLEADO----*/
-	
-	setResizable(false);
-	toFront();
-	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	setBounds(400, 200, 622, 590);
-	contentPane = new JPanel();
-	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-	setContentPane(contentPane);
-	contentPane.setLayout(null);
+public class ModificarAbono {
+	private JTextField txtNombreUsuarioModif;
 
-	
-	
-	/*----CAMPOS A LLENAR----*/
-	
-	JLabel lblTipoAbono = new JLabel("Tipo de abono:");
-	lblTipoAbono.setBounds(11, 28, 152, 14);
-	contentPane.add(lblTipoAbono);
-	
-	JLabel lblPrecio = new JLabel("Precio:");
-	lblPrecio.setBounds(11, 93, 152, 14);
-	contentPane.add(lblPrecio);
+	public ModificarEmpleado(SistemaUsuarios usuariosControlador) {
+		setTitle("Modificar Empleado");
 		
-	
-
-	JTextField textAbono = new JTextField();
-	textAbono.setEditable(false);
-	textAbono.setEnabled(false);
-	textAbono.setBounds(212, 25, 152, 20);
-	contentPane.add(textAbono);
-	textAbono.setColumns(10);
-	
-	textPrecio = new JTextField();
-	textPrecio.setBounds(212, 90, 152, 20);
-	contentPane.add(textPrecio);
-	textPrecio.setColumns(10);
-	
-	
-	/*----BUSCAR EL USUARIO Y LLENA LOS CAMPOS----*/
-	java.util.Date fechaN;
-	
-	Abono a = SistemasAbonos.buscarAbono(textAbono.getText());
-	if(a!=null) {
-		textAbono.setText(a.getTipoAbono());
-		textPrecio.setText(a.getPrecio());
-
+		setBounds(450, 250, 401, 185);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		getContentPane().setLayout(null);
 		
-	
-	/*----BOTON MODIFICAR----*/
-	
-	JButton btnModificar = new JButton("Modificar");
-	btnModificar.setBounds(160, 508, 152, 23);
-	btnModificar.addActionListener(new ActionListener() {
-		private Float lblPrecio;
+		/*----CAMPO NOMBRE DE USUARIO----*/
+		
+		JLabel lblNombreDeUsuario = new JLabel("Tipo de abono:");
+		lblNombreDeUsuario.setBounds(45, 40, 128, 14);
+		contentPane().add(lblNombreDeUsuario);
+		
+		txtNombreUsuarioModif = new JTextField();
+		txtNombreUsuarioModif.setBounds(188, 37, 128, 20);
+		getContentPane().add(txtNombreUsuarioModif);
+		txtNombreUsuarioModif.setColumns(10);
+		
+		/*----BOTON MODIFICAR----*/
+		
+		JButton btnModificar = new JButton("Modificar");
+		btnModificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (abonosControlador != null) {
+					
+					/*----CONFIRMA QUE NO ESTE VACIO EL CAMPO----*/
+					
+					if(!txtNombreUsuarioModif.getText().equals("")) {
+						if(sistemaAbono.existeAbono(txtNombreUsuarioModif.getText())){
+							
+							/*----ENVIA CONTROLADOR DE USUARIO A LA SIGUIENTE VISTA----*/
 
-		public void actionPerformed(ActionEvent arg0) {
-			
-			/*----OBTIENE EL ROL----*/
-			
-			Float precio = new Float(precio);
-			precio = null;
-			
-			
-				precio = this.lblPrecio;
-			
-			
-			
-		}
-	});
-	contentPane.add(btnModificar);
-	
-	JLabel lblSueldo = new JLabel("Sueldo:");
-	lblSueldo.setBounds(11, 215, 56, 16);
-	contentPane.add(lblSueldo);
-	
-	JLabel lblFechaInicioActs = new JLabel("Fecha Inicio de Actividades:");
-	lblFechaInicioActs.setBounds(11, 244, 168, 16);
-	contentPane.add(lblFechaInicioActs);
-
-
-}
-
-	
-}
+							ModificarEmpleadoLlenarCampos modifEmpleadoLC = new ModificarEmpleadoLlenarCampos(abonosControlador,txtNombreUsuarioModif.getText());
+							modifEmpleadoLC.setVisible(true);
+							dispose();
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "No se econtro el abono","Error",JOptionPane.ERROR_MESSAGE);
+						}
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			}
+		});
+		btnModificar.setBounds(157, 100, 89, 23);
+		getContentPane().add(btnModificar);
+	}
 }

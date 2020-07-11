@@ -6,17 +6,19 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import controladores.SistemaAbonos;
+import controladores.SistemasAbonos;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-public class EliminarAbono extends JFrame{
-private JTextField txtAbonoEliminar;
+public class EliminarAbono {
 	
-	public EliminarAbono(SistemaAbonos abonosControlador) {
 
-		setTitle("Eliminar Abono");
+	private JTextField txtAbonoAeliminar;
+	
+	public EliminarAbono(SistemaUsuarios usuariosControlador) {
+
+		setTitle("Eliminar abono");
 		setBounds(450, 250, 368, 204);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
@@ -25,12 +27,12 @@ private JTextField txtAbonoEliminar;
 		
 		JLabel lblNombreDeUsuario = new JLabel("Tipo de abono:");
 		lblNombreDeUsuario.setBounds(25, 47, 128, 14);
-		getContentPane().add(lblNombreDeUsuario);
+		getContentPanel().add(lblNombreDeUsuario);
 		
-		txtAbonoEliminar = new JTextField();
-		txtAbonoEliminar.setBounds(144, 44, 153, 20);
-		getContentPane().add(txtAbonoEliminar);
-		txtAbonoEliminar.setColumns(10);
+		txtAbonoAeliminar = new JTextField();
+		txtAbonoAeliminar.setBounds(144, 44, 153, 20);
+		getContentPanel().add(txtAbonoAeliminar);
+		txtAbonoAeliminar.setColumns(10);
 		
 		/*----BOTON ELIMINAR----*/
 		
@@ -40,15 +42,15 @@ private JTextField txtAbonoEliminar;
 
 				/*----CONFIRMA QUE NO ESTE VACIO EL CAMPO----*/
 				
-				if(!txtAbonoEliminar.getText().equals("")) {
+				if(!txtNombreUsuarioEliminar.getText().equals("")) {
 					
 					/*----CONFIRMA ELIMINACION----*/
 					
 					int dialogButton = JOptionPane.YES_NO_OPTION;
-					int dialogResult = JOptionPane.showConfirmDialog (null, "Esta seguro que desea eliminar a este abono?","Atencion",JOptionPane.WARNING_MESSAGE, dialogButton);
+					int dialogResult = JOptionPane.showConfirmDialog (null, "Esta seguro que desea eliminar a este usuario?","Atencion",JOptionPane.WARNING_MESSAGE, dialogButton);
 					if(dialogResult == JOptionPane.YES_OPTION){
 						int flag = 0;
-						flag = abonosControlador.bajaAbono(txtAbonoEliminar.getText(),flag);
+						flag = abonosControlador.bajaAbono(txtNombreUsuarioEliminar.getText(),flag);
 						if(flag==1)
 						{
 							JOptionPane.showMessageDialog(null, "Eliminado!");
@@ -60,6 +62,7 @@ private JTextField txtAbonoEliminar;
 							flag=0;
 						}
 			
+						usuariosControlador.imprimirEmpleados();
 					}
 				}
 				
@@ -67,4 +70,6 @@ private JTextField txtAbonoEliminar;
 		});
 		btnEliminar.setBounds(208, 113, 89, 23);
 		getContentPane().add(btnEliminar);
-}}
+	}
+
+}
