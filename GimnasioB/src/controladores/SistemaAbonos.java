@@ -1,142 +1,95 @@
 package controladores;
-import java.text.SimpleDateFormat;
+
 import java.sql.Date;
-import java.text.ParseException;
-import java.util.Collection;
+import java.sql.ResultSet;
+import java.sql.Time;
+import java.util.Collections;
 import java.util.Vector;
+
 import modelo.Abono;
-import modelo.Administrador;
-import modelo.Operador;
-import modelo.Persona;
-import modelo.Socio;
 import persistencia.AbonoMapping;
-import persistencia.UsrMapper;
-
-
 
 
 public class SistemaAbonos {
 	
-	private static Vector <Abono> vAbonos;
-	private static SistemaAbonos instanciaSistemasAbonos;
-	/*----SINGLETON----*/
+	private  Vector<Abono> vAbonos; 
+	private  static SistemaAbonos instanciaAbonos;
 	
+	//CONSTRUCTOR
+	public SistemaAbonos() {
+		
+		vAbonos = new Vector<Abono>();
+		
+	}
+
+
+	//SINGLETON
 	public static SistemaAbonos getInstancia(){
-		if(instanciaSistemasAbonos==null){
-			instanciaSistemasAbonos=new SistemaAbonos();
-			vAbonos=new Vector<Abono>();
-					
-			 
-		}
-		return instanciaSistemasAbonos;
-	}
-
-	/* Alta Abono*/
-	
-	public void altaAbono(String tipoAbono,int duracion, Float precio)
-	{
-		if(!existeAbono(tipoAbono)) {
-	
-			Abono a = new Abono(tipoAbono, precio, duracion);
-			vAbonos.add(a);
-			
-			AbonoMapping.getInstance().insertAbono(a,precio, tipoAbono, duracion);
-		}
-	}
-
-	
-	public void modificarAbono(String tipoAbono, int duracion, Float precio){
-		for(Abono a: vAbonos) {
-			if(a.getTipoAbono().toString().equals(tipoAbono)) {
-				a.setPrecio(precio);
-				AbonoMapping.getInstance().updateAbono(a);
-			}
-		}	
-		}
 		
-		
-		public int bajaAbono(String tipoAbono,int flag)
-		{
-			if(tipoAbono !=null) {
-				
-				Abono a=buscarAbono(tipoAbono);
-				if(a!=null) {
-					vAbonos.remove(a);
-					AbonoMapping.getInstance().updateAbono(a);
-					return 1;
-				}
-				
-			}
-			
-			return flag;
-		}
-		
-		
-		public boolean existeAbono (String tipoAbono) {//Hace mas o menos lo mismo que buscarX pero devuelve un boolean
-
-			
-			Abono a = buscarAbono(tipoAbono);
-
-			if(a!=null)
-				return true;
-
-				
-			
-			
-			return false;
+		if(instanciaAbonos==null){	
+			instanciaAbonos=new SistemaAbonos();
 			
 		}
-		
-		public Abono buscarAbono(String tipoAbono) {
-			
-			/*----Buscamos en memoria----*/
-			for(Abono c: vAbonos)
-			{
-				if(c.getTipoAbono().equals(tipoAbono)) {
-						return c;	
-				}
-			}
-			/*----Si no esta, buscamos en BD----*/
-			
-			Abono c=AbonoMapping.getInstance().buscarAbono(tipoAbono);
-			 
-			
-			/*----AGREGAMOS USUARIO PARA FUTURAS BUSQUEDAS----*/
-			
-			if(c!=null)
-				vAbonos.addAll((Collection<? extends Abono>) c);
-
-			return c;
-			
-		}
-		
-		
-		public void imprimirAbono() {
-			
-			for(Abono a: vAbonos) { //For each
-				String tipoAbono = new String();
-				int duracion;
-				Float precio;
-				tipoAbono=a.getTipoAbono();
-				duracion=a.getDuracion();
-				precio=a.getPrecio();
-				
-				System.out.printf("%d -  %s  - Empleado: %s \n",tipoAbono,duracion,precio);
-				
-			}
-			
-			
-			
-		
-		
-		
-		
-		
-		
+		return instanciaAbonos;
 	}
 	
+	public void crearClase(String tipoAbono,String estado,Float precio,int duracion,int idAbono){
+		
+		if(!existeAbono(tipoAbono, estado, precio, duracion, idAbono)) {
+			
+			Abono cl=buscarAbono(tipoAbono, estado, precio, duracion, idAbono); 
+			
+			if(cl==null) {
+				Abono a= new Abono(tipoAbono, estado, precio, duracion, idAbono);//SistemaActividades.getInstancia().buscarActividadAll(nombreActividad);
+				
+				cl=new Abono(tipoAbono, estado, precio, duracion, idAbono); 
+				vAbonos.add(cl);
+				cl.isActivo();
+				AbonoMapping.getInstance().altaAbono(cl);
+			}
+		}
+	}
 	
+	public ResultSet listarClases(){
+		
+		ResultSet rs = null;
+		rs = AbonoMapping.getInstance().listarAbono();
+		
+		return rs;
+	}
+
+	public boolean existeAbono(String tipoAbono,String estado,Float precio,int duracion,int idAbono) {
+		
+		Abono c = buscarAbono( tipoAbono, estado, precio, duracion, idAbono);
+		/*----AGREGAMOS CLASE PARA FUTURAS BUSQUEDAS----*/
+		if(c!=null)
+			return true;
+		return false;
+	}
 	
+	public Abono buscarAbono(String tipoAbono,String estado,Float precio,int duracion,int idAbono) {
+		
+		
+		/*----Si no esta, buscamos en BD----*/
+		Abono c=AbonoMapping.getInstance().buscarAbono(tipoAbono);
+		/*----AGREGAMOS CLASE PARA FUTURAS BUSQUEDAS----*/
+		if(c!=null)
+			vAbonos.add(c);
+		return c;
+	}
 	
+	public int eliminarAbono(String tipoAbono,String estado,Float precio,int duracion,int idAbono) {
+		
+		Abono c=buscarAbono( tipoAbono, estado, precio, duracion, idAbono);
+		
+		if(c!=null) {
+			vAbonos.remove(c);
+			c.bajaLogica();
+			AbonoMapping.getInstance().updateAbono(c);
+			return 1;
+		}
+		return 2;
+		
+	}
 	
 }
