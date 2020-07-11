@@ -4,19 +4,26 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
 import controladores.SistemaUsuarios;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class RegistrarEmpleado extends JFrame{
 
@@ -32,6 +39,9 @@ public class RegistrarEmpleado extends JFrame{
 	private final ButtonGroup roles = new ButtonGroup();
 	private JTextField txtInicioActs;
 	private JTextField txtSueldo;
+	private JList listActsSistema;
+	private JList listActsProfe;
+
 	
 	public RegistrarEmpleado(SistemaUsuarios usuariosControlador) {
 		setTitle("Registrar Empleado");
@@ -41,13 +51,82 @@ public class RegistrarEmpleado extends JFrame{
 			setResizable(false);
 			toFront();
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			setBounds(400, 200, 593, 608);
+			setBounds(400, 200, 754, 608);
 			contentPane = new JPanel();
 			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 			setContentPane(contentPane);
 			contentPane.setLayout(null);
 			
+			/*LISTAS DE ACTIVIDADES */
+			
+			/*LLENAMOS LISTAS*/
+			DefaultListModel listModActsSistema = new DefaultListModel();
+			listModActsSistema.addElement("yoga");
+			listModActsSistema.addElement("boxeo");
+			listModActsSistema.addElement("HIIT");
+			listModActsSistema.addElement("funcional");
+			
+			DefaultListModel listModActsProfe = new DefaultListModel();
+			listModActsProfe.addElement("zumba");
+			
+			listActsSistema = new JList(listModActsSistema);
+			listActsSistema.setEnabled(false);
+			listActsSistema.setBounds(405, 131, 117, 172);
+			listActsSistema.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+			listActsSistema.setLayoutOrientation(JList.VERTICAL);
+			listActsSistema.setVisible(true);
+			contentPane.add(listActsSistema);
+			
+			listActsProfe = new JList(listModActsProfe);
+			listActsProfe.setEnabled(false);
+			listActsProfe.setBounds(613, 131, 117, 172);
+			contentPane.add(listActsProfe);
+			listActsProfe.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+			listActsProfe.setLayoutOrientation(JList.VERTICAL);
+			contentPane.add(listActsProfe);
+			
+			/*BOTONES AGREGAR Y QUITAR ACTIVIDADES*/
+			
+			JButton btnAgregarActs = new JButton("=>");
+			btnAgregarActs.setBounds(534, 186, 67, 25);
+		    btnAgregarActs.setEnabled(false);
+			btnAgregarActs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					for (Iterator it = listActsSistema.getSelectedValuesList().iterator(); it.hasNext();) {
+				        String sel = (String) it.next();
+				        if (listModActsProfe.contains(sel)) {
+				        } else {
+				        	listModActsProfe.addElement(sel);
 
+				        }
+				    }
+					/*listActsSistema.getSelectedValuesList().stream().forEach((data) -> {
+						if(!listModActsProfe.contains(listActsSistema.getSelectedValuesList()))
+							listModActsProfe.addElement(data);
+					});*/
+				}
+		    
+			});
+		    contentPane.add(btnAgregarActs);
+		    
+			JButton btnQuitarActs = new JButton("<=");
+			btnQuitarActs.setBounds(534, 219, 67, 25);
+			btnQuitarActs.setEnabled(false);
+			btnQuitarActs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					int index = listActsProfe.getSelectedIndices().length - 1;
+
+			        while (listActsProfe.getSelectedIndices().length != 0) {
+			            listModActsProfe.removeElementAt(listActsProfe.getSelectedIndices()[index--]);
+			        }
+					
+					/*listModActsProfe.removeElement(listActsProfe.getSelectedIndex());
+					listActsProfe = new JList(listModActsProfe);*/
+				}
+		    
+			});
+			contentPane.add(btnQuitarActs);
+			
 			JCheckBox chBxOperador = new JCheckBox("Operador");
 			chBxOperador.setBounds(343, 33, 97, 23);
 			roles.add(chBxOperador);
@@ -56,6 +135,10 @@ public class RegistrarEmpleado extends JFrame{
 				public void actionPerformed(ActionEvent arg0) {
 					textContra1.setEnabled(true);
 					textContra2.setEnabled(true);
+					listActsSistema.setEnabled(false);
+					listActsProfe.setEnabled(false);
+					btnAgregarActs.setEnabled(false);
+					btnQuitarActs.setEnabled(false);
 				}
 			});
 			
@@ -67,6 +150,10 @@ public class RegistrarEmpleado extends JFrame{
 				public void actionPerformed(ActionEvent arg0) {
 					textContra1.setEnabled(true);
 					textContra2.setEnabled(true);
+					listActsSistema.setEnabled(false);
+					listActsProfe.setEnabled(false);
+					btnAgregarActs.setEnabled(false);
+					btnQuitarActs.setEnabled(false);
 				}
 			});
 			
@@ -80,6 +167,10 @@ public class RegistrarEmpleado extends JFrame{
 					textContra2.setText(null);
 					textContra1.setEnabled(false);
 					textContra2.setEnabled(false);
+					listActsSistema.setEnabled(true);
+					listActsProfe.setEnabled(true);
+					btnAgregarActs.setEnabled(true);
+					btnQuitarActs.setEnabled(true);
 				}
 			});
 			
@@ -189,7 +280,8 @@ public class RegistrarEmpleado extends JFrame{
 			JCheckBox chckbxDomingo = new JCheckBox("Domingo");
 			chckbxDomingo.setBounds(472, 461, 113, 25);
 			contentPane.add(chckbxDomingo);
-
+			
+			
 			/*----BOTON ENVIAR----*/
 			
 			JButton btnEnviar = new JButton("Enviar");
@@ -357,6 +449,16 @@ public class RegistrarEmpleado extends JFrame{
 			contentPane.add(txtSueldo);
 			txtSueldo.setColumns(10);
 			
+			JLabel label_1 = new JLabel("Actividades Gym:");
+			label_1.setHorizontalAlignment(SwingConstants.CENTER);
+			label_1.setFont(new Font("Tahoma", Font.BOLD, 13));
+			label_1.setBounds(404, 101, 117, 16);
+			contentPane.add(label_1);
 			
+			JLabel label_2 = new JLabel("Actividades Profesor:");
+			label_2.setHorizontalAlignment(SwingConstants.CENTER);
+			label_2.setFont(new Font("Tahoma", Font.BOLD, 13));
+			label_2.setBounds(596, 99, 152, 18);
+			contentPane.add(label_2);
 		}
 }

@@ -6,13 +6,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
+import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
 import controladores.SistemaUsuarios;
@@ -25,6 +28,9 @@ import modelo.Profesor;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class ModificarEmpleadoLlenarCampos extends JFrame{
 
@@ -40,6 +46,8 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 	private final ButtonGroup roles = new ButtonGroup();
 	private JTextField txtSueldo;
 	private JTextField txtFechaInicioActs;
+	private JList listActsSistema;
+	private JList listActsProfe;
 	
 	public ModificarEmpleadoLlenarCampos(SistemaUsuarios usuariosControlador, String nombreUsuario) {
 		setTitle("Modificar Empleado");
@@ -49,7 +57,7 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 			setResizable(false);
 			toFront();
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			setBounds(400, 200, 622, 590);
+			setBounds(400, 200, 784, 590);
 			contentPane = new JPanel();
 			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 			setContentPane(contentPane);
@@ -215,6 +223,74 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 			chckbxDomingo.setBounds(494, 298, 113, 25);
 			contentPane.add(chckbxDomingo);
 			
+			/*LISTAS DE ACTIVIDADES */
+			
+			/*LLENAMOS LISTAS*/
+			DefaultListModel listModActsSistema = new DefaultListModel();
+			listModActsSistema.addElement("yoga");
+			listModActsSistema.addElement("boxeo");
+			listModActsSistema.addElement("HIIT");
+			listModActsSistema.addElement("funcional");
+			
+			DefaultListModel listModActsProfe = new DefaultListModel();
+			listModActsProfe.addElement("zumba");
+			
+			listActsSistema = new JList(listModActsSistema);
+			listActsSistema.setEnabled(false);
+			listActsSistema.setBounds(404, 65, 117, 172);
+			listActsSistema.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+			listActsSistema.setLayoutOrientation(JList.VERTICAL);
+			listActsSistema.setVisible(true);
+			contentPane.add(listActsSistema);
+			
+			listActsProfe = new JList(listModActsProfe);
+			listActsProfe.setEnabled(false);
+			listActsProfe.setBounds(612, 65, 117, 172);
+			contentPane.add(listActsProfe);
+			listActsProfe.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+			listActsProfe.setLayoutOrientation(JList.VERTICAL);
+			contentPane.add(listActsProfe);
+			
+			/*BOTONES AGREGAR Y QUITAR ACTIVIDADES*/
+			
+			JButton btnAgregarActs = new JButton("=>");
+			btnAgregarActs.setBounds(533, 120, 67, 25);
+			btnAgregarActs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					for (Iterator it = listActsSistema.getSelectedValuesList().iterator(); it.hasNext();) {
+				        String sel = (String) it.next();
+				        if (listModActsProfe.contains(sel)) {
+				        } else {
+				        	listModActsProfe.addElement(sel);
+
+				        }
+				    }
+					/*listActsSistema.getSelectedValuesList().stream().forEach((data) -> {
+						if(!listModActsProfe.contains(listActsSistema.getSelectedValuesList()))
+							listModActsProfe.addElement(data);
+					});*/
+				}
+		    
+			});
+		    contentPane.add(btnAgregarActs);
+		    
+			JButton btnQuitarActs = new JButton("<=");
+			btnQuitarActs.setBounds(533, 153, 67, 25);
+			btnQuitarActs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					int index = listActsProfe.getSelectedIndices().length - 1;
+
+			        while (listActsProfe.getSelectedIndices().length != 0) {
+			            listModActsProfe.removeElementAt(listActsProfe.getSelectedIndices()[index--]);
+			        }
+					
+					/*listModActsProfe.removeElement(listActsProfe.getSelectedIndex());
+					listActsProfe = new JList(listModActsProfe);*/
+				}
+		    
+			});
+			contentPane.add(btnQuitarActs);
+			
 			/*----BUSCAR EL USUARIO Y LLENA LOS CAMPOS----*/
 			java.util.Date fechaN;
 			String actividades = new String();
@@ -321,6 +397,8 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 							chckbxProfe.setSelected(true);
 							textContra1.setEnabled(false);
 							textContra2.setEnabled(false);
+							listActsSistema.setEnabled(true);
+							listActsProfe.setEnabled(true);
 							
 							String fechaInicioActs=pro.getInicioActividades().toString();
 							
@@ -481,6 +559,18 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 			JLabel lblDiasLaborales = new JLabel("Dias Laborales:");
 			lblDiasLaborales.setBounds(11, 273, 152, 16);
 			contentPane.add(lblDiasLaborales);
+			
+			JLabel lblActs = new JLabel("Actividades Gym:");
+			lblActs.setHorizontalAlignment(SwingConstants.CENTER);
+			lblActs.setFont(new Font("Tahoma", Font.BOLD, 13));
+			lblActs.setBounds(404, 36, 117, 16);
+			contentPane.add(lblActs);
+			
+			JLabel lblActsProfe = new JLabel("Actividades Profesor:");
+			lblActsProfe.setHorizontalAlignment(SwingConstants.CENTER);
+			lblActsProfe.setFont(new Font("Tahoma", Font.BOLD, 13));
+			lblActsProfe.setBounds(596, 34, 152, 18);
+			contentPane.add(lblActsProfe);
 
 		}
 }

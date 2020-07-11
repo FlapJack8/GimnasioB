@@ -60,20 +60,13 @@ public class SistemaClases {
 		}
 	}
 	
-	public ResultSet getDatosClases(){
+	public ResultSet listarClases(){
 		
-
+		ResultSet rs = null;
+		rs = ClasesMapper.getInstance().listarClases();
+		
+		return rs;
 	}
-	
-	public Actividad buscarActividadAll(String actividad, Profesor p) {
-		Actividad a= buscarActividad(actividad); 
-		if(a==null) {
-			a=ActividadesMapper.getInstance().buscarPeliculaBD(actividad); 
-			vActividades.add(a);//Agrego a memoria para que futuros cambios. 
-		}
-		return a;
-	}
-
 
 	public boolean existeClase(String actividad, String nombreUsuario, Date fecha, Time horario) {
 		
@@ -100,4 +93,19 @@ public class SistemaClases {
 			vClases.add(c);
 		return c;
 	}
+	
+	public int eliminarClase(Clase clas, int flag) {
+		
+		Clase c=buscarClase(clas.getActividad(), clas.getProfe(), clas.getFecha(),clas.getHorario());
+		
+		if(c!=null) {
+			vClases.remove(c);
+			c.bajaLogica();
+			ClasesMapper.getInstance().updateClase(c);
+			return 1;
+		}
+		return flag;
+		
+	}
+	
 }

@@ -297,7 +297,6 @@ public class UsrMapper {
 					
 					Persona p = new Persona(null, email, nombre, null, domicilio, dni, fechaDeNac, "socio", estado, fechaDeInscripcion);
 					socio = new Socio(p, "socio", fechaVencimineto, tipoAbono);
-					System.out.println(socio.getEstado());
 				}
 				PoolConnection.getPoolConnection().realeaseConnection(con);
 				return socio;
