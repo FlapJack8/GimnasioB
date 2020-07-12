@@ -6,16 +6,13 @@ public class Abono {
 	private String estado;
 	private Float precio;
 	private int duracion;
-	private int idAbono;
 	
 
-	public Abono(String tipoAbono,String estado,Float precio,int duracion,int idAbono) {
+	public Abono(String tipoAbono,Float precio,int duracion) {
 		super();
 		this.tipoAbono = tipoAbono;
-		this.estado = estado;
 		this.precio = precio;
 		this.duracion = duracion;
-		this.idAbono = idAbono;
 
 	}
 	
@@ -23,8 +20,13 @@ public class Abono {
 	
 	
 
-	public Abono(int idAbono2, String tipoAbono2, int duracion2, Float precio2) {
-		// TODO Auto-generated constructor stub
+	public Abono( String tipoAbono, int duracion, Float precio,String estado) {
+		super();
+		this.tipoAbono = tipoAbono;
+		this.precio = precio;
+		this.duracion = duracion;
+		this.estado = estado;
+
 	}
 
 	public void isActivo() {
@@ -59,18 +61,12 @@ public class Abono {
 		this.duracion = duracion;
 	}
 
-	public int getIdAbono() {
-		return idAbono;
-	}
-
-	public void setIdAbono(int idAbono) {
-		this.idAbono = idAbono;
-	}
-	public String estado() {
+	
+	public String getEstado() {
 		return estado;
 	}
 
-	public void estado(String estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 
