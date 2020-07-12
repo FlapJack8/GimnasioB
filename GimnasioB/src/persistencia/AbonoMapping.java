@@ -60,6 +60,10 @@ public class AbonoMapping {
 		}
 	}
 	
+	
+	
+	
+	
 	public Abono buscarAbono(String tipoAbono) {
 
 		try
@@ -134,7 +138,10 @@ public class AbonoMapping {
 		return null;
 	}
 
-	public void updateAbono(Abono cl) 
+	
+	
+	
+	public void deleteAbono(Abono cl) 
 	{
 		/*----TRY DE LA CONECCION UPDATE----*/
 		
@@ -143,17 +150,11 @@ public class AbonoMapping {
 			Abono c = (Abono) cl;
 			Connection con = PoolConnection.getPoolConnection().getConnection();
 			/*----STATEMENT QUERY DEL UPDATE----*/
-			PreparedStatement s = con.prepareStatement("update dbo.Abonos" +
-					"set actividad =?," +
-					" estado =?" +
-					" where tipoAbono = ?");
+			PreparedStatement s = con.prepareStatement(
+					"UPDATE dbo.Abonos set estado ='Inactivo' where tipoAbono = ?");
 			
 			/*----CAMPOS DE ABONOS----*/
 			s.setString(1, c.getTipoAbono());
-			s.setFloat(3, c.getPrecio());
-			s.setInt(4, c.getDuracion());
-			
-			
 			
 			s.execute();
 
@@ -162,8 +163,40 @@ public class AbonoMapping {
 		catch (Exception e)
 		{
 			System.out.println("Stack Trace: " + e.getStackTrace() + e.getMessage());
-			System.out.println("rompio update empleado");
+			System.out.println("rompio baja abono");
 		}
 	}
 	
+	public void updateAbono(Abono cl) 
+	{
+/*----TRY DE LA CONECCION UPDATE----*/ //verificar lo de update
+		
+		try
+		{
+			Abono c = (Abono) cl;
+			Connection con = PoolConnection.getPoolConnection().getConnection();
+			/*----STATEMENT QUERY DEL UPDATE----*/
+			PreparedStatement s = con.prepareStatement("update dbo.Abonos " +
+					" duracion =?," +
+					" precio =?," +
+					" estado ='Activo'," +
+					" where tipoAbono = ?");
+			
+			/*----CAMPOS DE ABONOS----*/
+			s.setString(1, c.getTipoAbono());
+			s.setInt(2, c.getDuracion());
+			s.setFloat(3, c.getPrecio());
+			s.setString(4, c.getEstado());
+
+			s.execute();
+
+			PoolConnection.getPoolConnection().realeaseConnection(con);
+		}
+		catch (Exception e)
+		{
+			System.out.println("Stack Trace: " + e.getStackTrace() + e.getMessage());
+			System.out.println("rompio update abono");
+		}
+	
+}
 }
