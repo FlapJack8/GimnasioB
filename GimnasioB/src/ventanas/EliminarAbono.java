@@ -1,75 +1,83 @@
 package ventanas;
-import java.awt.EventQueue;
 
+
+
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Date;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
-import controladores.SistemasAbonos;
+import controladores.SistemaAbonos;
+import persistencia.AbonoMapping;
 
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-public class EliminarAbono {
+public class EliminarAbono extends JFrame{
 	
+	private JPanel contentPane;
+	private JTextField textTipoAbono;
 
-	private JTextField txtAbonoAeliminar;
+	/*---------CREO VENTANA DE ALTA ABONO----*/
 	
-	public EliminarAbono(SistemaUsuarios usuariosControlador) {
-
-		setTitle("Eliminar abono");
-		setBounds(450, 250, 368, 204);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		getContentPane().setLayout(null);
+	public EliminarAbono(SistemaAbonos abonosControlador) {
+		 setForeground(SystemColor.textHighlight);
+		 setTitle ("Eliminar Abono");
+		 setResizable(false);
+		 toFront();
+		 setDefaultCloseOperation (JFrame.DISPOSE_ON_CLOSE);
+		 setBounds(400, 200, 720, 356);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane (contentPane);
+		contentPane.setLayout(null);
 		
-		/*----CAMPO NOMBRE DE USUARIO----*/
+		/*----CAMPOS A LLENAR----*/
 		
-		JLabel lblNombreDeUsuario = new JLabel("Tipo de abono:");
-		lblNombreDeUsuario.setBounds(25, 47, 128, 14);
-		getContentPanel().add(lblNombreDeUsuario);
-		
-		txtAbonoAeliminar = new JTextField();
-		txtAbonoAeliminar.setBounds(144, 44, 153, 20);
-		getContentPanel().add(txtAbonoAeliminar);
-		txtAbonoAeliminar.setColumns(10);
-		
-		/*----BOTON ELIMINAR----*/
-		
-		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				/*----CONFIRMA QUE NO ESTE VACIO EL CAMPO----*/
 				
-				if(!txtNombreUsuarioEliminar.getText().equals("")) {
-					
-					/*----CONFIRMA ELIMINACION----*/
-					
-					int dialogButton = JOptionPane.YES_NO_OPTION;
-					int dialogResult = JOptionPane.showConfirmDialog (null, "Esta seguro que desea eliminar a este usuario?","Atencion",JOptionPane.WARNING_MESSAGE, dialogButton);
-					if(dialogResult == JOptionPane.YES_OPTION){
-						int flag = 0;
-						flag = abonosControlador.bajaAbono(txtNombreUsuarioEliminar.getText(),flag);
-						if(flag==1)
-						{
-							JOptionPane.showMessageDialog(null, "Eliminado!");
-							flag=0;
-							dispose();
-						}
-						else {
-							JOptionPane.showMessageDialog(null, "No se econtro el usuario","Error",JOptionPane.ERROR_MESSAGE);
-							flag=0;
-						}
+		JLabel lblTIPOABONO = new JLabel("TIPO ABONO:");
+		lblTIPOABONO.setBounds(30, 62, 86, 14);
+		contentPane.add(lblTIPOABONO);
 			
-						usuariosControlador.imprimirEmpleados();
+		JTextField textTIPOABONO = new JTextField();
+		textTIPOABONO.setBounds(100, 59, 152, 20);
+		contentPane.add(textTIPOABONO);
+		textTIPOABONO.setColumns(10);
+	
+		/*----BOTON ENVIAR----*/
+		
+		JButton btnEnviar = new JButton("Eliminar");
+		btnEnviar.setBounds(209, 182, 152, 23);
+		btnEnviar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				/*----VALIDA QUE TODOS LOS CAMPOS ESTEN LLENOS----*/
+			
+				if(textTIPOABONO.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
+				}else {
+					
+					if(abonosControlador.existeAbono(textTIPOABONO.getText())) {// aca poner para eliminar el abono
+						abonosControlador.eliminarAbono(textTIPOABONO.getText());
+						JOptionPane.showMessageDialog(null, "El abono se elimino","Atencion",JOptionPane.WARNING_MESSAGE);
+						textTIPOABONO.selectAll();
+						textTIPOABONO.requestFocus();
+					}
+					else					{
+						JOptionPane.showMessageDialog(null, "No exite el abono que desea eliminar");
 					}
 				}
-				
+
 			}
 		});
-		btnEliminar.setBounds(208, 113, 89, 23);
-		getContentPane().add(btnEliminar);
-	}
+		contentPane.add(btnEnviar);
 
+}
+	
+	
 }

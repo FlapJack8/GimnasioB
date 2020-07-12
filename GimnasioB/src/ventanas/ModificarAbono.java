@@ -1,27 +1,27 @@
 package ventanas;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-
-import controladores.SistemasAbonos;
-import modelo.Administrador;
-import modelo.Socio;
-import modelo.Operador;
-//import modelo.VendedorBoleteria;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Date;
 
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
-public class ModificarAbono {
+import controladores.SistemaAbonos;
+import persistencia.AbonoMapping;
+
+
+public class ModificarAbono  extends JFrame{
 	private JTextField txtNombreUsuarioModif;
 
-	public ModificarEmpleado(SistemaUsuarios usuariosControlador) {
-		setTitle("Modificar Empleado");
+	public ModificarAbono(SistemaAbonos abonosControlador) {
+		setTitle("Modificar A");
 		
 		setBounds(450, 250, 401, 185);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -48,12 +48,12 @@ public class ModificarAbono {
 					/*----CONFIRMA QUE NO ESTE VACIO EL CAMPO----*/
 					
 					if(!txtNombreUsuarioModif.getText().equals("")) {
-						if(sistemaAbono.existeAbono(txtNombreUsuarioModif.getText())){
+						if(SistemaAbonos.existeAbono(txtNombreUsuarioModif.getText())){
 							
 							/*----ENVIA CONTROLADOR DE USUARIO A LA SIGUIENTE VISTA----*/
 
-							ModificarEmpleadoLlenarCampos modifEmpleadoLC = new ModificarEmpleadoLlenarCampos(abonosControlador,txtNombreUsuarioModif.getText());
-							modifEmpleadoLC.setVisible(true);
+							ModificarAbonosCompletarCampos modificarAbonoLC = new ModificarAbonosCompletarCampos(abonosControlador);
+							modificarAbonoLC.setVisible(true);
 							dispose();
 						}
 						else {
