@@ -49,35 +49,39 @@ public class EliminarAbono extends JFrame{
 		contentPane.add(textTIPOABONO);
 		textTIPOABONO.setColumns(10);
 	
-		/*----BOTON ENVIAR----*/
-		
-		JButton btnEnviar = new JButton("Eliminar");
-		btnEnviar.setBounds(209, 182, 152, 23);
-		btnEnviar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+	
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				/*----CONFIRMA QUE NO ESTE VACIO EL CAMPO----*/
 				
-				/*----VALIDA QUE TODOS LOS CAMPOS ESTEN LLENOS----*/
-			
-				if(textTIPOABONO.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
-				}else {
+				if(!textTIPOABONO.getText().equals("")) {
 					
-					if(abonosControlador.existeAbono(textTIPOABONO.getText())) {// aca poner para eliminar el abono
-						abonosControlador.eliminarAbono(textTIPOABONO.getText());
-						JOptionPane.showMessageDialog(null, "El abono se elimino","Atencion",JOptionPane.WARNING_MESSAGE);
-						textTIPOABONO.selectAll();
-						textTIPOABONO.requestFocus();
-					}
-					else					{
-						JOptionPane.showMessageDialog(null, "No exite el abono que desea eliminar");
+					/*----CONFIRMA ELIMINACION----*/
+					
+					int dialogButton = JOptionPane.YES_NO_OPTION;
+					int dialogResult = JOptionPane.showConfirmDialog (null, "Esta seguro que desea eliminar  este Abono?","Atencion",JOptionPane.WARNING_MESSAGE, dialogButton);
+					if(dialogResult == JOptionPane.YES_OPTION){
+						int flag = 0;
+						flag = abonosControlador.deleteAbono(textTIPOABONO.getText(),flag);
+						if(flag==1)
+						{
+							JOptionPane.showMessageDialog(null, "Eliminado!");
+							flag=0;
+							dispose();
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "No se econtro el abono","Error",JOptionPane.ERROR_MESSAGE);
+							flag=0;
+						}
+			
 					}
 				}
-
+				
 			}
 		});
-		contentPane.add(btnEnviar);
-
-}
-	
-	
-}
+		btnEliminar.setBounds(208, 113, 89, 23);
+		getContentPane().add(btnEliminar);
+	}
+	}
