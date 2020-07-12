@@ -8,8 +8,13 @@ import java.util.Vector;
 
 import modelo.Abono;
 import modelo.Actividad;
+import modelo.Administrador;
+import modelo.Operador;
+import modelo.Profesor;
+import modelo.Socio;
 import persistencia.AbonoMapping;
 import persistencia.ActividadesMapper;
+import persistencia.UsrMapper;
 
 
 public class SistemaAbonos {
@@ -96,18 +101,40 @@ public class SistemaAbonos {
 	}
 		
 	
-	public int eliminarAbono(String tipoAbono) {
-		
-		Abono c=buscarAbono( tipoAbono);
-		
-		if(c!=null) {
-			vAbonos.remove(c);
-			c.bajaLogica();
-			AbonoMapping.getInstance().updateAbono(c);
-			return 1;
+
+
+	public int deleteAbono(String tipoAbono, int flag) {
+
+			if(tipoAbono !=null) {
+				Abono a=buscarAbono(tipoAbono);
+				if(a!=null) {
+					vAbonos.remove(a);
+					a.bajaLogica();
+					AbonoMapping.getInstance().deleteAbono(a);
+					return 1;
+				}
+			
 		}
-		return 2;
-		
+			return flag;
+
 	}
+	
+	
+
+
+public void updateAbono(String tipoAbono,Float precio,int duracion){
+	for(Abono s: vAbonos) {
+		if(s.getTipoAbono() == tipoAbono) {
+			s.setDuracion(duracion);
+			s.isActivo();
+			s.setPrecio(precio);
+			AbonoMapping.getInstance().updateAbono(s);
+		}
+			
+	}
+}
+
+	
+	
 	
 }
