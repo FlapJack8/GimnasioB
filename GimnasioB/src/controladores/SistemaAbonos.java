@@ -57,7 +57,7 @@ public class SistemaAbonos {
 		}
 	}
 	
-	public ResultSet listarClases(){
+	public ResultSet listarAbono(){
 		
 		ResultSet rs = null;
 		rs = AbonoMapping.getInstance().listarAbono();
@@ -125,9 +125,10 @@ public class SistemaAbonos {
 public void updateAbono(String tipoAbono,Float precio,int duracion){
 	for(Abono s: vAbonos) {
 		if(s.getTipoAbono() == tipoAbono) {
+		
+			s.setPrecio(precio);
 			s.setDuracion(duracion);
 			s.isActivo();
-			s.setPrecio(precio);
 			AbonoMapping.getInstance().updateAbono(s);
 		}
 			
