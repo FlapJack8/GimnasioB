@@ -1,5 +1,6 @@
 package controladores;
 
+import java.sql.ResultSet;
 import java.util.Vector;
 import modelo.Actividad;
 import persistencia.ActividadesMapper;
@@ -95,6 +96,12 @@ public class SistemaActividades {
 			vActividades.add(a);
 			
 		return a;
+	}
+	
+	public ResultSet listar() {
+		ResultSet rta=null;
+		rta =ActividadesMapper.getInstance().listar();
+		return rta;
 	}
 	
 	
