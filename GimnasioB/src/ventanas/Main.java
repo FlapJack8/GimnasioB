@@ -10,6 +10,7 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import controladores.SistemaAbonos;
+import controladores.SistemaActividades;
 import controladores.SistemaClases;
 import controladores.SistemaUsuarios;
 import modelo.Administrador;
@@ -30,6 +31,8 @@ public class Main extends JFrame{
 	private SistemaUsuarios usuariosControlador;
 	private SistemaClases clasesControlador;
 	private SistemaAbonos abonosControlador;
+	private SistemaActividades actividadesControlador;
+
 
 
 
@@ -40,6 +43,8 @@ public class Main extends JFrame{
 
 			usuariosControlador = SistemaUsuarios.getInstancia();
 			clasesControlador = SistemaClases.getInstancia();
+			abonosControlador = SistemaAbonos.getInstancia();
+			actividadesControlador = SistemaActividades.getInstancia();
 
 			/*----------------------------------------------
 			 *  *      MOSTRAMOS PANTALLA DE LOGIN      *  *
@@ -120,7 +125,7 @@ public class Main extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 					if (clasesControlador != null) {
 						
-						/*----ENVIA CONTROLADOR DE USUARIO A LA SIGUIENTE VISTA----*/
+						/*----ENVIA CONTROLADOR DE CLASES A LA SIGUIENTE VISTA Y USUARIOS POR PROFESOR----*/
 						
 						OpcionesClases opcionesClases = new OpcionesClases(clasesControlador, usuariosControlador, rolLogeado);
 						opcionesClases.setVisible(true);
@@ -140,7 +145,7 @@ public class Main extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 					if (clasesControlador != null) {
 						
-						/*----ENVIA CONTROLADOR DE USUARIO A LA SIGUIENTE VISTA----*/
+						/*----ENVIA CONTROLADOR DE ABONOS A LA SIGUIENTE VISTA----*/
 						
 						OpcionesAbonos opcionesAbonos = new OpcionesAbonos(abonosControlador, rolLogeado);
 						opcionesAbonos.setVisible(true);
@@ -149,21 +154,21 @@ public class Main extends JFrame{
 			});
 			getContentPane().add(btnSistemaAbonos);
 			
-			/*JButton btnSistemaActividades = new JButton("Actividades");
-			btnSistemaActividades.setBounds(135, 75, 169, 23);
+			JButton btnSistemaActividades = new JButton("Actividades");
+			btnSistemaActividades.setBounds(250, 120, 169, 23);
 			btnSistemaActividades.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (actividadesControlador != null) {
 						
-						/*----ENVIA CONTROLADOR DE USUARIO A LA SIGUIENTE VISTA----
+						/*----ENVIA CONTROLADOR DE ACTIVIDADES A LA SIGUIENTE VISTA----*/
 						
-						OpcionesUsuarios opcionesUsuarios = new OpcionesUsuarios(actividadesControlador, rolLogeado);
-						opcionesUsuarios.setVisible(true);
+						OpcionesActividades opcionesActividades = new OpcionesActividades(actividadesControlador, rolLogeado);
+						opcionesActividades.setVisible(true);
 					}
 				}
 			});
 			getContentPane().add(btnSistemaActividades);
-			*/
+			
 			/*-------------------------------------------------------------
 			 *  *      DEPENDIENDO EL ROL HABILITAMOS LOS BOTONES      *  *
 			 *-------------------------------------------------------------
@@ -177,15 +182,15 @@ public class Main extends JFrame{
 				btnSistemaUsuarios.setEnabled(true);
 				btnSistemaClases.setEnabled(true);
 				btnSistemaAbonos.setEnabled(true);
-				//btnSistemaActividades.setEnabled(true);
+				btnSistemaActividades.setEnabled(true);
 			break;
 			case "operador":
 				btnSistemaUsuarios.setEnabled(true);
 				btnSistemaUsuarios.setLabel("Socios");
 				btnSistemaClases.setEnabled(true);
 				btnSistemaAbonos.setEnabled(true);
-				//btnSistemaActividades.setEnabled(false);
-				//btnSistemaActividades.setVisible(false);
+				btnSistemaActividades.setEnabled(false);
+				btnSistemaActividades.setVisible(false);
 				break;
 			/*default://Socio
 				btnSistemaUsuarios.setEnabled(false);
