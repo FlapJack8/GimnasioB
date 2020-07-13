@@ -47,8 +47,7 @@ public class EliminarActividad extends JFrame {
 				int selectedRow = tbActividades.getSelectedRow();
 				
 				String actividad = modelo.getValueAt(selectedRow, 0).toString();
-				String estado = modelo.getValueAt(selectedRow, 1).toString();
-				Actividad aux=new Actividad(actividad,estado);
+				Actividad aux=new Actividad(actividad,null);
 				
 				int dialogButton = JOptionPane.YES_NO_OPTION;
 				int dialogResult = JOptionPane.showConfirmDialog (null, "¿Esta seguro que desea eliminar esta actividad?","Atencion",JOptionPane.WARNING_MESSAGE, dialogButton);

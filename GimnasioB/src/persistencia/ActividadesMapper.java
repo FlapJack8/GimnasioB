@@ -27,11 +27,11 @@ public class ActividadesMapper {
 	}
 	
 	//Alta Actividad
-	public void altaActividad(Actividad A)
+	public void altaActividad(Actividad a)
 	{	/*----TRY DE LA CONECCION INSERT----*/
 		try
 		{
-			Actividad act = (Actividad) A;
+			Actividad act = (Actividad) a;
 			Connection con = PoolConnection.getPoolConnection().getConnection();
 			/*----STATEMENT QUERY DEL INSERT----*/
 				PreparedStatement s = con.prepareStatement("insert into dbo.Actividades(actividad, estadoActividad) values (?,?)");
@@ -58,7 +58,11 @@ public class ActividadesMapper {
 			s.setString(1, nombreAct);
 			ResultSet result = s.executeQuery();
 			while(result.next()) {
-				nombreAct = result.getString(1);
+				String nombre = result.getString(1);
+				String estado = result.getString(2);
+
+				act = new Actividad(nombre,estado);
+				System.out.println(act.getNombreActividad());
 			}
 			PoolConnection.getPoolConnection().realeaseConnection(con);
 			return act;
@@ -74,7 +78,7 @@ public class ActividadesMapper {
 		try {
 			Actividad a =null;
 			Connection con = PoolConnection.getPoolConnection().getConnection();
-			PreparedStatement s = con.prepareStatement("select * from dbo.Actividades where estadoActividad = 'Activo'");
+			PreparedStatement s = con.prepareStatement("select actividad from dbo.Actividades where estadoActividad = 'Activo'");
 			ResultSet result = s.executeQuery();
 			PoolConnection.getPoolConnection().realeaseConnection(con);
 			return result;
@@ -86,20 +90,38 @@ public class ActividadesMapper {
 		return null;
 	}
 	
-	public void updateActividad (Actividad actividad) {
+	public ResultSet listarTodas() {
+		try {
+			Actividad a =null;
+			Connection con = PoolConnection.getPoolConnection().getConnection();
+			PreparedStatement s = con.prepareStatement("select * from dbo.Actividades");
+			ResultSet result = s.executeQuery();
+			PoolConnection.getPoolConnection().realeaseConnection(con);
+			return result;
+		}
+		catch (Exception e) {
+			System.out.println("Error select listar Actividades\n");
+			System.out.println("Stack Trace: " + e.getStackTrace() + e.getMessage());
+		}
+		return null;
+	}
+	
+	public void updateActividad (String nombreActividadAux, Actividad actividad) {
 		try {
 			Actividad a = (Actividad) actividad;
 			Connection con = PoolConnection.getPoolConnection().getConnection();
+
+
 			/*----STATEMENT QUERY DEL UPDATE----*/
 			PreparedStatement s = con.prepareStatement("update dbo.Actividades " +
-					"set actividad =?," +
-					" estadoActividad =?" + " where actividad = ?");
+					"set actividad = ?," +
+					" estadoActividad = ?" + " where actividad = ?");
 			
 			s.setString(1, a.getNombreActividad());
 			s.setString(2, a.getEstado());
 			
 			//filtro del Where
-			s.setString(3, a.getNombreActividad());
+			s.setString(3, nombreActividadAux);
 			s.execute();
 			PoolConnection.getPoolConnection().realeaseConnection(con);
 		}

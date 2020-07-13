@@ -43,32 +43,23 @@ public class ModificarActividadLlenarCampos extends JFrame{
 		lblActividad.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblActividad.setBounds(13, 103, 152, 14);
 		contentPane.add(lblActividad);
-		
-		JLabel lblEstadoActividad = new JLabel("Estado:");
-		lblEstadoActividad.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblEstadoActividad.setBounds(13, 163, 152, 14);
-		contentPane.add(lblEstadoActividad);
-		
+		String actividadAux = a.getNombreActividad();
 		txtActividad = new JTextField();
 		txtActividad.setBounds(214, 100, 152, 20);
 		contentPane.add(txtActividad);
+		txtActividad.setText(actividadAux);
 		txtActividad.setColumns(10);
-		
-		txtEstado = new JTextField();
-		txtEstado.setBounds(214, 160, 152, 20);
-		contentPane.add(txtEstado);
-		txtEstado.setColumns(10);
 		
 		//Actualizar
 		JButton btnAceptar = new JButton("Actualizar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				if(txtActividad.getText().equals("")||txtEstado.getText().equals("")) 
+				if(txtActividad.getText().equals("")) 
 					JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
 				else {
-
-				actividadControlador.modificarActividad(txtActividad.getText(), txtEstado.getText());
+			//	System.out.println("Hola");
+				actividadControlador.modificarActividad(actividadAux,txtActividad.getText());
 				JOptionPane.showMessageDialog(null, "Actividad actualizada correctamente");
 				//actividadControlador.imprimirActividad(); //Metodo aun no implementado
 				dispose();

@@ -7,39 +7,34 @@ import persistencia.ActividadesMapper;
 
 public class SistemaActividades {
 	
-	private  Vector<Actividad>vActividades;
+	private  static Vector<Actividad>vActividades;
 	private  static SistemaActividades instanciaSistemaActividades;
-	
-	//Constructor
-	public SistemaActividades() {
-		
-		vActividades=new Vector<Actividad>();
-				
-	}
 	
 	//Singleton
 	
 	public static SistemaActividades getInstancia(){
 		if(instanciaSistemaActividades==null){
 			instanciaSistemaActividades=new SistemaActividades();
+			
+			vActividades=new Vector<Actividad>();
 		}
 		
 		return instanciaSistemaActividades;
 	}
 	
 	//Nueva Actividad
-	public void crearActividad(String nombreActividad,String estadoActividad)
+	public void crearActividad(String nombreActividad)
 	{
 		if(!existeActividad(nombreActividad)) {
 	
-			Actividad a = new Actividad(nombreActividad,estadoActividad);
+			Actividad a = new Actividad(nombreActividad);
 			vActividades.add(a);
 			a.esActivo(); //Agrega una nueva actividad con estado inicial "Activo"
 			ActividadesMapper.getInstance().altaActividad(a);
 		}
 	}
 	
-	//Eliminar Actividad fisicamente
+	//Eliminar Actividad Logicamente
 	public int bajarActividad (Actividad act, int flag) {
 		
 		Actividad a= buscarActividad(act.getNombreActividad());
@@ -47,23 +42,25 @@ public class SistemaActividades {
 		if(a!=null) {
 			vActividades.remove(a);
 			a.bajaLogica();
-			ActividadesMapper.getInstance().updateActividad(a);
+			ActividadesMapper.getInstance().updateActividad(a.getNombreActividad(), a);
 			return 1;
 		}
 		return flag;
 	}
 	
 	//Modificar
-	public void modificarActividad(String nombreActividad, String estado){
+	public void modificarActividad(String nombreActividadAux, String nombreActividad){
 		
 		for(Actividad a: vActividades) {
-			if(a.getNombreActividad().toString().equals(nombreActividad) && a.getEstado().toString().contentEquals(estado))
+			if(a.getNombreActividad().toString().equals(nombreActividadAux)) {
 				a.setNombreActividad(nombreActividad);//solo actualiza el nombre de la actividad
-			
-			a.bajaLogica(); //Solo acutaliza el estado de la actividad
-			ActividadesMapper.getInstance().updateActividad(a);
+				a.esActivo(); //Solo actualiza el estado de la actividad
+				System.out.println(a.getNombreActividad());
+
+			}
 		}
-	
+		Actividad a = new Actividad(nombreActividad,"Activo");
+		ActividadesMapper.getInstance().updateActividad(nombreActividadAux,a);
 	}
 	
 	
@@ -104,6 +101,12 @@ public class SistemaActividades {
 		return rta;
 	}
 	
+	
+	public ResultSet listarTodas() {
+		ResultSet rta=null;
+		rta =ActividadesMapper.getInstance().listarTodas();
+		return rta;
+	}
 	
 
 }

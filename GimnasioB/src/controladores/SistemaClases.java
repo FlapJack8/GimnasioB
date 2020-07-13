@@ -50,7 +50,7 @@ public class SistemaClases {
 			Clase cl=buscarClase(actividad, profeNombreUsr, fecha, horario); 
 			
 			if(cl==null) {
-				Actividad a= new Actividad("zumba");//SistemaActividades.getInstancia().buscarActividadAll(nombreActividad);
+				//SistemaActividades.getInstancia().buscarActividadAll(nombreActividad);
 				
 				cl=new Clase(actividad,fecha, horario, profeNombreUsr, duracion, capacidadMax, capacidadMin, publico, dificultad); 
 				vClases.add(cl);
@@ -68,6 +68,14 @@ public class SistemaClases {
 		return rs;
 	}
 
+	public ResultSet listarClasesTodas(){
+		
+		ResultSet rs = null;
+		rs = ClasesMapper.getInstance().listarClasesTodas();
+		
+		return rs;
+	}
+	
 	public boolean existeClase(String actividad, String nombreUsuario, Date fecha, Time horario) {
 		
 		Clase c = buscarClase(actividad, nombreUsuario, fecha, horario);
@@ -108,4 +116,15 @@ public class SistemaClases {
 		
 	}
 	
+	public void activarClase(String actividad, String profe, Date fechaClase, Time horario) {
+		
+		Clase c=buscarClase(actividad, profe, fechaClase, horario);
+		
+		if(c!=null) {
+			vClases.remove(c);
+			c.esActivo();
+			ClasesMapper.getInstance().updateClase(c);
+		}
+		
+	}
 }

@@ -76,9 +76,9 @@ public class EliminarClase extends JFrame {
 				int capMin = Integer.parseInt(modelo.getValueAt(selectedRow, 6).toString());
 				String pub = modelo.getValueAt(selectedRow, 7).toString();
 				String dif = modelo.getValueAt(selectedRow, 8).toString();
-				String estado = modelo.getValueAt(selectedRow, 9).toString();
+				//String estado = modelo.getValueAt(selectedRow, 9).toString();
 
-				Clase cAux = new Clase(act, fech, hor, profe, dur, capMax, capMin, pub, dif, estado);
+				Clase cAux = new Clase(act, fech, hor, profe, dur, capMax, capMin, pub, dif, null);
 				
 				//clasesControlador.eliminarClase(cAux);
 				

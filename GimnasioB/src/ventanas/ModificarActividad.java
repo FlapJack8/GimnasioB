@@ -28,7 +28,7 @@ public class ModificarActividad extends JFrame{
 		
 		//---------------------
 	
-		ResultSet listaActividades = actividadControlador.listar();
+		ResultSet listaActividades = actividadControlador.listarTodas();
 		
 		tbActividades = new JTable();
 		tbActividades.setBounds(36, 50, 616, 295);

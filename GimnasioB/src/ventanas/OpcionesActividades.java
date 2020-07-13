@@ -78,7 +78,7 @@ public class OpcionesActividades extends JFrame{
 		 *-------------------------------------
 		 */
 		
-		JButton btnModificarActividad = new JButton("Modificar Abono");
+		JButton btnModificarActividad = new JButton("Modificar Actividad");
 		btnModificarActividad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (actividadesControlador != null) {

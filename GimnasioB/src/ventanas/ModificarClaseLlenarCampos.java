@@ -349,7 +349,15 @@ public class ModificarClaseLlenarCampos extends JFrame{
 				}
 				else {
 					if(clasesControlador.existeClase(txtActividad.getText(),p.getNombreUsuario(),fechaClase,horario)) {
+						Clase clAux = clasesControlador.buscarClase(txtActividad.getText(),p.getNombreUsuario(),fechaClase,horario);
+						if(clAux.getEstado().equals("Inactivo")) {
+							clasesControlador.activarClase(txtActividad.getText(),p.getNombreUsuario(),fechaClase,horario);
+							JOptionPane.showMessageDialog(null, "Modificacion correcta");
+							dispose();
+						}
+						else {
 						JOptionPane.showMessageDialog(null, "Clase ya existe","Atencion",JOptionPane.WARNING_MESSAGE);
+						}
 					}
 					else {
 						

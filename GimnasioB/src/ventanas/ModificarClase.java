@@ -34,7 +34,7 @@ public class ModificarClase extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
-		ResultSet listaClases = clasesControlador.listarClases();
+		ResultSet listaClases = clasesControlador.listarClasesTodas();
 		
 		tbClases = new JTable();
 		tbClases.setBounds(36, 50, 616, 295);

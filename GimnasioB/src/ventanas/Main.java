@@ -79,7 +79,7 @@ public class Main extends JFrame{
 			 * 1) USUARIOS
 			 * 2) CLASES
 			 * 3) ABONOS
-			 * 4) 
+			 * 4) ACTIVIDADES
 			 * 5) 
 			 * 6) 
 			 * 7) 
@@ -153,6 +153,11 @@ public class Main extends JFrame{
 				}
 			});
 			getContentPane().add(btnSistemaAbonos);
+			
+			/*-------------------------------------------
+			 *  *    4)        ACTIVIDADES              *  *
+			 *-------------------------------------------
+			 */
 			
 			JButton btnSistemaActividades = new JButton("Actividades");
 			btnSistemaActividades.setBounds(250, 120, 169, 23);
