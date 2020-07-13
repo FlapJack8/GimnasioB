@@ -1,90 +1,81 @@
 package ventanas;
 
-import java.awt.EventQueue;
+
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JFrame;
-
-import controladores.SistemaAbonos;
-import modelo.Abono;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.sql.Date;
-import java.awt.event.ActionEvent;
-public class ModificarAbonoLlenarCampos  extends JFrame {
-	private JPanel contentPane;
-	private JTextField textTipoAbono;
-	private JTextField textPRECIO;
-	private JTextField textDURACION;
-	private JTextField textESTADO;
 
-	/*---------CREO VENTANA DE ALTA ABONO----*/
+import controladores.SistemaAbonos;
+import modelo.Abono;
+
+public class ModificarAbonoLlenarCampos extends JFrame{
+
+	private JPanel contentPane;
+	private JTextField txtActividad;
+	private JTextField txtEstado;
 	
-	public ModificarAbonoLlenarCampos(SistemaAbonos abonosControlador, Abono v) {
-		 setForeground(SystemColor.textHighlight);
-		 setTitle ("Modificar Abono");
-		 setResizable(false);
-		 toFront();
-		 setDefaultCloseOperation (JFrame.DISPOSE_ON_CLOSE);
-		 setBounds(400, 200, 720, 356);
+	public ModificarAbonoLlenarCampos(SistemaAbonos abonoContorlador, Abono a) {
+		
+		setForeground(SystemColor.textHighlight);
+		setTitle("Modificar Abono");
+
+		setResizable(false);
+		toFront();
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(400, 200, 715, 600);
 		contentPane = new JPanel();
+		contentPane.setForeground(new Color(51, 153, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane (contentPane);
+		setContentPane(contentPane);
 		contentPane.setLayout(null);
-			
-		JLabel lblPRECIO = new JLabel("PRECIO:");
-		lblPRECIO.setBounds(14, 159, 86, 14);
-		contentPane.add(lblPRECIO);
 		
-		JLabel lblDURACION = new JLabel("DURACION:");
-		lblDURACION.setBounds(14, 134, 76, 14);
-		contentPane.add(lblDURACION);
+		JLabel lblActividad = new JLabel("Precio:");
+		lblActividad.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblActividad.setBounds(13, 103, 152, 14);
+		contentPane.add(lblActividad);
 		
-		JLabel lblESTADO = new JLabel("ESTADO:");
-		lblESTADO.setBounds(14, 94, 76, 14);
-		contentPane.add(lblESTADO);
+		JLabel lblEstadoActividad = new JLabel("Duracion:");
+		lblEstadoActividad.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblEstadoActividad.setBounds(13, 163, 152, 14);
+		contentPane.add(lblEstadoActividad);
 		
-		JTextField textPRECIO = new JTextField();
-		textPRECIO.setBounds(100, 156, 152, 20);
-		contentPane.add(textPRECIO);
-		textPRECIO.setColumns(10);
+		txtActividad = new JTextField();
+		txtActividad.setBounds(214, 100, 152, 20);
+		contentPane.add(txtActividad);
+		txtActividad.setColumns(10);
 		
-		JTextField textDURACION = new JTextField();
-		textDURACION.setBounds(100, 131, 152, 20);
-		contentPane.add(textDURACION);
-		textDURACION.setColumns(10);
+		txtEstado = new JTextField();
+		txtEstado.setBounds(214, 160, 152, 20);
+		contentPane.add(txtEstado);
+		txtEstado.setColumns(10);
 		
-		JTextField textESTADO = new JTextField();
-		textESTADO.setBounds(100, 91, 152, 20);
-		contentPane.add(textESTADO);
-		textESTADO.setColumns(10);
-		
-		/*----BOTON ACEPTAR----*/
-		
-		JButton btnAceptar = new JButton("Aceptar");
+		//Actualizar
+		JButton btnAceptar = new JButton("Actualizar");
 		btnAceptar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Float preci = Float.parseFloat(textPRECIO.getText());
-				int duracio = Integer.parseInt(textDURACION.getText());
-				String estad= textESTADO.getText();
-				if(textPRECIO.getText().equals("")||textDURACION.getText().equals("")||textESTADO.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
-				}
-				else {
-					//System.out.println(v.getEstado());
-					abonosControlador.updateAbono(textESTADO.getText(), Float.parseFloat(textPRECIO.getText()), Integer.parseInt(textDURACION.getText()));
-					JOptionPane.showMessageDialog(null, "Modificado!");
-					dispose();
-				}
+			public void actionPerformed(ActionEvent arg0) {
 				
+				if(txtActividad.getText().equals("")||txtEstado.getText().equals("")) 
+					JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
+				else {
+					abonoContorlador.updateAbono(a.getTipoAbono(), Float.parseFloat(txtActividad.getText()), Integer.parseInt(txtEstado.getText()));
+				JOptionPane.showMessageDialog(null, "Actividad actualizada correctamente");
+				//actividadControlador.imprimirActividad(); //Metodo aun no implementado
+				dispose();
+				}
 			}
 		});
 		btnAceptar.setBounds(368, 230, 89, 23);
 		getContentPane().add(btnAceptar);
-}
+	}
 }
