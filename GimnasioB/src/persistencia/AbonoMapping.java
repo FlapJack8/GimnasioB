@@ -176,17 +176,13 @@ public class AbonoMapping {
 			Abono c = (Abono) cl;
 			Connection con = PoolConnection.getPoolConnection().getConnection();
 			/*----STATEMENT QUERY DEL UPDATE----*/
-			PreparedStatement s = con.prepareStatement("update dbo.Abonos " +
-					" duracion =?," +
-					" precio =?," +
-					" estado ='Activo'," +
-					" where tipoAbono = ?");
+			PreparedStatement s = con.prepareStatement(
+					"UPDATE dbo.Abonos" +  "set precio =?" +" duracion =?"+ "where tipoAbono = ?");
 			
 			/*----CAMPOS DE ABONOS----*/
-			s.setString(1, c.getTipoAbono());
-			s.setInt(2, c.getDuracion());
-			s.setFloat(3, c.getPrecio());
-			s.setString(4, c.getEstado());
+			s.setFloat(1,c.getPrecio() );
+			s.setInt(2,c.getDuracion() );
+			s.setString(3, c.getTipoAbono());
 
 			s.execute();
 
@@ -195,8 +191,7 @@ public class AbonoMapping {
 		catch (Exception e)
 		{
 			System.out.println("Stack Trace: " + e.getStackTrace() + e.getMessage());
-			System.out.println("rompio update abono");
+			System.out.println("rompio baja abono");
 		}
-	
 }
 }
