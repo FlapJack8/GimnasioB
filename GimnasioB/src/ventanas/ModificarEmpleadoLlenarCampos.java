@@ -7,6 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.util.Iterator;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,9 +16,11 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
+import controladores.SistemaActividades;
 import controladores.SistemaUsuarios;
 import modelo.Administrador;
 //import modelo.AgenteComercial;
@@ -49,7 +52,7 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 	private JList listActsSistema;
 	private JList listActsProfe;
 	
-	public ModificarEmpleadoLlenarCampos(SistemaUsuarios usuariosControlador, String nombreUsuario) {
+	public ModificarEmpleadoLlenarCampos(SistemaUsuarios usuariosControlador, String nombreUsuario, SistemaActividades actividadesControlador) {
 		setTitle("Modificar Empleado");
 
 		/*---------CREO VENTANA DE MODIFICACION DE EMPLEADO----*/
@@ -223,19 +226,21 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 			chckbxDomingo.setBounds(494, 298, 113, 25);
 			contentPane.add(chckbxDomingo);
 			
-			/*LISTAS DE ACTIVIDADES */
+			/*************************
+			 * 						 *
+			 * LISTAS DE ACTIVIDADES *
+			 * 						 *
+			 *************************/
 			
 			/*LLENAMOS LISTAS*/
 			DefaultListModel listModActsSistema = new DefaultListModel();
-			listModActsSistema.addElement("yoga");
-			listModActsSistema.addElement("boxeo");
-			listModActsSistema.addElement("HIIT");
-			listModActsSistema.addElement("funcional");
+			
+			/*TRAE ACTIVIDADES DE BD*/
+			Vector<String> listaClases = actividadesControlador.jlistar();
 			
 			DefaultListModel listModActsProfe = new DefaultListModel();
-			listModActsProfe.addElement("zumba");
 			
-			listActsSistema = new JList(listModActsSistema);
+			listActsSistema = new JList(listaClases);
 			listActsSistema.setEnabled(false);
 			listActsSistema.setBounds(404, 65, 117, 172);
 			listActsSistema.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -244,9 +249,7 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 			contentPane.add(listActsSistema);
 			
 			listActsProfe = new JList(listModActsProfe);
-			listActsProfe.setEnabled(false);
 			listActsProfe.setBounds(612, 65, 117, 172);
-			contentPane.add(listActsProfe);
 			listActsProfe.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 			listActsProfe.setLayoutOrientation(JList.VERTICAL);
 			contentPane.add(listActsProfe);
@@ -274,24 +277,14 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 			});
 		    contentPane.add(btnAgregarActs);
 		    
-			JButton btnQuitarActs = new JButton("<=");
-			btnQuitarActs.setBounds(533, 153, 67, 25);
-			btnQuitarActs.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					int index = listActsProfe.getSelectedIndices().length - 1;
 
-			        while (listActsProfe.getSelectedIndices().length != 0) {
-			            listModActsProfe.removeElementAt(listActsProfe.getSelectedIndices()[index--]);
-			        }
-					
-					/*listModActsProfe.removeElement(listActsProfe.getSelectedIndex());
-					listActsProfe = new JList(listModActsProfe);*/
-				}
-		    
-			});
-			contentPane.add(btnQuitarActs);
 			
-			/*----BUSCAR EL USUARIO Y LLENA LOS CAMPOS----*/
+			/*********************************************
+			 * 											 *
+			 * ---BUSCA EL USUARIO Y LLENA LOS CAMPOS---
+			 * 											 *
+			 *********************************************/
+			
 			java.util.Date fechaN;
 			String actividades = new String();
 			
@@ -300,6 +293,10 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 				textNombre.setText(a.getNombre());
 				textDNI.setText(Integer.toString(a.getDni()));
 				textDomicilio.setText(a.getDomicilio());
+				
+				listActsProfe.setEnabled(false);
+				btnAgregarActs.setEnabled(false);
+				//btnQuitarActs.setEnabled(false);
 				
 				String fecha=a.getFechaDeNac().toString();
 				
@@ -348,6 +345,9 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 					String fecha=o.getFechaDeNac().toString();
 					textFechaNac.setText(fecha);
 					textMail.setText(o.getEmail());
+					listActsProfe.setEnabled(false);
+					btnAgregarActs.setEnabled(false);
+					//btnQuitarActs.setEnabled(false);
 					chBxOperador.setSelected(true);
 					textContra1.setText("***********");
 					
@@ -385,47 +385,60 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 					if(pro!=null) {
 						String diasLab = new String();
 						diasLab = pro.getDiasLaborales();
-						actividades = pro.getActividades();
 						
-						if(pro!=null){
-							textNombre.setText(pro.getNombre());
-							textDNI.setText(Integer.toString(pro.getDni()));
-							textDomicilio.setText(pro.getDomicilio());
-							String fecha=pro.getFechaDeNac().toString();
-							textFechaNac.setText(fecha);
-							textMail.setText(pro.getEmail());
-							chckbxProfe.setSelected(true);
-							textContra1.setEnabled(false);
-							textContra2.setEnabled(false);
-							listActsSistema.setEnabled(true);
-							listActsProfe.setEnabled(true);
-							
-							String fechaInicioActs=pro.getInicioActividades().toString();
-							
-							txtFechaInicioActs.setText(fechaInicioActs);
-							txtSueldo.setText(Float.toString(pro.getSueldo()));
-							
-							if(diasLab.contains("lunes")) {
-								chckbxLunes.setSelected(true);
-							}
-							if(diasLab.contains("martes")) {
-								chckbxMartes.setSelected(true);
-							}
-							if(diasLab.contains("miercoles")) {
-								chckbxMiercoles.setSelected(true);
-							}
-							if(diasLab.contains("jueves")) {
-								chckbxJueves.setSelected(true);
-							}
-							if(diasLab.contains("viernes")) {
-								chckbxViernes.setSelected(true);
-							}
-							if(diasLab.contains("sabado")) {
-								chckbxSabado.setSelected(true);
-							}
-							if(diasLab.contains("domingo")) {
-								chckbxDomingo.setSelected(true);
-							}
+						/*LLENA LISTA DE ACTIVIDADES DEL PROFESOR*/
+						
+						actividades = pro.getActividades();
+						Vector<String> vListaClasesProfe = new Vector<String>();
+						int size= listActsSistema.getModel().getSize();
+					    for(int i=0;i< size ;i++){
+					    	//System.out.println(listActsSistema.getModel().getElementAt(2).toString());
+					    	if(actividades.contains(listActsSistema.getModel().getElementAt(i).toString())) {
+					    		listModActsProfe.addElement(listActsSistema.getModel().getElementAt(i));
+					    	}
+					    }
+					    
+					    listActsProfe = new JList(listModActsProfe);
+					    
+					    /*LLENA EL RESTO DE LOS CAMPOS DEL PROFESOR*/
+
+						textNombre.setText(pro.getNombre());
+						textDNI.setText(Integer.toString(pro.getDni()));
+						textDomicilio.setText(pro.getDomicilio());
+						String fecha=pro.getFechaDeNac().toString();
+						textFechaNac.setText(fecha);
+						textMail.setText(pro.getEmail());
+						chckbxProfe.setSelected(true);
+						textContra1.setEnabled(false);
+						textContra2.setEnabled(false);
+						listActsSistema.setEnabled(true);
+						listActsProfe.setEnabled(true);
+						
+						String fechaInicioActs=pro.getInicioActividades().toString();
+						
+						txtFechaInicioActs.setText(fechaInicioActs);
+						txtSueldo.setText(Float.toString(pro.getSueldo()));
+						
+						if(diasLab.contains("lunes")) {
+							chckbxLunes.setSelected(true);
+						}
+						if(diasLab.contains("martes")) {
+							chckbxMartes.setSelected(true);
+						}
+						if(diasLab.contains("miercoles")) {
+							chckbxMiercoles.setSelected(true);
+						}
+						if(diasLab.contains("jueves")) {
+							chckbxJueves.setSelected(true);
+						}
+						if(diasLab.contains("viernes")) {
+							chckbxViernes.setSelected(true);
+						}
+						if(diasLab.contains("sabado")) {
+							chckbxSabado.setSelected(true);
+						}
+						if(diasLab.contains("domingo")) {
+							chckbxDomingo.setSelected(true);
 						}
 					}
 				}
@@ -552,6 +565,23 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 			lblSueldo.setBounds(11, 215, 56, 16);
 			contentPane.add(lblSueldo);
 			
+			 JButton btnQuitarActs = new JButton("<=");
+				btnQuitarActs.setBounds(533, 168, 67, 25);
+				btnQuitarActs.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						int index = listActsProfe.getSelectedIndices().length - 1;
+						System.out.println(index);
+				        while (listActsProfe.getSelectedIndices().length != 0) {
+				            listModActsProfe.removeElementAt(listActsProfe.getSelectedIndices()[index--]);
+				        }
+						
+						/*listModActsProfe.removeElement(listActsProfe.getSelectedIndex());*/
+						listActsProfe = new JList(listModActsProfe);
+					}
+			    
+				});
+				contentPane.add(btnQuitarActs);
+				
 			JLabel lblFechaInicioActs = new JLabel("Fecha Inicio de Actividades:");
 			lblFechaInicioActs.setBounds(11, 244, 168, 16);
 			contentPane.add(lblFechaInicioActs);

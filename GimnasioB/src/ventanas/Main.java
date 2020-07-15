@@ -107,7 +107,7 @@ public class Main extends JFrame{
 						
 						/*----ENVIA CONTROLADOR DE USUARIO A LA SIGUIENTE VISTA----*/
 						
-						OpcionesUsuarios opcionesUsuarios = new OpcionesUsuarios(usuariosControlador, rolLogeado);
+						OpcionesUsuarios opcionesUsuarios = new OpcionesUsuarios(usuariosControlador, rolLogeado, actividadesControlador);
 						opcionesUsuarios.setVisible(true);
 					}
 				}

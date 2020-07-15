@@ -101,6 +101,12 @@ public class SistemaActividades {
 		return rta;
 	}
 	
+	public Vector<String> jlistar() {
+		Vector<String> rta=null;
+		rta =ActividadesMapper.getInstance().jlistar();
+		return rta;
+	}
+	
 	
 	public ResultSet listarTodas() {
 		ResultSet rta=null;

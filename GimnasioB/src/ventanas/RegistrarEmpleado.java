@@ -4,7 +4,11 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,7 +20,11 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
+import controladores.SistemaActividades;
 import controladores.SistemaUsuarios;
+import modelo.Actividad;
+import net.proteanit.sql.DbUtils;
+
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import javax.swing.ButtonGroup;
@@ -43,7 +51,7 @@ public class RegistrarEmpleado extends JFrame{
 	private JList listActsProfe;
 
 	
-	public RegistrarEmpleado(SistemaUsuarios usuariosControlador) {
+	public RegistrarEmpleado(SistemaUsuarios usuariosControlador, SistemaActividades actividadesControlador) {
 		setTitle("Registrar Empleado");
 
 		/*---------CREO VENTANA DE REGISTRO----*/
@@ -61,15 +69,13 @@ public class RegistrarEmpleado extends JFrame{
 			
 			/*LLENAMOS LISTAS*/
 			DefaultListModel listModActsSistema = new DefaultListModel();
-			listModActsSistema.addElement("yoga");
-			listModActsSistema.addElement("boxeo");
-			listModActsSistema.addElement("HIIT");
-			listModActsSistema.addElement("funcional");
+			/*TRAE ACTIVIDADES DE BD*/
+			Vector<String> listaClases = actividadesControlador.jlistar();
+			
 			
 			DefaultListModel listModActsProfe = new DefaultListModel();
-			listModActsProfe.addElement("zumba");
 			
-			listActsSistema = new JList(listModActsSistema);
+			listActsSistema = new JList(listaClases);
 			listActsSistema.setEnabled(false);
 			listActsSistema.setBounds(405, 131, 117, 172);
 			listActsSistema.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -80,7 +86,6 @@ public class RegistrarEmpleado extends JFrame{
 			listActsProfe = new JList(listModActsProfe);
 			listActsProfe.setEnabled(false);
 			listActsProfe.setBounds(613, 131, 117, 172);
-			contentPane.add(listActsProfe);
 			listActsProfe.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 			listActsProfe.setLayoutOrientation(JList.VERTICAL);
 			contentPane.add(listActsProfe);
@@ -115,7 +120,6 @@ public class RegistrarEmpleado extends JFrame{
 			btnQuitarActs.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					int index = listActsProfe.getSelectedIndices().length - 1;
-
 			        while (listActsProfe.getSelectedIndices().length != 0) {
 			            listModActsProfe.removeElementAt(listActsProfe.getSelectedIndices()[index--]);
 			        }
@@ -139,6 +143,7 @@ public class RegistrarEmpleado extends JFrame{
 					listActsProfe.setEnabled(false);
 					btnAgregarActs.setEnabled(false);
 					btnQuitarActs.setEnabled(false);
+		            listModActsProfe.removeAllElements();
 				}
 			});
 			
@@ -154,6 +159,7 @@ public class RegistrarEmpleado extends JFrame{
 					listActsProfe.setEnabled(false);
 					btnAgregarActs.setEnabled(false);
 					btnQuitarActs.setEnabled(false);
+		            listModActsProfe.removeAllElements();
 				}
 			});
 			
@@ -300,8 +306,7 @@ public class RegistrarEmpleado extends JFrame{
 					
 					String diasLaborales = new String();
 					diasLaborales = "-";
-					String actividades = new String();
-					actividades = "zumba-yoga-";
+
 					
 					if(chBxAdministrador.isSelected()) {		
 						rol = "Administrador";
@@ -328,6 +333,15 @@ public class RegistrarEmpleado extends JFrame{
 					Date fechaN=Date.valueOf(textFechaNac.getText());
 					Date fechaInicioActs=Date.valueOf(txtInicioActs.getText());
 					if(rol.equals("Profesor")) {
+						String actividades = new String();
+						actividades = "-";
+						int size= listActsProfe.getModel().getSize();
+					    for(int i=0;i< size ;i++){
+					    	actividades = actividades.concat(listActsProfe.getModel().getElementAt(i).toString());
+					        actividades = actividades.concat("-");
+					    }
+					        //activ.add(list.getModel().getElement(i));    
+					        
 						if(txtNombre.getText().equals("")||textDNI.getText().equals("")||textDomicilio.getText().equals("")||fechaN.equals("")||textMail.getText().equals("")||textUsuario.getText().equals("")||rol==null||txtInicioActs.getText().equals("")||txtSueldo.getText().equals("")||flagDiasSelected==0) {
 							JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
 

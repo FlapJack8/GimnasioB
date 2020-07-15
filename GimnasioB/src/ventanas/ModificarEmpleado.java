@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
+import controladores.SistemaActividades;
 import controladores.SistemaUsuarios;
 import modelo.Administrador;
 import modelo.Socio;
@@ -21,7 +22,7 @@ import java.awt.event.ActionEvent;
 public class ModificarEmpleado extends JFrame{
 	private JTextField txtNombreUsuarioModif;
 
-	public ModificarEmpleado(SistemaUsuarios usuariosControlador) {
+	public ModificarEmpleado(SistemaUsuarios usuariosControlador, SistemaActividades actividadesControlador) {
 		setTitle("Modificar Empleado");
 		
 		setBounds(450, 250, 401, 185);
@@ -53,7 +54,7 @@ public class ModificarEmpleado extends JFrame{
 							
 							/*----ENVIA CONTROLADOR DE USUARIO A LA SIGUIENTE VISTA----*/
 
-							ModificarEmpleadoLlenarCampos modifEmpleadoLC = new ModificarEmpleadoLlenarCampos(usuariosControlador,txtNombreUsuarioModif.getText());
+							ModificarEmpleadoLlenarCampos modifEmpleadoLC = new ModificarEmpleadoLlenarCampos(usuariosControlador,txtNombreUsuarioModif.getText(),actividadesControlador);
 							modifEmpleadoLC.setVisible(true);
 							dispose();
 						}

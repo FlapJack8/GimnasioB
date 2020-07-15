@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
+import controladores.SistemaActividades;
 import controladores.SistemaUsuarios;
 
 import javax.swing.JButton;
@@ -17,7 +18,7 @@ public class OpcionesUsuarios extends JFrame{
 
 	/*----Inicializar Interfaz de Opciones de Usuarios----*/
 	
-	public OpcionesUsuarios(SistemaUsuarios usuariosControlador, String rolLogeado) {
+	public OpcionesUsuarios(SistemaUsuarios usuariosControlador, String rolLogeado, SistemaActividades actividadesControlador) {
 		
 		setTitle("Usuarios");
 		setBounds(450, 250, 352, 225);
@@ -114,7 +115,7 @@ public class OpcionesUsuarios extends JFrame{
 		btnAltaEmpleado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (usuariosControlador != null) {
-					RegistrarEmpleado altaEmpleado = new RegistrarEmpleado(usuariosControlador);
+					RegistrarEmpleado altaEmpleado = new RegistrarEmpleado(usuariosControlador, actividadesControlador);
 					altaEmpleado.setVisible(true);
 				}
 			}
@@ -154,7 +155,7 @@ public class OpcionesUsuarios extends JFrame{
 					
 					/*----ENVIA CONTROLADOR DE USUARIO A LA SIGUIENTE VISTA----*/
 					
-					ModificarEmpleado modifEmpleado = new ModificarEmpleado(usuariosControlador);
+					ModificarEmpleado modifEmpleado = new ModificarEmpleado(usuariosControlador, actividadesControlador);
 					modifEmpleado.setVisible(true);
 				}
 			}

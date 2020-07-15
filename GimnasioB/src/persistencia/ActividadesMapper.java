@@ -106,6 +106,25 @@ public class ActividadesMapper {
 		return null;
 	}
 	
+	public Vector<String> jlistar() {
+		try {
+			Connection con = PoolConnection.getPoolConnection().getConnection();
+			PreparedStatement s = con.prepareStatement("select * from dbo.Actividades");
+			ResultSet result = s.executeQuery();
+			Vector<String> la = new Vector<String>();
+			while(result.next()) {	 
+				 la.add(result.getString(1));
+			}
+			PoolConnection.getPoolConnection().realeaseConnection(con);
+			return la;
+		}
+		catch (Exception e) {
+			System.out.println("Error select jlistar Actividades\n");
+			System.out.println("Stack Trace: " + e.getStackTrace() + e.getMessage());
+		}
+		return null;
+	}
+	
 	public void updateActividad (String nombreActividadAux, Actividad actividad) {
 		try {
 			Actividad a = (Actividad) actividad;
