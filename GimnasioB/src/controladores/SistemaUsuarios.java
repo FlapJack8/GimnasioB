@@ -565,10 +565,24 @@ public class SistemaUsuarios {
 
 	}
 	
+	public void liquidarSueldoEmpleado(String nombreUsuario, int dni, Float sueldo, Float extras, Date fechaLiquidacion, String descripcion) {
+
+		Float importeTotal = sueldo+extras;
+			
+	}
+	
 	public ResultSet listarProfesores(){
 		
 		ResultSet rs = null;
 		rs = UsrMapper.getInstance().listarProfesores();
+		
+		return rs;
+	}
+	
+	public ResultSet listarEmpleados(){
+		
+		ResultSet rs = null;
+		rs = UsrMapper.getInstance().listarEmpleadosLiquidacion();
 		
 		return rs;
 	}

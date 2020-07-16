@@ -80,7 +80,7 @@ public class Main extends JFrame{
 			 * 2) CLASES
 			 * 3) ABONOS
 			 * 4) ACTIVIDADES
-			 * 5) 
+			 * 5) LIQUIDAR SUELDOS
 			 * 6) 
 			 * 7) 
 			 **********************************
@@ -91,7 +91,7 @@ public class Main extends JFrame{
 			
 			setTitle("Ventana Principal");
 			getContentPane().setLayout(null);
-			setBounds(450, 250, 460, 220);
+			setBounds(450, 250, 460, 380);
 			
 			/*-------------------------------------------
 			 *  *    1)        USUARIOS              *  *
@@ -174,6 +174,26 @@ public class Main extends JFrame{
 			});
 			getContentPane().add(btnSistemaActividades);
 			
+			/*-------------------------------------------
+			 *  *    5)     LIQUIDAR SUELDOS         *  *
+			 *-------------------------------------------
+			 */
+			
+			JButton btnLiquidarSueldos = new JButton("Liquidar Sueldos");
+			btnLiquidarSueldos.setBounds(20, 165, 169, 23);
+			btnLiquidarSueldos.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if (usuariosControlador != null) {
+						
+						/*----ENVIA CONTROLADOR DE ABONOS A LA SIGUIENTE VISTA----*/
+						
+						ListarEmpleadosLiquidarSueldo listarEmplLiquSueldos = new ListarEmpleadosLiquidarSueldo(usuariosControlador, rolLogeado);
+						listarEmplLiquSueldos.setVisible(true);
+					}
+				}
+			});
+			getContentPane().add(btnLiquidarSueldos);
+			
 			/*-------------------------------------------------------------
 			 *  *      DEPENDIENDO EL ROL HABILITAMOS LOS BOTONES      *  *
 			 *-------------------------------------------------------------
@@ -188,6 +208,7 @@ public class Main extends JFrame{
 				btnSistemaClases.setEnabled(true);
 				btnSistemaAbonos.setEnabled(true);
 				btnSistemaActividades.setEnabled(true);
+				btnLiquidarSueldos.setEnabled(true);
 			break;
 			case "operador":
 				btnSistemaUsuarios.setEnabled(true);
@@ -196,6 +217,8 @@ public class Main extends JFrame{
 				btnSistemaAbonos.setEnabled(true);
 				btnSistemaActividades.setEnabled(false);
 				btnSistemaActividades.setVisible(false);
+				btnLiquidarSueldos.setEnabled(false);
+				btnLiquidarSueldos.setEnabled(false);
 				break;
 			/*default://Socio
 				btnSistemaUsuarios.setEnabled(false);

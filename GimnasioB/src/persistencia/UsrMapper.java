@@ -516,4 +516,45 @@ public class UsrMapper {
 			return null;
 		}
 		
+		public ResultSet listarEmpleadosLiquidacion() {
+			try {
+				Empleado emp = null;
+				Connection con = PoolConnection.getPoolConnection().getConnection();
+				PreparedStatement s = con.prepareStatement("select nombreUsuario, nombre, email, dni, sueldo, fechaInicioActividades, diasLaborales, rol from dbo.Empleados where estado = 'Activo'");
+
+				ResultSet result = s.executeQuery();
+				
+				/*while (result.next()) {
+					String actividad = result.getString(1);
+					Date fecha = result.getDate(2);
+					Time horario = result.getTime(3);
+					String profeNombre = result.getString(4);
+					float duracion = result.getFloat(5);
+					int capacidadMax = result.getInt(6);
+					int capacidadMin = result.getInt(7);
+					String publico = result.getString(8);
+					String dificultad = result.getString(9);
+					String estado = result.getString(10);
+
+					c = new Clase(actividad, fecha, horario, profeNombre, duracion, capacidadMax, capacidadMin, publico, dificultad, estado);
+
+					vClases.add(c);
+				}
+				PoolConnection.getPoolConnection().realeaseConnection(con);
+				
+				/*for(int i=0; i<=vClases.size()+1; i++){
+					System.out.println(vClases.elementAt(i).getActividad());
+				}*/
+				
+				PoolConnection.getPoolConnection().realeaseConnection(con);
+
+				return result;
+			} 
+			catch (Exception e) {
+				System.out.println("Error select listar empleados\n");
+				System.out.println("Stack Trace: " + e.getStackTrace() + e.getMessage());
+			}
+			return null;
+		}
+		
 }

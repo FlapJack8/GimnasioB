@@ -45,8 +45,8 @@ public class ModificarClase extends JFrame {
 
 		/*----BOTON MODIFICAR----*/
 		
-		JButton btnEliminar = new JButton("Modificar");
-		btnEliminar.addActionListener(new ActionListener() {
+		JButton btnModificar = new JButton("Modificar");
+		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				DefaultTableModel modelo = (DefaultTableModel) tbClases.getModel();
@@ -73,8 +73,8 @@ public class ModificarClase extends JFrame {
 				
 			//}
 		});
-		btnEliminar.setBounds(268, 397, 89, 23);
-		getContentPane().add(btnEliminar);
+		btnModificar.setBounds(268, 397, 89, 23);
+		getContentPane().add(btnModificar);
 
 	}
 }
