@@ -376,7 +376,7 @@ public class RegistrarEmpleado extends JFrame{
 									diasLaborales = diasLaborales.concat("sabado-");
 								}
 								if(chckbxDomingo.isSelected()) {
-									diasLaborales.concat("domingo-");
+									diasLaborales = diasLaborales.concat("domingo-");
 								}
 								
 								

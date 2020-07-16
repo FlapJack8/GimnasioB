@@ -565,9 +565,11 @@ public class SistemaUsuarios {
 
 	}
 	
-	public void liquidarSueldoEmpleado(String nombreUsuario, int dni, Float sueldo, Float extras, Date fechaLiquidacion, String descripcion) {
+	public void liquidarSueldoEmpleado(String nombreUsuario, String nombreCompleto, int dni, Float sueldo, Float extras, Date fechaPago, String descripcion) {
 
 		Float importeTotal = sueldo+extras;
+		
+		UsrMapper.getInstance().liquidarSueldoEmpleado(nombreUsuario, nombreCompleto, dni, importeTotal, sueldo, extras, fechaPago, descripcion);
 			
 	}
 	

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Calendar;
 
 import modelo.Administrador;
 import modelo.Clase;
@@ -556,5 +557,44 @@ public class UsrMapper {
 			}
 			return null;
 		}
+
+		public void liquidarSueldoEmpleado(String nombreUsuario, String nombreCompleto, int dni, Float importeTotal, 
+				Float sueldo, Float extras, Date fechaPago, String descripcion) {
+			
+		try {
+			String nombreComp = (String) nombreCompleto;
+			int numDni = (int) dni;
+			Float importeTot = (Float) importeTotal; 
+			Float sue = (Float) sueldo;
+			Float ext = (Float) extras;
+			Date fPago = (Date) fechaPago;
+			String descr = (String) descripcion;
+
+			Connection con = PoolConnection.getPoolConnection().getConnection();
+			PreparedStatement s = con.prepareStatement("insert into dbo.LiquidacionDeSueldos (nombreCompleto, dni, importeTotal, sueldo, extras, fechaPago, descripcion, fechaLiquidacion) values (?,?,?,?,?,?,?,?)");
+			//agregar campos
+			
+			s.setString(1,nombreComp);
+			s.setInt(2,numDni);
+			s.setFloat(3,importeTot);
+			s.setFloat(4,sue);
+			s.setFloat(5,ext);
+			s.setDate(6,fPago);
+			s.setString(7,descr);
+			java.util.Date today = Calendar.getInstance().getTime();
+			java.sql.Date fechaHoy = new java.sql.Date(today.getTime());
+			s.setDate(8,fechaHoy); // LOCAL DATE 
+
+			s.execute();
+
+			PoolConnection.getPoolConnection().realeaseConnection(con);
+		}
+		catch(Exception e)
+		{
+			System.out.println("Error insert liquidacion");
+			System.out.println("Stack trace: "+e.getStackTrace());
+			
+		}
+	}
 		
 }

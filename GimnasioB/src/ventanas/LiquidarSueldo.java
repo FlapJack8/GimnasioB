@@ -36,13 +36,15 @@ import javax.swing.JCheckBox;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import java.awt.Font;
+import java.awt.List;
+
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
 
 public class LiquidarSueldo extends JFrame{
 
 	private JPanel contentPane;
-	private JTextField txtFechaLiquidacion;
+	private JTextField txtFechaPago;
 	private JTextField txtExtras;
 	private JLabel lblNombre;
 	private JLabel lblDni;
@@ -51,7 +53,7 @@ public class LiquidarSueldo extends JFrame{
 	private JLabel lblDiasLaborales;
 	private JLabel lblDiasLaboralesDynamic;
 	private JLabel lblExtras;
-	private JLabel lblFechaLiquidacion;
+	private JLabel lblFechaDePago;
 	private JTextArea txtDescripcion;
 
 	public LiquidarSueldo(SistemaUsuarios usuariosControlador, String nombreUsuario, String nombre, String email, int dni, Float sueldo, Date fechaInicioActs, String diasLaborales, String rol) {
@@ -69,16 +71,16 @@ public class LiquidarSueldo extends JFrame{
 			contentPane.setLayout(null);
 			
 			/*----CAMPOS Y LABELS A LLENAR----*/
-			
+
 			txtExtras = new JTextField();
 			txtExtras.setBounds(166, 271, 116, 22);
 			contentPane.add(txtExtras);
 			txtExtras.setColumns(10);
 			
-			txtFechaLiquidacion = new JTextField(new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()),15);
-			txtFechaLiquidacion.setBounds(166, 306, 116, 22);
-			contentPane.add(txtFechaLiquidacion);
-			txtFechaLiquidacion.setColumns(10);
+			txtFechaPago = new JTextField(new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()),15);
+			txtFechaPago.setBounds(166, 306, 116, 22);
+			contentPane.add(txtFechaPago);
+			txtFechaPago.setColumns(10);
 			
 			JLabel lblLiquidarSueldo = new JLabel("Liquidar sueldo del/la " +rol+"/a: ");
 			lblLiquidarSueldo.setFont(new Font("Tunga", Font.BOLD, 20));
@@ -114,9 +116,9 @@ public class LiquidarSueldo extends JFrame{
 			lblExtras.setBounds(22, 270, 121, 16);
 			contentPane.add(lblExtras);
 			
-			lblFechaLiquidacion = new JLabel("Fecha de Liquidacion: ");
-			lblFechaLiquidacion.setBounds(22, 309, 128, 16);
-			contentPane.add(lblFechaLiquidacion);
+			lblFechaDePago = new JLabel("Fecha de Pago: ");
+			lblFechaDePago.setBounds(22, 309, 128, 16);
+			contentPane.add(lblFechaDePago);
 			
 			JButton btnLiquidar = new JButton("Liquidar");
 			btnLiquidar.setBounds(185, 460, 97, 25);
@@ -125,21 +127,34 @@ public class LiquidarSueldo extends JFrame{
 
 					/*----VALIDA QUE TODOS LOS CAMPOS NECESARIOS ESTEN LLENOS----*/
 
-					Date fechaLiquidacion=Date.valueOf(txtFechaLiquidacion.getText());
-
-					Float extras = null;
+					Date fechaPago=Date.valueOf(txtFechaPago.getText());
+					Float total = sueldo;
+					Float extras = 0.0f;
 					
 					if(!txtExtras.getText().equals(""))
 					{
 						extras = Float.parseFloat(txtExtras.getText());
+						total = total+extras;
 					}
-					if(txtFechaLiquidacion.getText().equals("")) {
+					if(txtFechaPago.getText().equals("")) {
 							JOptionPane.showMessageDialog(null, "Llene los campos necesarios","Error",JOptionPane.ERROR_MESSAGE);
 
 					}
 					else {
 						if(usuariosControlador.existeEmpleado(nombreUsuario)) {
-							usuariosControlador.liquidarSueldoEmpleado(nombreUsuario, dni, sueldo, extras, fechaLiquidacion, txtDescripcion.getText());
+							java.util.Date today = Calendar.getInstance().getTime();
+							int respuesta=JOptionPane.showConfirmDialog(null,"\nLiquidar sueldo del empleado: "+nombre+ "\nPor: "+total+"\n(Sueldo: "+sueldo+" + Extras: "+extras+")\nFecha de Pago: "+fechaPago+"\nDetalle: "+txtDescripcion.getText()+"\nFecha de Liquidacion: "+today, "Son estos los datos correctos?",JOptionPane.YES_NO_OPTION);
+							if(respuesta==1) {
+							
+							}
+							else if(respuesta==0) {
+
+								usuariosControlador.liquidarSueldoEmpleado(nombreUsuario, nombre, dni, sueldo, extras, fechaPago, txtDescripcion.getText());
+								JOptionPane.showMessageDialog(null, "Sueldo liquidado");
+								dispose();
+								
+							}
+							
 						}
 					}
 				}
@@ -153,7 +168,6 @@ public class LiquidarSueldo extends JFrame{
 
 			Calendar cal = Calendar.getInstance();
 			int mesHoy = cal.get(Calendar.MONTH);
-			mesHoy++;
 			int yearHoy = cal.get(Calendar.YEAR);
 			
 			txtDescripcion = new JTextArea("Liquidacion de sueldo del mes " + mesHoy+ "-" + yearHoy);

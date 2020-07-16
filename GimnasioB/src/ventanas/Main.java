@@ -91,7 +91,7 @@ public class Main extends JFrame{
 			
 			setTitle("Ventana Principal");
 			getContentPane().setLayout(null);
-			setBounds(450, 250, 460, 380);
+			setBounds(450, 250, 460, 300);
 			
 			/*-------------------------------------------
 			 *  *    1)        USUARIOS              *  *

@@ -512,11 +512,12 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 						}
 					}
 					else{
-						if(textNombre.getText().equals("")||textContra1.getText().equals("")||textContra2.getText().equals("")||textDNI.getText().equals("")||textDomicilio.getText().equals("")||fechaN.equals("")||textMail.getText().equals("")||textUsuario.getText().equals("")||rol==null) {
+						if(textNombre.getText().equals("")||textContra1.getText().equals("")||textDNI.getText().equals("")||textDomicilio.getText().equals("")||fechaN.equals("")||textMail.getText().equals("")||textUsuario.getText().equals("")||rol==null) {
 							JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
 	
 						}
 						else {
+							//TODO ARREGLAR CAMPOS CONTRAS
 							if(textContra1.getText().equals(textContra2.getText())) {
 								if(textContra1.getText().equals("***********")){
 									JOptionPane.showMessageDialog(null, "Password inaceptable","Error",JOptionPane.ERROR_MESSAGE);
