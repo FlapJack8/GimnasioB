@@ -1,14 +1,20 @@
 package ventanas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.Date;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
 import controladores.SistemaUsuarios;
@@ -24,10 +30,13 @@ public class RegistrarSocio extends JFrame {
 	private JTextField textTipoAbono;
 	private JTextField textNombre;
 	private JTextField textFechaVen;
+	private JTextField textField;
 
 	/*---------CREO VENTANA DE REGISTRO----*/
 	
 	public RegistrarSocio(SistemaUsuarios usuariosControlador) {
+		
+		
 		setTitle("Registrar Socio");
 		setResizable(false);
 		toFront();
@@ -107,18 +116,48 @@ public class RegistrarSocio extends JFrame {
 		contentPane.add(textNombre);
 		textNombre.setColumns(10);
 		
+		textField = new JTextField();
+		textField.setEditable(false);
+		textField.setEnabled(false);
+		textField.setBounds(465, 90, 191, 20);
+		contentPane.add(textField);
+		textField.setColumns(10);
 
 		JLabel lblDatosMedicos = new JLabel("Datos Medicos:");
 		lblDatosMedicos.setBounds(465, 25, 91, 14);
 		contentPane.add(lblDatosMedicos);
 		
+		File vacio = new File ("text.txt");
+		FileInputStream fis = new FileInputStream(vacio);
 		JButton btnImagenApto = new JButton("Buscar Imagen");
 		btnImagenApto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			
+			try {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+					| UnsupportedLookAndFeelException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
+			final JFileChooser fc = new JFileChooser();
+			int returnVal = fc.showOpenDialog(btnImagenApto);
+			fc.setCurrentDirectory (new File(System.getProperty("user.home")));
+			//if (returnVal == JFileChooser.APPROVE_OPTION) {
+				File selectedFile = fc.getSelectedFile();
+				textField.setEnabled(true);
+				textField.setText(selectedFile.getAbsolutePath());
+				try {
+					FileInputStream fis = new FileInputStream(selectedFile);
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				}
+			//}
 		});
 		
-		btnImagenApto.setBounds(513, 58, 117, 23);
+		btnImagenApto.setBounds(475, 58, 155, 23);
 		contentPane.add(btnImagenApto);
 		
 		JLabel lblFechaVencimiento = new JLabel("Fecha Vencimineto Apto fisico:");
@@ -161,11 +200,8 @@ public class RegistrarSocio extends JFrame {
 						dispose();
 					}
 				}
-
 			}
 		});
-		contentPane.add(btnEnviar);
-		
-		
+		contentPane.add(btnEnviar);		
 	}
 }
