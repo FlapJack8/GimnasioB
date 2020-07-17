@@ -1,5 +1,6 @@
 package modelo;
 
+import java.io.FileInputStream;
 import java.sql.Blob;
 import java.util.Date;
 
@@ -7,24 +8,24 @@ public class Socio extends Rol {
 	
 	private Date fechaVen;
 	private String tipoAbono;
-	private Blob datosMedicos;
+	private FileInputStream datosMedicos;
 
-	public Socio(Persona persona,String rol, Date fechaVen, String tipoAbono) {
+	public Socio(Persona persona,String rol, Date fechaVen, String tipoAbono, FileInputStream datosMedicos) {
 		super(persona, rol);
 		//this.fechaIns = fechaIns;
 		this.fechaVen = fechaVen;
 		this.tipoAbono = tipoAbono;
-		//this.datosMedicos = datosMedicos;
+		this.datosMedicos = datosMedicos;
 	}
 	
 	/*----CONSTRUCTOR BAJA LOGICA----*/
 	
-	public Socio(Persona persona,String rol, String estado, Date fechaVen, String tipoAbono) {
+	public Socio(Persona persona,String rol, String estado, Date fechaVen, String tipoAbono, FileInputStream datosMedicos) {
 		super(persona, rol);
 		//this.fechaIns = fechaIns;
 		this.fechaVen = fechaVen;
 		this.tipoAbono = tipoAbono;
-		//this.datosMedicos = datosMedicos;
+		this.datosMedicos = datosMedicos;
 	}
 
 	public void bajaLogica() {
@@ -97,10 +98,14 @@ public class Socio extends Rol {
 	public String getTipoAbono() {
 		return tipoAbono;
 	}
-
 	public void setTipoAbono(String tipoAbono) {
 		this.tipoAbono = tipoAbono;
 	}
-
-
+	
+	public FileInputStream getDatosMedicos() {
+		return datosMedicos;
+	}
+	public void setDatosMedicos(FileInputStream datosMedicos) {
+		this.datosMedicos = datosMedicos;
+	}
 }

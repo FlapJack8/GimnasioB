@@ -4,6 +4,7 @@ package controladores;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.Vector;
+import java.io.FileInputStream;
 import java.sql.Date;
 import java.sql.ResultSet;
 
@@ -81,7 +82,7 @@ public class SistemaUsuarios {
 	 *-------------------------------
 	 */
 	
-	public void altaUsuario(String nombre, String email, String password, String nombreUsuario, String domicilio, int dni, Date fechaNac, String rol,Date fechaInicioActividades, Float sueldo, String diasLaborales,String actividades, String tipoAbono, Date fechaVen)
+	public void altaUsuario(String nombre, String email, String password, String nombreUsuario, String domicilio, int dni, Date fechaNac, String rol,Date fechaInicioActividades, Float sueldo, String diasLaborales,String actividades, String tipoAbono, Date fechaVen, FileInputStream fis)
 	{
 		if(!existeUsuario(nombreUsuario)) {
 	
@@ -89,7 +90,7 @@ public class SistemaUsuarios {
 	
 			switch (rol.toLowerCase()) {
 				case "socio":
-					Socio v1= new Socio(p, rol, fechaVen, tipoAbono);
+					Socio v1= new Socio(p, rol, fechaVen, tipoAbono, fis);
 					vSocios.add(v1);
 					break;
 		        case "administrador":
@@ -106,7 +107,7 @@ public class SistemaUsuarios {
 		            break;
 			}
 			p.isActivo();
-			UsrMapper.getInstance().insert(p,sueldo,diasLaborales,actividades, tipoAbono, fechaVen);
+			UsrMapper.getInstance().insert(p,sueldo,diasLaborales,actividades, tipoAbono, fechaVen, fis);
 		}
 	}
 

@@ -1,5 +1,7 @@
 package persistencia;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -35,7 +37,7 @@ public class UsrMapper {
 		}
 		/*----DELETE FISICO (NO USAMOS)----*/
 		
-		public void insert(Persona p, Float sueldo, String diasLaborales,String actividades, String tipoAbono, Date fechaVen) 
+		public void insert(Persona p, Float sueldo, String diasLaborales,String actividades, String tipoAbono, Date fechaVen, FileInputStream fis) 
 		{
 			/*----TRY DE LA CONECCION INSERT----*/
 			
@@ -47,11 +49,12 @@ public class UsrMapper {
 				String acts = (String) actividades;
 				String tipoAb = (String) tipoAbono;
 				Date vencimiento = (Date) fechaVen;
+				FileInputStream fileIS = (FileInputStream) fis;
 				
 				Connection con = PoolConnection.getPoolConnection().getConnection();
 				/*----STATEMENT QUERY DEL INSERT----*/
 				if(per.getRol().equalsIgnoreCase("socio")) {
-					PreparedStatement s = con.prepareStatement("insert into dbo.Socios(nombre, dni, email, domicilio, fechaNacimiento, fechaInscipcion, estado, tipoAbono, fechaVencimientoApto) values (?,?,?,?,?,?,?,?,?)");
+					PreparedStatement s = con.prepareStatement("insert into dbo.Socios(nombre, dni, email, domicilio, fechaNacimiento, fechaInscipcion, estado, tipoAbono, fechaVencimientoApto, datosMedicos) values (?,?,?,?,?,?,?,?,?,?)");
 					/*-----CAMPOS DEL SOCIO----*/
 					s.setString(1, per.getNombre());
 					s.setInt(2, per.getDni());
@@ -62,6 +65,7 @@ public class UsrMapper {
 					s.setString(7, per.getEstado());
 					s.setString(8, tipoAb);
 					s.setDate(9, (Date) vencimiento);
+					s.setBinaryStream(10, (InputStream) fileIS);
 					s.execute();
 					PoolConnection.getPoolConnection().realeaseConnection(con);
 				}
@@ -295,10 +299,11 @@ public class UsrMapper {
 					String estado = result.getString(7);
 					String tipoAbono = result.getString(8);
 					Date fechaVencimineto = result.getDate(9);
+					FileInputStream fileInput = (FileInputStream) result.getBinaryStream(10);
 					
 					
 					Persona p = new Persona(null, email, nombre, null, domicilio, dni, fechaDeNac, "socio", estado, fechaDeInscripcion);
-					socio = new Socio(p, "socio", fechaVencimineto, tipoAbono);
+					socio = new Socio(p, "socio", fechaVencimineto, tipoAbono, fileInput);
 				}
 				PoolConnection.getPoolConnection().realeaseConnection(con);
 				return socio;

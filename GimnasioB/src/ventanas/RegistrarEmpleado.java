@@ -380,7 +380,7 @@ public class RegistrarEmpleado extends JFrame{
 								}
 								
 								
-								usuariosControlador.altaUsuario(txtNombre.getText(), textMail.getText(), null, textUsuario.getText(), textDomicilio.getText(), Integer.parseInt(textDNI.getText()), fechaN, rol,fechaInicioActs,Float.parseFloat(txtSueldo.getText()),diasLaborales,actividades, null, null);
+								usuariosControlador.altaUsuario(txtNombre.getText(), textMail.getText(), null, textUsuario.getText(), textDomicilio.getText(), Integer.parseInt(textDNI.getText()), fechaN, rol,fechaInicioActs,Float.parseFloat(txtSueldo.getText()),diasLaborales,actividades, null, null, null);
 								JOptionPane.showMessageDialog(null, "Ingreso correcto");
 								usuariosControlador.imprimirEmpleados();
 								dispose();
@@ -426,7 +426,7 @@ public class RegistrarEmpleado extends JFrame{
 										diasLaborales.concat("domingo-");
 									}
 										
-									usuariosControlador.altaUsuario(txtNombre.getText(), textMail.getText(), textContra1.getText(), textUsuario.getText(), textDomicilio.getText(), Integer.parseInt(textDNI.getText()), fechaN, rol,fechaInicioActs,Float.parseFloat(txtSueldo.getText()),diasLaborales,null, null, null);
+									usuariosControlador.altaUsuario(txtNombre.getText(), textMail.getText(), textContra1.getText(), textUsuario.getText(), textDomicilio.getText(), Integer.parseInt(textDNI.getText()), fechaN, rol,fechaInicioActs,Float.parseFloat(txtSueldo.getText()),diasLaborales,null, null, null, null);
 									JOptionPane.showMessageDialog(null, "Ingreso correcto");
 									usuariosControlador.imprimirEmpleados();
 									dispose();

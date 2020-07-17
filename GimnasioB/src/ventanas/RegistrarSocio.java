@@ -31,6 +31,8 @@ public class RegistrarSocio extends JFrame {
 	private JTextField textNombre;
 	private JTextField textFechaVen;
 	private JTextField textField;
+	private File selectedFile; 
+	private FileInputStream fis; 
 
 	/*---------CREO VENTANA DE REGISTRO----*/
 	
@@ -127,8 +129,7 @@ public class RegistrarSocio extends JFrame {
 		lblDatosMedicos.setBounds(465, 25, 91, 14);
 		contentPane.add(lblDatosMedicos);
 		
-		File vacio = new File ("text.txt");
-		FileInputStream fis = new FileInputStream(vacio);
+		//File selectedFile = new File ("text.txt");
 		JButton btnImagenApto = new JButton("Buscar Imagen");
 		btnImagenApto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -144,11 +145,11 @@ public class RegistrarSocio extends JFrame {
 			int returnVal = fc.showOpenDialog(btnImagenApto);
 			fc.setCurrentDirectory (new File(System.getProperty("user.home")));
 			//if (returnVal == JFileChooser.APPROVE_OPTION) {
-				File selectedFile = fc.getSelectedFile();
+				selectedFile = fc.getSelectedFile();
 				textField.setEnabled(true);
 				textField.setText(selectedFile.getAbsolutePath());
 				try {
-					FileInputStream fis = new FileInputStream(selectedFile);
+					fis = new FileInputStream(selectedFile);
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -193,7 +194,7 @@ public class RegistrarSocio extends JFrame {
 					}
 					else
 					{
-						usuariosControlador.altaUsuario(textNombre.getText(), textMail.getText(), null, null, textDomicilio.getText(), Integer.parseInt(textDNI.getText()),fechaN, "Socio", fechaI, null, null, null, textTipoAbono.getText(), fechaV);
+						usuariosControlador.altaUsuario(textNombre.getText(), textMail.getText(), null, null, textDomicilio.getText(), Integer.parseInt(textDNI.getText()),fechaN, "Socio", fechaI, null, null, null, textTipoAbono.getText(), fechaV, fis);
 
 						JOptionPane.showMessageDialog(null, "Ingreso correcto");
 						usuariosControlador.imprimir();
