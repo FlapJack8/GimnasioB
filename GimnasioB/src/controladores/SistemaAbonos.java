@@ -58,10 +58,8 @@ public class SistemaAbonos {
 	}
 	
 	public ResultSet listarAbono(){
-		
 		ResultSet rs = null;
 		rs = AbonoMapping.getInstance().listarAbono();
-		
 		return rs;
 	}
 

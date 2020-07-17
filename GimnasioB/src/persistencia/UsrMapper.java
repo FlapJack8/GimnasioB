@@ -299,7 +299,7 @@ public class UsrMapper {
 					String estado = result.getString(7);
 					String tipoAbono = result.getString(8);
 					Date fechaVencimineto = result.getDate(9);
-					FileInputStream fileInput = (FileInputStream) result.getBinaryStream(10);
+					FileInputStream fileInput = (FileInputStream) result.getBinaryStream(11);
 					
 					
 					Persona p = new Persona(null, email, nombre, null, domicilio, dni, fechaDeNac, "socio", estado, fechaDeInscripcion);

@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -17,7 +20,9 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
+import controladores.SistemaAbonos;
 import controladores.SistemaUsuarios;
+import javax.swing.JComboBox;
 
 public class RegistrarSocio extends JFrame {
 
@@ -33,12 +38,14 @@ public class RegistrarSocio extends JFrame {
 	private JTextField textField;
 	private File selectedFile; 
 	private FileInputStream fis; 
+	private SistemaAbonos abonosControl;
+	private JComboBox<String> comboBoxAbonos;
 
 	/*---------CREO VENTANA DE REGISTRO----*/
 	
 	public RegistrarSocio(SistemaUsuarios usuariosControlador) {
 		
-		
+		abonosControl = new SistemaAbonos();
 		setTitle("Registrar Socio");
 		setResizable(false);
 		toFront();
@@ -105,7 +112,7 @@ public class RegistrarSocio extends JFrame {
 		textFechaIns.setColumns(10);
 		
 		textTipoAbono = new JTextField();
-		textTipoAbono.setBounds(212, 213, 152, 20);
+		textTipoAbono.setBounds(212, 248, 152, 20);
 		contentPane.add(textTipoAbono);
 		textTipoAbono.setColumns(10);
 		
@@ -170,11 +177,24 @@ public class RegistrarSocio extends JFrame {
 		contentPane.add(textFechaVen);
 		textFechaVen.setColumns(10);
 		
+		ResultSet listaAbonos = abonosControl.listarAbono();
+		comboBoxAbonos = new JComboBox<String>();
+		comboBoxAbonos.setBounds(212, 212, 152, 22);
+		contentPane.add(comboBoxAbonos);
+		try {
+			while(listaAbonos.next()) {
+				comboBoxAbonos.addItem(listaAbonos.getString("tipoAbono"));
+			}
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		
 		/*----BOTON ENVIAR----*/
 		
 		JButton btnEnviar = new JButton("Enviar");
 		btnEnviar.setBounds(311, 293, 152, 23);
 		btnEnviar.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent arg0) {
 				
 				/*----VALIDA QUE TODOS LOS CAMPOS ESTEN LLENOS----*/
@@ -182,8 +202,9 @@ public class RegistrarSocio extends JFrame {
 				Date fechaN=Date.valueOf( textFechaNacimiento.getText());
 				Date fechaI=Date.valueOf( textFechaIns.getText());
 				Date fechaV=Date.valueOf( textFechaVen.getText());
+				String abono = (String) comboBoxAbonos.getSelectedItem();
 			//}
-				if(textNombre.getText().equals("")||textTipoAbono.getText().equals("")||textFechaNacimiento.getText().equals("")||textDomicilio.getText().equals("")||fechaN.equals("")||fechaV.equals("")||fechaI.equals("")||textMail.getText().equals("")||textDNI.getText().equals("")) {
+				if(textNombre.getText().equals("")||abono.equals("")||textFechaNacimiento.getText().equals("")||textDomicilio.getText().equals("")||fechaN.equals("")||fechaV.equals("")||fechaI.equals("")||textMail.getText().equals("")||textDNI.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
 				}
 				else {
@@ -194,7 +215,7 @@ public class RegistrarSocio extends JFrame {
 					}
 					else
 					{
-						usuariosControlador.altaUsuario(textNombre.getText(), textMail.getText(), null, null, textDomicilio.getText(), Integer.parseInt(textDNI.getText()),fechaN, "Socio", fechaI, null, null, null, textTipoAbono.getText(), fechaV, fis);
+						usuariosControlador.altaUsuario(textNombre.getText(), textMail.getText(), null, null, textDomicilio.getText(), Integer.parseInt(textDNI.getText()),fechaN, "Socio", fechaI, null, null, null, abono, fechaV, fis);
 
 						JOptionPane.showMessageDialog(null, "Ingreso correcto");
 						usuariosControlador.imprimir();
