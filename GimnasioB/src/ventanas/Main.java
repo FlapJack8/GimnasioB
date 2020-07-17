@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import controladores.SistemaAbonos;
 import controladores.SistemaActividades;
 import controladores.SistemaClases;
+import controladores.SistemaFacturas;
 import controladores.SistemaUsuarios;
 import modelo.Administrador;
 import modelo.Operador;
@@ -32,6 +33,7 @@ public class Main extends JFrame{
 	private SistemaClases clasesControlador;
 	private SistemaAbonos abonosControlador;
 	private SistemaActividades actividadesControlador;
+	private SistemaFacturas facturasControlador;
 
 
 
@@ -45,6 +47,7 @@ public class Main extends JFrame{
 			clasesControlador = SistemaClases.getInstancia();
 			abonosControlador = SistemaAbonos.getInstancia();
 			actividadesControlador = SistemaActividades.getInstancia();
+			facturasControlador = SistemaFacturas.getInstancia();
 
 			/*----------------------------------------------
 			 *  *      MOSTRAMOS PANTALLA DE LOGIN      *  *
@@ -81,7 +84,7 @@ public class Main extends JFrame{
 			 * 3) ABONOS
 			 * 4) ACTIVIDADES
 			 * 5) LIQUIDAR SUELDOS
-			 * 6) 
+			 * 6) FACTURAR SOCIO
 			 * 7) 
 			 **********************************
 			 */
@@ -193,6 +196,26 @@ public class Main extends JFrame{
 				}
 			});
 			getContentPane().add(btnLiquidarSueldos);
+
+			/*-------------------------------------------
+			 *  *    6)     FACTURAR SOCIO           *  *
+			 *-------------------------------------------
+			 */
+			
+			JButton btnFacturarSocio = new JButton("Facturar Cuota");
+			btnFacturarSocio.setBounds(250, 165, 169, 23);
+			btnFacturarSocio.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if (facturasControlador != null) {
+						
+						/*----ENVIA CONTROLADOR DE ABONOS A LA SIGUIENTE VISTA----*/
+						
+						FacturarBuscarSocio facturarBuscarSocio = new FacturarBuscarSocio(facturasControlador, usuariosControlador);
+						facturarBuscarSocio.setVisible(true);
+					}
+				}
+			});
+			getContentPane().add(btnFacturarSocio);
 			
 			/*-------------------------------------------------------------
 			 *  *      DEPENDIENDO EL ROL HABILITAMOS LOS BOTONES      *  *
