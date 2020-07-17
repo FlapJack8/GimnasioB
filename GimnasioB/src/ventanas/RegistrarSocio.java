@@ -32,7 +32,6 @@ public class RegistrarSocio extends JFrame {
 	private JTextField textMail;
 	private JTextField textFechaNacimiento;
 	private JTextField textFechaIns;
-	private JTextField textTipoAbono;
 	private JTextField textNombre;
 	private JTextField textFechaVen;
 	private JTextField textField;
@@ -50,7 +49,7 @@ public class RegistrarSocio extends JFrame {
 		setResizable(false);
 		toFront();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(400, 200, 720, 356);
+		setBounds(400, 200, 774, 367);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -110,11 +109,6 @@ public class RegistrarSocio extends JFrame {
 		textFechaIns.setBounds(212, 185, 152, 20);
 		contentPane.add(textFechaIns);
 		textFechaIns.setColumns(10);
-		
-		textTipoAbono = new JTextField();
-		textTipoAbono.setBounds(212, 248, 152, 20);
-		contentPane.add(textTipoAbono);
-		textTipoAbono.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setBounds(11, 25, 141, 14);

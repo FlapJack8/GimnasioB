@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
+import controladores.SistemaAbonos;
 import controladores.SistemaUsuarios;
 import modelo.Socio;
 import javax.swing.JLabel;
@@ -12,7 +13,10 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
 
 public class ModificarSocioLlenarCampos extends JFrame{
 	private JTextField txtNombre;
@@ -21,14 +25,17 @@ public class ModificarSocioLlenarCampos extends JFrame{
 	private JTextField txtEmail;
 	private JTextField txtFechaNacimiento;
 	private JTextField txtFechaIns;
-	private JTextField txtTipoAbono;
 	private JTextField txtFechaVenci;
+	private SistemaAbonos abonosControl;
+	private JComboBox<String> comboBoxAbonos;
 
 	/*----LLENAR CAMPOS PARA MODIFICAR----*/
 	
 	public ModificarSocioLlenarCampos(SistemaUsuarios usuariosControlador, Socio v) {
-		setTitle("Modificar Usuario");
 		
+		abonosControl = new SistemaAbonos();
+		
+		setTitle("Modificar Usuario");
 		setBounds(400, 200, 499, 303);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
@@ -107,12 +114,6 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		getContentPane().add(txtFechaIns);
 		txtFechaIns.setColumns(10);
 		
-		txtTipoAbono = new JTextField();
-		txtTipoAbono.setBounds(255, 185, 86, 20);
-		txtTipoAbono.setText(v.getTipoAbono());
-		getContentPane().add(txtTipoAbono);
-		txtTipoAbono.setColumns(10);
-		
 		txtFechaVenci = new JTextField();
 		String fechaVencimiento = v.getFechaVen().toString();
 		txtFechaVenci.setText(fechaVencimiento);
@@ -120,6 +121,17 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		getContentPane().add(txtFechaVenci);
 		txtFechaVenci.setColumns(10);
 		
+		ResultSet listaAbonos = abonosControl.listarAbono();
+		comboBoxAbonos = new JComboBox<String>();
+		comboBoxAbonos.setBounds(255, 184, 86, 22);
+		getContentPane().add(comboBoxAbonos);
+		try {
+			while(listaAbonos.next()) {
+				comboBoxAbonos.addItem(listaAbonos.getString("tipoAbono"));
+			}
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
 		
 		
 		/*----BOTON ACEPTAR----*/
@@ -130,12 +142,13 @@ public class ModificarSocioLlenarCampos extends JFrame{
 				Date fechaN=Date.valueOf(txtFechaNacimiento.getText());
 				Date fechaIns=Date.valueOf(txtFechaIns.getText());
 				Date fechaVen=Date.valueOf(txtFechaVenci.getText());
-				if(txtNombre.getText().equals("")||txtTipoAbono.getText().equals("")||txtFechaNacimiento.getText().equals("")||txtDomicilio.getText().equals("")||fechaN.equals("")||fechaVen.equals("")||fechaIns.equals("")||txtEmail.getText().equals("")||txtDni.getText().equals("")) {
+				String abono = (String) comboBoxAbonos.getSelectedItem();
+				if(txtNombre.getText().equals("")||abono.equals("")||txtFechaNacimiento.getText().equals("")||txtDomicilio.getText().equals("")||fechaN.equals("")||fechaVen.equals("")||fechaIns.equals("")||txtEmail.getText().equals("")||txtDni.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
 				}
 				else {
 					//System.out.println(v.getEstado());
-					usuariosControlador.modificarSocio(Integer.parseInt(txtDni.getText()), txtNombre.getText(), txtEmail.getText(), txtDomicilio.getText(), fechaN, fechaIns, txtTipoAbono.getText(), fechaVen);
+					usuariosControlador.modificarSocio(Integer.parseInt(txtDni.getText()), txtNombre.getText(), txtEmail.getText(), txtDomicilio.getText(), fechaN, fechaIns, abono, fechaVen);
 					JOptionPane.showMessageDialog(null, "Modificado!");
 					usuariosControlador.imprimir();
 					dispose();
@@ -145,9 +158,6 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		});
 		btnAceptar.setBounds(368, 230, 89, 23);
 		getContentPane().add(btnAceptar);
-		
-		
-		
 	}
 
 }
