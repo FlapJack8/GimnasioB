@@ -166,7 +166,8 @@ public class UsrMapper {
 						" fechaInscipcion =?," +
 						" tipoAbono =?," +
 						" fechaVencimientoApto=?," +
-						" estado = ?" +
+						" estado = ?," +
+						" datosMedicos = ?" +
 						" where dni = ?");
 				/*----CAMPOS DE CLIENTE----*/
 				
@@ -178,8 +179,8 @@ public class UsrMapper {
 				s.setString(6, soc.getTipoAbono());
 				s.setDate(7, (Date) soc.getFechaVen());
 				s.setString(8, soc.getEstado());
-				System.out.println(soc.getEstado());
-				s.setInt(9, soc.getDni());
+				s.setBinaryStream(9, (InputStream) soc.getDatosMedicos());
+				s.setInt(10, soc.getDni());
 				
 				s.executeUpdate();
 				PoolConnection.getPoolConnection().realeaseConnection(con);

@@ -139,7 +139,7 @@ public class SistemaUsuarios {
 	 *------------------------------------
 	 */
 
-	public void modificarSocio(int dni, String nombre, String email, String domicilio, Date fechaNac, Date fechaIns, String tipoAbono, Date fechaVen){
+	public void modificarSocio(int dni, String nombre, String email, String domicilio, Date fechaNac, Date fechaIns, String tipoAbono, Date fechaVen, FileInputStream fis){
 		for(Socio s: vSocios) {
 			if(s.getDni() == dni) {
 				s.setNombre(nombre);
@@ -151,6 +151,7 @@ public class SistemaUsuarios {
 				s.setFechaInicioActividades(fechaIns);
 				s.setTipoAbono(tipoAbono);
 				s.setFechaVen(fechaVen);
+				s.setDatosMedicos(fis);
 				UsrMapper.getInstance().updateSocio(s);
 			}
 				

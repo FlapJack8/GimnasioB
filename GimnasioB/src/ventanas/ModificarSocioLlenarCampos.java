@@ -10,13 +10,19 @@ import modelo.Socio;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 
 public class ModificarSocioLlenarCampos extends JFrame{
 	private JTextField txtNombre;
@@ -28,6 +34,9 @@ public class ModificarSocioLlenarCampos extends JFrame{
 	private JTextField txtFechaVenci;
 	private SistemaAbonos abonosControl;
 	private JComboBox<String> comboBoxAbonos;
+	private JTextField textField;
+	private File selectedFile; 
+	private FileInputStream fis; 
 
 	/*----LLENAR CAMPOS PARA MODIFICAR----*/
 	
@@ -36,7 +45,7 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		abonosControl = new SistemaAbonos();
 		
 		setTitle("Modificar Usuario");
-		setBounds(400, 200, 499, 303);
+		setBounds(400, 200, 845, 303);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
@@ -121,6 +130,46 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		getContentPane().add(txtFechaVenci);
 		txtFechaVenci.setColumns(10);
 		
+		JLabel lblDatosMedicos = new JLabel("Datos Medicos:");
+		lblDatosMedicos.setBounds(461, 84, 102, 14);
+		getContentPane().add(lblDatosMedicos);
+		
+		JButton btnBuscarImagen = new JButton("Buscar Imagen");
+		btnBuscarImagen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			try {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+					| UnsupportedLookAndFeelException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			final JFileChooser fc = new JFileChooser();
+			int returnVal = fc.showOpenDialog(btnBuscarImagen);
+			fc.setCurrentDirectory (new File(System.getProperty("user.home")));
+			//if (returnVal == JFileChooser.APPROVE_OPTION) {
+				selectedFile = fc.getSelectedFile();
+				textField.setEnabled(true);
+				textField.setText(selectedFile.getAbsolutePath());
+				try {
+					fis = new FileInputStream(selectedFile);
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				}
+			//}
+		});
+		btnBuscarImagen.setBounds(525, 105, 108, 23);
+		getContentPane().add(btnBuscarImagen);
+		
+		textField = new JTextField();
+		textField.setEnabled(false);
+		textField.setEditable(false);
+		textField.setBounds(525, 131, 108, 20);
+		getContentPane().add(textField);
+		textField.setColumns(10);
+		
 		ResultSet listaAbonos = abonosControl.listarAbono();
 		comboBoxAbonos = new JComboBox<String>();
 		comboBoxAbonos.setBounds(255, 184, 86, 22);
@@ -148,7 +197,7 @@ public class ModificarSocioLlenarCampos extends JFrame{
 				}
 				else {
 					//System.out.println(v.getEstado());
-					usuariosControlador.modificarSocio(Integer.parseInt(txtDni.getText()), txtNombre.getText(), txtEmail.getText(), txtDomicilio.getText(), fechaN, fechaIns, abono, fechaVen);
+					usuariosControlador.modificarSocio(Integer.parseInt(txtDni.getText()), txtNombre.getText(), txtEmail.getText(), txtDomicilio.getText(), fechaN, fechaIns, abono, fechaVen, fis);
 					JOptionPane.showMessageDialog(null, "Modificado!");
 					usuariosControlador.imprimir();
 					dispose();
@@ -158,6 +207,6 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		});
 		btnAceptar.setBounds(368, 230, 89, 23);
 		getContentPane().add(btnAceptar);
-	}
 
+	}
 }
