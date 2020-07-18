@@ -1,7 +1,5 @@
 package ventanas;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 
 import controladores.SistemaAbonos;
@@ -37,6 +35,7 @@ public class ModificarSocioLlenarCampos extends JFrame{
 	private JTextField textField;
 	private File selectedFile; 
 	private FileInputStream fis; 
+	private JTextField textBonoActual;
 
 	/*----LLENAR CAMPOS PARA MODIFICAR----*/
 	
@@ -80,53 +79,53 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		getContentPane().add(lblTipoAbono);
 		
 		JLabel lblFechaVencimiento = new JLabel("Fecha Vencimiento del Apto:");
-		lblFechaVencimiento.setBounds(64, 213, 188, 14);
+		lblFechaVencimiento.setBounds(64, 213, 143, 14);
 		getContentPane().add(lblFechaVencimiento);
 		
 		txtNombre = new JTextField();
 		txtNombre.setText(v.getNombre());
-		txtNombre.setBounds(255, 50, 86, 20);
+		txtNombre.setBounds(221, 50, 86, 20);
 		getContentPane().add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		txtDni = new JTextField();
 		txtDni.setEditable(false);
 		txtDni.setEnabled(false);
-		txtDni.setBounds(255, 22, 86, 20);
+		txtDni.setBounds(221, 22, 86, 20);
 		txtDni.setText(Integer.toString(v.getDni()));
 		getContentPane().add(txtDni);
 		txtDni.setColumns(10);
 		
 		txtDomicilio = new JTextField();
 		txtDomicilio.setText(v.getDomicilio());
-		txtDomicilio.setBounds(255, 106, 86, 20);
+		txtDomicilio.setBounds(221, 106, 86, 20);
 		getContentPane().add(txtDomicilio);
 		txtDomicilio.setColumns(10);
 		
 		txtEmail = new JTextField();
 		txtEmail.setText(v.getEmail());
-		txtEmail.setBounds(255, 81, 86, 20);
+		txtEmail.setBounds(221, 81, 86, 20);
 		getContentPane().add(txtEmail);
 		txtEmail.setColumns(10);
 		
 		txtFechaNacimiento = new JTextField();
 		String fechaNaci =v.getFechaDeNac().toString();
 		txtFechaNacimiento.setText(fechaNaci);
-		txtFechaNacimiento.setBounds(255, 131, 86, 20);
+		txtFechaNacimiento.setBounds(221, 131, 86, 20);
 		getContentPane().add(txtFechaNacimiento);
 		txtFechaNacimiento.setColumns(10);
 		
 		txtFechaIns = new JTextField();
 		String fechaInscrip=v.getFechaInicioActividades().toString();
 		txtFechaIns.setText(fechaInscrip);
-		txtFechaIns.setBounds(255, 156, 86, 20);
+		txtFechaIns.setBounds(221, 156, 86, 20);
 		getContentPane().add(txtFechaIns);
 		txtFechaIns.setColumns(10);
 		
 		txtFechaVenci = new JTextField();
 		String fechaVencimiento = v.getFechaVen().toString();
 		txtFechaVenci.setText(fechaVencimiento);
-		txtFechaVenci.setBounds(255, 210, 86, 20);
+		txtFechaVenci.setBounds(221, 210, 86, 20);
 		getContentPane().add(txtFechaVenci);
 		txtFechaVenci.setColumns(10);
 		
@@ -172,15 +171,27 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		
 		ResultSet listaAbonos = abonosControl.listarAbono();
 		comboBoxAbonos = new JComboBox<String>();
-		comboBoxAbonos.setBounds(255, 184, 86, 22);
+		comboBoxAbonos.setBounds(221, 184, 86, 22);
 		getContentPane().add(comboBoxAbonos);
 		try {
 			while(listaAbonos.next()) {
+				comboBoxAbonos.addItem("");
 				comboBoxAbonos.addItem(listaAbonos.getString("tipoAbono"));
 			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
+		
+		textBonoActual = new JTextField();
+		textBonoActual.setText(v.getTipoAbono());
+		textBonoActual.setEditable(false);
+		textBonoActual.setBounds(341, 185, 86, 20);
+		getContentPane().add(textBonoActual);
+		textBonoActual.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("Bono Actual:");
+		lblNewLabel.setBounds(341, 169, 75, 14);
+		getContentPane().add(lblNewLabel);
 		
 		
 		/*----BOTON ACEPTAR----*/
