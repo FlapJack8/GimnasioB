@@ -226,7 +226,10 @@ public class Main extends JFrame{
 			btnConsultarEstAbonos.setBounds(115, 210, 200, 23);
 			btnConsultarEstAbonos.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if (facturasControlador != null) {
+					if (usuariosControlador != null) {
+						/*----ACTUALIZAMOS LA TABLA DE SOCIOS PARA DESPUES MOSTRAR LOS ABONOS VENCIDOS----*/
+						
+						usuariosControlador.actualizarEstadoDeAbonos();
 						
 						/*----ENVIA CONTROLADOR DE ABONOS A LA SIGUIENTE VISTA----*/
 						

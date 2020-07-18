@@ -599,4 +599,14 @@ public class SistemaUsuarios {
 		return rs;
 	}
 
+	/*----------------------------------------------
+	 *  *    3)  ACTUALIZAR ESTADO DE ABONOS    *  *
+	 *----------------------------------------------
+	 */
+
+	public void actualizarEstadoDeAbonos() {
+
+		UsrMapper.getInstance().actualizarEstadoDeAbonos();
+				
+	}
 }

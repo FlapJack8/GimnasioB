@@ -621,5 +621,42 @@ public class UsrMapper {
 		}
 		return null;
 	}
+	
+	public void actualizarEstadoDeAbonos() {
+		/*----TRY DE LA CONECCION UPDATE----*/
 		
+		try
+		{
+			Connection con = PoolConnection.getPoolConnection().getConnection();
+			/*----STATEMENT QUERY DEL UPDATE----*/
+			PreparedStatement s = con.prepareStatement("update dbo.Socios " +
+					"set estadoAbono =?" +
+					" where fechaVencimientoAbono < ?");
+			/*----CAMPOS DEL SOCIO----*/
+			
+			s.setString(1, "Vencido");
+			java.util.Date today = Calendar.getInstance().getTime();
+			java.sql.Date fechaHoy = new java.sql.Date(today.getTime());
+			s.setDate(2, fechaHoy);
+			
+			/*----STATEMENT QUERY DEL UPDATE----*/
+			PreparedStatement s2 = con.prepareStatement("update dbo.Socios " +
+					"set estadoAbono = ? " +
+					" where ? between DateAdd(DD,-7,fechaVencimientoAbono) and fechaVencimientoAbono ");
+			
+			/*----CAMPOS DE SOCIO----*/
+			
+			s2.setString(1, "PorVencer");
+			s2.setDate(2, fechaHoy);
+
+			s.execute();
+			s2.execute();
+			PoolConnection.getPoolConnection().realeaseConnection(con);
+		}
+		catch (Exception e)
+		{
+			System.out.println("Stack Trace: " + e.getStackTrace() + e.getMessage());
+			System.out.println("rompio update abonos estado");
+		}
+	}
 }
