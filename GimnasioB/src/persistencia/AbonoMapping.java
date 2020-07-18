@@ -139,6 +139,48 @@ public class AbonoMapping {
 	}
 
 	
+	public ResultSet listarTodosAbonos() {
+		try {
+			Abono c = null;
+			Connection con = PoolConnection.getPoolConnection().getConnection();
+			PreparedStatement s = con.prepareStatement("select * from dbo.Abonos ");
+
+			ResultSet result = s.executeQuery();
+			
+			/*while (result.next()) {
+				String actividad = result.getString(1);
+				Date fecha = result.getDate(2);
+				Time horario = result.getTime(3);
+				String profeNombre = result.getString(4);
+				float duracion = result.getFloat(5);
+				int capacidadMax = result.getInt(6);
+				int capacidadMin = result.getInt(7);
+				String publico = result.getString(8);
+				String dificultad = result.getString(9);
+				String estado = result.getString(10);
+
+				c = new Abono(actividad, fecha, horario, profeNombre, duracion, capacidadMax, capacidadMin, publico, dificultad, estado);
+
+				vAbonos.add(c);
+			}
+			PoolConnection.getPoolConnection().realeaseConnection(con);
+			
+			/*for(int i=0; i<=vAbonos.size()+1; i++){
+				System.out.println(vAbonos.elementAt(i).getActividad());
+			}*/
+			
+			PoolConnection.getPoolConnection().realeaseConnection(con);
+
+			return result;
+		} 
+		catch (Exception e) {
+			System.out.println("Error select listar Abonos\n");
+			System.out.println("Stack Trace: " + e.getStackTrace() + e.getMessage());
+		}
+		return null;
+	}
+
+	
 	
 	
 	public void deleteAbono(Abono cl) 
@@ -177,21 +219,27 @@ public class AbonoMapping {
 			Connection con = PoolConnection.getPoolConnection().getConnection();
 			/*----STATEMENT QUERY DEL UPDATE----*/
 			PreparedStatement s = con.prepareStatement(
-					"UPDATE dbo.Abonos" +  "set precio =?" +" duracion =?"+ "where tipoAbono = ?");
+					" update dbo.Abonos " +  "set precio =?, " + " duracion =? " +  " where tipoAbono = ? ");
 			
 			/*----CAMPOS DE ABONOS----*/
 			s.setFloat(1,c.getPrecio() );
 			s.setInt(2,c.getDuracion() );
 			s.setString(3, c.getTipoAbono());
+		System.out.println(c.getTipoAbono());
 
+		
+		PreparedStatement d = con.prepareStatement(
+				" UPDATE dbo.Abonos set estado ='Activo' where tipoAbono = ? ");
+		d.setString(1, c.getTipoAbono());
+
+		    d.execute();
 			s.execute();
-
 			PoolConnection.getPoolConnection().realeaseConnection(con);
 		}
 		catch (Exception e)
 		{
 			System.out.println("Stack Trace: " + e.getStackTrace() + e.getMessage());
-			System.out.println("rompio baja abono");
+			System.out.println("rompio update abono");
 		}
 }
 }
