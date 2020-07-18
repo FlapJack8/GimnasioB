@@ -43,7 +43,7 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		
 		abonosControl = new SistemaAbonos();
 		
-		setTitle("Modificar Usuario");
+		setTitle("Modificar Socio");
 		setBounds(400, 200, 845, 303);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
