@@ -1,6 +1,5 @@
 package controladores;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Time;
 import java.util.Collections;
@@ -58,11 +57,19 @@ public class SistemaAbonos {
 	}
 	
 	public ResultSet listarAbono(){
+		
 		ResultSet rs = null;
 		rs = AbonoMapping.getInstance().listarAbono();
+		
 		return rs;
 	}
-
+	public ResultSet listarTodosAbonos(){
+		
+		ResultSet rs = null;
+		rs = AbonoMapping.getInstance().listarTodosAbonos();
+		
+		return rs;
+	}
 	public boolean existeAbono(String tipoAbono) {
 		
 		Abono c = buscarAbono( tipoAbono);
@@ -127,10 +134,12 @@ public void updateAbono(String tipoAbono,Float precio,int duracion){
 			s.setPrecio(precio);
 			s.setDuracion(duracion);
 			s.isActivo();
-			AbonoMapping.getInstance().updateAbono(s);
 		}
 			
 	}
+	Abono a= new Abono(tipoAbono, duracion, precio,"Activo");
+	AbonoMapping.getInstance().updateAbono(a);
+
 }
 
 	
