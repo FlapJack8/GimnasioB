@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import controladores.SistemaActividades;
 import controladores.SistemaClases;
 import controladores.SistemaUsuarios;
 import modelo.Persona;
@@ -24,9 +25,11 @@ import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Time;
+import java.util.Vector;
 
 import javax.print.attribute.standard.DateTimeAtCompleted;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -48,8 +51,9 @@ public class AltaClase extends JFrame{
 	private final ButtonGroup btnGrPublico = new ButtonGroup();
 	private final ButtonGroup btnGrDif = new ButtonGroup();
 	private JTable tbProfesores;
+	private JList listActsSistema;
 
-	public AltaClase(SistemaClases clasesControlador, SistemaUsuarios usuariosControlador) {
+	public AltaClase(SistemaClases clasesControlador, SistemaUsuarios usuariosControlador, SistemaActividades actividadesControlador) {
 		setForeground(SystemColor.textHighlight);
 		setTitle("Diagramar Clase");
 
@@ -205,9 +209,24 @@ public class AltaClase extends JFrame{
 		separator_4.setBounds(23, 481, 660, 2);
 		contentPane.add(separator_4);
 		
-		JList listActividades = new JList();
-		listActividades.setBounds(361, 73, 323, 77);
-		contentPane.add(listActividades);
+		DefaultListModel listModActsSistema = new DefaultListModel();
+		/*TRAE ACTIVIDADES DE BD*/
+		Vector<String> listaClases = actividadesControlador.jlistar();
+		
+		listActsSistema = new JList(listaClases);
+		listActsSistema.setBounds(361, 70, 283, 95);
+		listActsSistema.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listActsSistema.setLayoutOrientation(JList.VERTICAL);
+		listActsSistema.setVisible(true);
+		contentPane.add(listActsSistema);
+		
+		listActsSistema.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+            	String selectedRow = listActsSistema.getSelectedValue().toString();
+        		txtActividad.setText(selectedRow);
+            }
+        });
 		
 		ResultSet listaProfesores = usuariosControlador.listarProfesores();
 

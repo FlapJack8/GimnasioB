@@ -591,4 +591,12 @@ public class SistemaUsuarios {
 		return rs;
 	}
 
+	public ResultSet listarEstadoDeAbonos(){
+		
+		ResultSet rs = null;
+		rs = UsrMapper.getInstance().listarEstadoDeAbonos();
+		
+		return rs;
+	}
+
 }

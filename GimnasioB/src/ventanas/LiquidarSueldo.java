@@ -165,12 +165,9 @@ public class LiquidarSueldo extends JFrame{
 			lblDescripcion.setBounds(22, 348, 85, 16);
 			contentPane.add(lblDescripcion);
 			
-
-			Calendar cal = Calendar.getInstance();
-			int mesHoy = cal.get(Calendar.MONTH);
-			int yearHoy = cal.get(Calendar.YEAR);
+			String mesliq = txtFechaPago.getText();
 			
-			txtDescripcion = new JTextArea("Liquidacion de sueldo del mes " + mesHoy+ "-" + yearHoy);
+			txtDescripcion = new JTextArea("Liquidacion de sueldo del mes " + mesliq);
 			txtDescripcion.setBounds(98, 366, 260, 73);
 			contentPane.add(txtDescripcion);
 

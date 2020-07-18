@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
+import controladores.SistemaActividades;
 import controladores.SistemaClases;
 import controladores.SistemaUsuarios;
 
@@ -18,7 +19,7 @@ public class OpcionesClases extends JFrame{
 
 	/*----Inicializar Interfaz de Opciones de Usuarios----*/
 	
-	public OpcionesClases(SistemaClases clasesControlador, SistemaUsuarios usuariosControlador, String rolLogeado) {
+	public OpcionesClases(SistemaClases clasesControlador, SistemaUsuarios usuariosControlador, SistemaActividades actividadesControlador, String rolLogeado) {
 		
 		setTitle("Clases");
 		setBounds(450, 250, 352, 225);
@@ -46,7 +47,7 @@ public class OpcionesClases extends JFrame{
 					
 					/*----ENVIA CONTROLADOR DE USUARIO A LA SIGUIENTE VISTA----*/
 					
-					AltaClase altaClase = new AltaClase(clasesControlador,usuariosControlador);
+					AltaClase altaClase = new AltaClase(clasesControlador, usuariosControlador, actividadesControlador);
 					altaClase.setVisible(true);
 				}
 			}

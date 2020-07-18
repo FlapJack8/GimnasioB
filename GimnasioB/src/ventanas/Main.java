@@ -85,7 +85,7 @@ public class Main extends JFrame{
 			 * 4) ACTIVIDADES
 			 * 5) LIQUIDAR SUELDOS
 			 * 6) FACTURAR SOCIO
-			 * 7) 
+			 * 7) CONSULTAR ESTADO DE ABONOS
 			 **********************************
 			 */
 			
@@ -130,7 +130,7 @@ public class Main extends JFrame{
 						
 						/*----ENVIA CONTROLADOR DE CLASES A LA SIGUIENTE VISTA Y USUARIOS POR PROFESOR----*/
 						
-						OpcionesClases opcionesClases = new OpcionesClases(clasesControlador, usuariosControlador, rolLogeado);
+						OpcionesClases opcionesClases = new OpcionesClases(clasesControlador, usuariosControlador, actividadesControlador, rolLogeado);
 						opcionesClases.setVisible(true);
 					}
 				}
@@ -216,6 +216,26 @@ public class Main extends JFrame{
 				}
 			});
 			getContentPane().add(btnFacturarSocio);
+			
+			/*-------------------------------------------
+			 *  *  7)  CONSULTAR ESTADO DE ABONOS    *  *
+			 *-------------------------------------------
+			 */
+			
+			JButton btnConsultarEstAbonos = new JButton("Consultar Estado de Abonos");
+			btnConsultarEstAbonos.setBounds(115, 210, 200, 23);
+			btnConsultarEstAbonos.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if (facturasControlador != null) {
+						
+						/*----ENVIA CONTROLADOR DE ABONOS A LA SIGUIENTE VISTA----*/
+						
+						ListarEstadoDeAbonos estadoDeAbonos = new ListarEstadoDeAbonos(usuariosControlador);
+						estadoDeAbonos.setVisible(true);
+					}
+				}
+			});
+			getContentPane().add(btnConsultarEstAbonos);
 			
 			/*-------------------------------------------------------------
 			 *  *      DEPENDIENDO EL ROL HABILITAMOS LOS BOTONES      *  *

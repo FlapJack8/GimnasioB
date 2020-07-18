@@ -603,4 +603,23 @@ public class UsrMapper {
 		}
 	}
 		
+	public ResultSet listarEstadoDeAbonos() {
+		try {
+			Empleado emp = null;
+			Connection con = PoolConnection.getPoolConnection().getConnection();
+			PreparedStatement s = con.prepareStatement("select dni, nombre, email, estadoAbono, fechaVencimientoAbono from dbo.Socios order by estadoAbono DESC");
+
+			ResultSet result = s.executeQuery();
+			
+			PoolConnection.getPoolConnection().realeaseConnection(con);
+
+			return result;
+		} 
+		catch (Exception e) {
+			System.out.println("Error select listar estado de abonos\n");
+			System.out.println("Stack Trace: " + e.getStackTrace() + e.getMessage());
+		}
+		return null;
+	}
+		
 }
