@@ -22,8 +22,8 @@ import modelo.Abono;
 public class ModificarAbonoLlenarCampos extends JFrame{
 
 	private JPanel contentPane;
-	private JTextField txtActividad;
-	private JTextField txtEstado;
+	private JTextField txtPRECIO;
+	private JTextField txtDURACION;
 	
 	public ModificarAbonoLlenarCampos(SistemaAbonos abonoContorlador, Abono a) {
 		
@@ -42,40 +42,43 @@ public class ModificarAbonoLlenarCampos extends JFrame{
 		
 		JLabel lblActividad = new JLabel("Precio:");
 		lblActividad.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblActividad.setBounds(13, 103, 152, 14);
+		lblActividad.setBounds(85, 124, 61, 14);
 		contentPane.add(lblActividad);
 		
 		JLabel lblEstadoActividad = new JLabel("Duracion:");
 		lblEstadoActividad.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblEstadoActividad.setBounds(13, 163, 152, 14);
+		lblEstadoActividad.setBounds(85, 166, 89, 14);
 		contentPane.add(lblEstadoActividad);
 		
-		txtActividad = new JTextField();
-		txtActividad.setBounds(214, 100, 152, 20);
-		contentPane.add(txtActividad);
-		txtActividad.setColumns(10);
+		txtPRECIO = new JTextField();
+		txtPRECIO.setText(Float.toString(a.getPrecio()));
+		txtPRECIO.setBounds(184, 122, 152, 20);
+		contentPane.add(txtPRECIO);
+		txtPRECIO.setColumns(10);
 		
-		txtEstado = new JTextField();
-		txtEstado.setBounds(214, 160, 152, 20);
-		contentPane.add(txtEstado);
-		txtEstado.setColumns(10);
+		txtDURACION = new JTextField();
+		txtDURACION.setText(Integer.toString(a.getDuracion()));
+
+		txtDURACION.setBounds(184, 160, 152, 20);
+		contentPane.add(txtDURACION);
+		txtDURACION.setColumns(10);
 		
 		//Actualizar
 		JButton btnAceptar = new JButton("Actualizar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				if(txtActividad.getText().equals("")||txtEstado.getText().equals("")) 
+				if(txtPRECIO.getText().equals("") || txtDURACION.getText().equals("")) 
 					JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
 				else {
-					abonoContorlador.updateAbono(a.getTipoAbono(), Float.parseFloat(txtActividad.getText()), Integer.parseInt(txtEstado.getText()));
+					abonoContorlador.updateAbono(a.getTipoAbono(), Float.parseFloat(txtPRECIO.getText()), Integer.parseInt(txtDURACION.getText()));
 				JOptionPane.showMessageDialog(null, "Actividad actualizada correctamente");
 				//actividadControlador.imprimirActividad(); //Metodo aun no implementado
 				dispose();
 				}
 			}
 		});
-		btnAceptar.setBounds(368, 230, 89, 23);
+		btnAceptar.setBounds(197, 202, 106, 23);
 		getContentPane().add(btnAceptar);
 	}
 }

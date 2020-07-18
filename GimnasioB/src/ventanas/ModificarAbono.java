@@ -42,7 +42,7 @@ public class ModificarAbono  extends JFrame{
 		getContentPane().setLayout(null);
 		
 		//DefaultTableModel modeloTabla = (DefaultTableModel) tbClases.getModel();
-		ResultSet listaClases = abonosControlador.listarAbono();
+		ResultSet listaClases = abonosControlador.listarTodosAbonos();
 	/*Object data[] = new Object[listaClases.size()];
 		for(int j=0;j<listaClases.size();j++) {
 			data[j] = listaClases.elementAt(j).getActividad();
