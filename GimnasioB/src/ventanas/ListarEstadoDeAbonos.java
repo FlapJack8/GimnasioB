@@ -42,7 +42,7 @@ public class ListarEstadoDeAbonos extends JFrame {
 	public ListarEstadoDeAbonos(SistemaUsuarios usuariosControlador) {
 
 		setResizable(false);
-		
+		setLocationRelativeTo(null);
 		setTitle("Estado de Abonos");
 		setBounds(450, 250, 682, 515);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

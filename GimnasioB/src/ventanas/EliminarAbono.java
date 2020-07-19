@@ -35,7 +35,7 @@ public class EliminarAbono extends JFrame{
 	/*---------CREO VENTANA DE ALTA ABONO----*/
 	
 	public EliminarAbono(SistemaAbonos abonosControlador) {
-
+		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Eliminar Abono");
 		setBounds(450, 250, 682, 515);

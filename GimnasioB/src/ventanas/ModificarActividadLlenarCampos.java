@@ -28,7 +28,7 @@ public class ModificarActividadLlenarCampos extends JFrame{
 		
 		setForeground(SystemColor.textHighlight);
 		setTitle("Modificar Actividad");
-
+		setLocationRelativeTo(null);
 		setResizable(false);
 		toFront();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

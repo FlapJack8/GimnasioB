@@ -57,7 +57,7 @@ public class ModificarClaseLlenarCampos extends JFrame{
 	public ModificarClaseLlenarCampos(SistemaClases clasesControlador, Clase c, SistemaUsuarios usuariosControlador, SistemaActividades actividadesControlador) {
 		setForeground(SystemColor.textHighlight);
 		setTitle("Modificar Clase");
-
+		setLocationRelativeTo(null);
 		setResizable(false);
 		toFront();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

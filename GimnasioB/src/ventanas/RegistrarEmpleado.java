@@ -55,7 +55,7 @@ public class RegistrarEmpleado extends JFrame{
 		setTitle("Registrar Empleado");
 
 		/*---------CREO VENTANA DE REGISTRO----*/
-		
+			setLocationRelativeTo(null);
 			setResizable(false);
 			toFront();
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

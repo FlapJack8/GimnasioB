@@ -18,7 +18,7 @@ public class ModificarSocio extends JFrame{
 	private JTextField txtDniModif;
 
 	public ModificarSocio(SistemaUsuarios usuariosControlador) {
-		
+		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Modificar Socio");
 		

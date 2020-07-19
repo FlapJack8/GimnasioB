@@ -44,7 +44,7 @@ public class ModificarSocioLlenarCampos extends JFrame{
 	public ModificarSocioLlenarCampos(SistemaUsuarios usuariosControlador, Socio v) {
 		
 		abonosControl = new SistemaAbonos();
-		
+		setLocationRelativeTo(null);
 		setResizable(false);
 		
 		setTitle("Modificar Socio");

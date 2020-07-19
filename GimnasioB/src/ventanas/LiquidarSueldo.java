@@ -57,7 +57,7 @@ public class LiquidarSueldo extends JFrame{
 	private JTextArea txtDescripcion;
 
 	public LiquidarSueldo(SistemaUsuarios usuariosControlador, String nombreUsuario, String nombre, String email, int dni, Float sueldo, Date fechaInicioActs, String diasLaborales, String rol) {
-		
+		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Modificar Empleado");
 

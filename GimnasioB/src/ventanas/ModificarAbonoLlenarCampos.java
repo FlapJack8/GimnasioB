@@ -29,7 +29,7 @@ public class ModificarAbonoLlenarCampos extends JFrame{
 		
 		setForeground(SystemColor.textHighlight);
 		setTitle("Modificar Abono");
-
+		setLocationRelativeTo(null);
 		setResizable(false);
 		toFront();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

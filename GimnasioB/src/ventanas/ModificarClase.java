@@ -31,7 +31,7 @@ public class ModificarClase extends JFrame {
 	public ModificarClase(SistemaClases clasesControlador, SistemaUsuarios usuariosControlador, SistemaActividades actividadesControlador) {
 
 		setResizable(false);
-		
+		setLocationRelativeTo(null);
 		setTitle("Modificar Clase");
 		setBounds(450, 250, 819, 515);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

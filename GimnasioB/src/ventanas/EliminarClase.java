@@ -28,7 +28,7 @@ public class EliminarClase extends JFrame {
 	private JTable tbClases;
 	
 	public EliminarClase(SistemaClases clasesControlador) {
-
+		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Eliminar Clase");
 		setBounds(450, 250, 682, 515);

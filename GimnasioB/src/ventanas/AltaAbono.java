@@ -25,7 +25,8 @@ public class AltaAbono extends JFrame {
 	/*---------CREO VENTANA DE ALTA ABONO----*/
 	
 	public AltaAbono(SistemaAbonos abonosControlador) {
-		 setForeground(SystemColor.textHighlight);
+		setLocationRelativeTo(null);
+		setForeground(SystemColor.textHighlight);
 		 setTitle ("Alta Abono");
 		 setResizable(false);
 		 toFront();

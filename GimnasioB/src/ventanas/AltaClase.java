@@ -54,6 +54,8 @@ public class AltaClase extends JFrame{
 	private JList listActsSistema;
 
 	public AltaClase(SistemaClases clasesControlador, SistemaUsuarios usuariosControlador, SistemaActividades actividadesControlador) {
+		
+		setLocationRelativeTo(null);
 		setForeground(SystemColor.textHighlight);
 		setTitle("Diagramar Clase");
 
