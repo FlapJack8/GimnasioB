@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
+import controladores.SistemaAbonos;
 import controladores.SistemaFacturas;
 import controladores.SistemaUsuarios;
 import modelo.Socio;
@@ -18,7 +19,7 @@ import java.awt.event.ActionEvent;
 public class FacturarBuscarSocio extends JFrame{
 	private JTextField txtDniBuscar;
 
-	public FacturarBuscarSocio(SistemaFacturas facturasControlador, SistemaUsuarios usuariosControlador) {
+	public FacturarBuscarSocio(SistemaFacturas facturasControlador, SistemaUsuarios usuariosControlador, SistemaAbonos abonosControlador) {
 		setTitle("Facturar Cuota");
 		
 		setBounds(450, 250, 401, 185);
@@ -48,7 +49,7 @@ public class FacturarBuscarSocio extends JFrame{
 						/*----ENVIA CONTROLADOR DE FACTURAS Y USUARIO A LA SIGUIENTE VISTA----*/
 						if(v!=null)
 						{
-							FacturarCuota facturarCuota = new FacturarCuota(facturasControlador, usuariosControlador, v);
+							FacturarCuota facturarCuota = new FacturarCuota(facturasControlador, usuariosControlador, v, abonosControlador);
 							facturarCuota.setVisible(true);
 						}
 						else {

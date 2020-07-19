@@ -1,25 +1,162 @@
 package ventanas;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 
+import controladores.SistemaAbonos;
 import controladores.SistemaFacturas;
 import controladores.SistemaUsuarios;
 import modelo.Socio;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.Date;
+import java.sql.Time;
+import java.util.Calendar;
+import java.util.Iterator;
+import java.util.Vector;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.EmptyBorder;
+
+import controladores.SistemaUsuarios;
+import modelo.Administrador;
+import modelo.Operador;
+
+import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
+import java.awt.Font;
+import java.awt.List;
+
+import javax.swing.SwingConstants;
+import javax.swing.JTextArea;
 
 public class FacturarCuota extends JFrame{
-	private JTextField txtDniBuscar;
 
-	public FacturarCuota(SistemaFacturas facturasControlador, SistemaUsuarios usuariosControlador, Socio s) {
+	private JPanel contentPane;
+	private JLabel lblNombre;
+	private JLabel lblDni;
+	private JLabel lblTipoDeAbono;
+	private JLabel lblMontoDeFacturacion;
+	private JLabel lblFechaDeFacturacion;
+	private JLabel lblFechaDeVencimiento;
+	private JLabel lblLiquidarSueldo;
+	private JTextArea txtDescripcion;
+
+	public FacturarCuota(SistemaFacturas facturasControlador, SistemaUsuarios usuariosControlador, Socio s, SistemaAbonos abonosControlador) {
 		setTitle("Facturar Cuota");
+
+		/*---------CREO VENTANA DE MODIFICACION DE EMPLEADO----*/
+		
+			setResizable(false);
+			toFront();
+			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			setBounds(400, 200, 380, 475);
+			contentPane = new JPanel();
+			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+			setContentPane(contentPane);
+			contentPane.setLayout(null);
+			
+			/*----CAMPOS Y LABELS A LLENAR----*/
+			
+			lblFechaDeVencimiento = new JLabel("Fecha de Vencimiento de Abono: " + s.getFechaVenAbono());
+			lblFechaDeVencimiento.setBounds(22, 175, 293, 22);
+			contentPane.add(lblFechaDeVencimiento);
+			
+			lblFechaDeFacturacion = new JLabel("Fecha de Facturacion: " + new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()));
+			lblFechaDeFacturacion.setBounds(22, 175, 293, 22);
+			contentPane.add(lblFechaDeFacturacion);
+	
+			lblLiquidarSueldo = new JLabel("Datos de Factura:");
+			lblLiquidarSueldo.setFont(new Font("Tunga", Font.BOLD, 20));
+			lblLiquidarSueldo.setBounds(12, 24, 303, 29);
+			contentPane.add(lblLiquidarSueldo);
+			
+			lblNombre = new JLabel("Socio: "+s.getNombre());
+			lblNombre.setFont(new Font("Tunga", Font.BOLD, 20));
+			lblNombre.setBounds(12, 66, 296, 16);
+			contentPane.add(lblNombre);
+			
+			lblDni = new JLabel("DNI: "+s.getDni());
+			lblDni.setBounds(22, 95, 286, 16);
+			contentPane.add(lblDni);
+			
+			lblTipoDeAbono = new JLabel("Tipo de Abono: "+s.getTipoAbono());
+			lblTipoDeAbono.setBounds(22, 120, 293, 16);
+			contentPane.add(lblTipoDeAbono);
+			
+			lblMontoDeFacturacion = new JLabel("Monto a Facturar: "+abonosControlador.buscarAbono(s.getTipoAbono()).getPrecio());
+			lblMontoDeFacturacion.setBounds(22, 148, 293, 16);
+			contentPane.add(lblMontoDeFacturacion);
+			
+			JButton btnFacturar = new JButton("Liquidar");
+			btnFacturar.setBounds(136, 400, 97, 25);
+			btnFacturar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+
+					/*----VALIDA QUE TODOS LOS CAMPOS NECESARIOS ESTEN LLENOS----*/
+
+					Date fechaPago=Date.valueOf(txtFechaPago.getText());
+					
+					if(!txtExtras.getText().equals(""))
+					{
+						extras = Float.parseFloat(txtExtras.getText());
+						total = total+extras;
+					}
+					if(txtFechaPago.getText().equals("")) {
+							JOptionPane.showMessageDialog(null, "Llene los campos necesarios","Error",JOptionPane.ERROR_MESSAGE);
+
+					}
+					else {
+						if(usuariosControlador.existeEmpleado(nombreUsuario)) {
+							java.util.Date today = Calendar.getInstance().getTime();
+							int respuesta=JOptionPane.showConfirmDialog(null,"\nLiquidar sueldo del empleado: "+nombre+ "\nPor: "+total+"\n(Sueldo: "+sueldo+" + Extras: "+extras+")\nFecha de Pago: "+fechaPago+"\nDetalle: "+txtDescripcion.getText()+"\nFecha de Liquidacion: "+today, "Son estos los datos correctos?",JOptionPane.YES_NO_OPTION);
+							if(respuesta==1) {
+							
+							}
+							else if(respuesta==0) {
+
+								usuariosControlador.liquidarSueldoEmpleado(nombreUsuario, nombre, dni, sueldo, extras, fechaPago, txtDescripcion.getText());
+								JOptionPane.showMessageDialog(null, "Sueldo liquidado");
+								dispose();
+								
+							}
+							
+						}
+					}
+				}
+			});
+			contentPane.add(btnFacturar);
+			
+			JLabel lblDescripcion = new JLabel("Descripcion:");
+			lblDescripcion.setBounds(22, 280, 85, 16);
+			contentPane.add(lblDescripcion);
+			
+			txtDescripcion = new JTextArea("Facturacion de abono " + s.getTipoAbono() + "\nel dia " + new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()));
+			txtDescripcion.setBounds(55, 300, 260, 73);
+			contentPane.add(txtDescripcion);
+		
+			setLocationRelativeTo(null);
+
+
 	}
 
 }

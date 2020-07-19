@@ -216,7 +216,7 @@ public class Main extends JFrame{
 						
 						/*----ENVIA CONTROLADOR DE ABONOS A LA SIGUIENTE VISTA----*/
 						
-						FacturarBuscarSocio facturarBuscarSocio = new FacturarBuscarSocio(facturasControlador, usuariosControlador);
+						FacturarBuscarSocio facturarBuscarSocio = new FacturarBuscarSocio(facturasControlador, usuariosControlador,abonosControlador);
 						facturarBuscarSocio.setVisible(true);
 					}
 				}
