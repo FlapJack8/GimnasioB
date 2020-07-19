@@ -332,7 +332,7 @@ public class Main extends JFrame{
 			
 			JLabel lblContra = new JLabel("Clave");
 			lblContra.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			lblContra.setBounds(165, 105, 163, 23);
+			lblContra.setBounds(180, 105, 163, 23);
 			cpLogin.add(lblContra);
 			
 			passwordField = new JPasswordField();

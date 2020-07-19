@@ -1,5 +1,6 @@
 package ventanas;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
@@ -31,7 +32,7 @@ public class EliminarClase extends JFrame {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Eliminar Clase");
-		setBounds(450, 250, 682, 515);
+		setBounds(450, 250, 1010, 540);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
@@ -52,7 +53,7 @@ public class EliminarClase extends JFrame {
 			modeloTabla.addRow(data);
 			}*/
 		tbClases = new JTable();
-		tbClases.setBounds(36, 50, 616, 295);
+		tbClases.setBounds(36, 50, 932, 376);
 		tbClases.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbClases.setModel(DbUtils.resultSetToTableModel(listaClases));
 		tbClases.setDefaultEditor(Object.class, null);
@@ -109,8 +110,14 @@ public class EliminarClase extends JFrame {
 				
 			//}
 		});
-		btnEliminar.setBounds(268, 397, 89, 23);
+		btnEliminar.setBounds(458, 451, 89, 23);
 		getContentPane().add(btnEliminar);
+		setLocationRelativeTo(null);
+		
+		JLabel lblClases = new JLabel("Clases:");
+		lblClases.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblClases.setBounds(36, 21, 90, 20);
+		getContentPane().add(lblClases);
 		setLocationRelativeTo(null);
 
 	}
