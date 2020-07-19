@@ -36,6 +36,8 @@ public class ModificarAbono  extends JFrame{
 	
 	public ModificarAbono(SistemaAbonos abonosControlador) {
 
+		setResizable(false);
+		
 		setTitle("Modificar Abono");
 		setBounds(450, 250, 682, 515);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

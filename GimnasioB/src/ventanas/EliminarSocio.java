@@ -19,6 +19,8 @@ public class EliminarSocio extends JFrame {
 	
 	public EliminarSocio(SistemaUsuarios usuariosControlador) {
 
+		setResizable(false);
+		
 		setTitle("Eliminar Socio");
 		setBounds(450, 250, 368, 204);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

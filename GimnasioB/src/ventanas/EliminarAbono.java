@@ -36,6 +36,7 @@ public class EliminarAbono extends JFrame{
 	
 	public EliminarAbono(SistemaAbonos abonosControlador) {
 
+		setResizable(false);
 		setTitle("Eliminar Abono");
 		setBounds(450, 250, 682, 515);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

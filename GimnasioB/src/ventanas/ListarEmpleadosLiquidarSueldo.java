@@ -34,6 +34,8 @@ public class ListarEmpleadosLiquidarSueldo extends JFrame {
 	
 	public ListarEmpleadosLiquidarSueldo(SistemaUsuarios usuariosControlador, String rolLogeado) {
 
+		setResizable(false);
+		
 		setTitle("Liquidar Sueldos");
 		setBounds(450, 250, 682, 515);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

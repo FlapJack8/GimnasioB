@@ -20,7 +20,7 @@ public class OpcionesClases extends JFrame{
 	/*----Inicializar Interfaz de Opciones de Usuarios----*/
 	
 	public OpcionesClases(SistemaClases clasesControlador, SistemaUsuarios usuariosControlador, SistemaActividades actividadesControlador, String rolLogeado) {
-		
+		setResizable(false);
 		setTitle("Clases");
 		setBounds(450, 250, 352, 225);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -19,6 +19,7 @@ public class EliminarEmpleado extends JFrame {
 	
 	public EliminarEmpleado(SistemaUsuarios usuariosControlador) {
 
+		setResizable(false);
 		setTitle("Eliminar Empleado");
 		setBounds(450, 250, 368, 204);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

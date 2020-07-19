@@ -19,7 +19,7 @@ public class OpcionesUsuarios extends JFrame{
 	/*----Inicializar Interfaz de Opciones de Usuarios----*/
 	
 	public OpcionesUsuarios(SistemaUsuarios usuariosControlador, String rolLogeado, SistemaActividades actividadesControlador) {
-		
+		setResizable(false);
 		setTitle("Usuarios");
 		setBounds(450, 250, 352, 225);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
