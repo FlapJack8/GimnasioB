@@ -1,15 +1,18 @@
 package persistencia;
 
+
+import java.awt.Image;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
 
+import javax.swing.ImageIcon;
 import modelo.Administrador;
-import modelo.Clase;
 import modelo.Socio;
 import modelo.Empleado;
 import modelo.Operador;
@@ -129,13 +132,35 @@ public class UsrMapper {
 			}
 		}
 
-		public void deleteCliente(Socio cliente) 
+		public ImageIcon getImage (int dni) {
+			ImageIcon newImage = null;
+			Connection con = PoolConnection.getPoolConnection().getConnection();
+			try {
+				PreparedStatement s = con.prepareStatement("select datosMedicos from dbo.Socios where dni = ?");
+				s.setInt(1, dni);
+				ResultSet rs = s.executeQuery();
+				if(rs.next()) {
+					byte[] img = rs.getBytes("datosMedicos");
+					ImageIcon image = new ImageIcon(img);
+					Image im = image.getImage();
+					Image myImg = im.getScaledInstance(165, 123, Image.SCALE_SMOOTH);
+					newImage = new ImageIcon (myImg);	
+				}
+			}
+			catch (Exception e)
+			{
+				System.out.println("Stack Trace: " + e.getStackTrace());
+			}
+			return newImage; 
+		}
+		
+		public void deleteSocio(Socio socio) 
 		{
 			/*----TRY DE LA CONECCION ELIMINAR----*/
 
 			try
 			{
-				Socio c = (Socio) cliente;
+				Socio c = (Socio) socio;
 				Connection con = PoolConnection.getPoolConnection().getConnection();
 				/*----STATEMENT QUERY DEL DELETE----*/
 				PreparedStatement s = con.prepareStatement("delete from dbo.Usuarios where nombreUsuario = ? ");
@@ -300,11 +325,11 @@ public class UsrMapper {
 					String estado = result.getString(7);
 					String tipoAbono = result.getString(8);
 					Date fechaVencimineto = result.getDate(9);
-					FileInputStream fileInput = (FileInputStream) result.getBinaryStream(11);
+					Blob blob = (Blob) result.getBlob(11);
 					
 					
 					Persona p = new Persona(null, email, nombre, null, domicilio, dni, fechaDeNac, "socio", estado, fechaDeInscripcion);
-					socio = new Socio(p, "socio", fechaVencimineto, tipoAbono, fileInput);
+					socio = new Socio(p, "socio", fechaVencimineto, tipoAbono, null, blob);
 				}
 				PoolConnection.getPoolConnection().realeaseConnection(con);
 				return socio;
@@ -321,7 +346,7 @@ public class UsrMapper {
 			return false;
 		}
 		
-		public boolean existeCliente (int dni) {
+		public boolean existeSocio (int dni) {
 			return false;
 		}
 		

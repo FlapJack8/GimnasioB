@@ -9,13 +9,15 @@ public class Socio extends Rol {
 	private Date fechaVen;
 	private String tipoAbono;
 	private FileInputStream datosMedicos;
+	private Blob blob;
 
-	public Socio(Persona persona,String rol, Date fechaVen, String tipoAbono, FileInputStream datosMedicos) {
+	public Socio(Persona persona,String rol, Date fechaVen, String tipoAbono, FileInputStream datosMedicos, Blob blob) {
 		super(persona, rol);
 		//this.fechaIns = fechaIns;
 		this.fechaVen = fechaVen;
 		this.tipoAbono = tipoAbono;
 		this.datosMedicos = datosMedicos;
+		this.blob = blob;
 	}
 	
 	/*----CONSTRUCTOR BAJA LOGICA----*/
@@ -26,6 +28,7 @@ public class Socio extends Rol {
 		this.fechaVen = fechaVen;
 		this.tipoAbono = tipoAbono;
 		this.datosMedicos = datosMedicos;
+		this.blob = blob;
 	}
 
 	public void bajaLogica() {
@@ -108,4 +111,12 @@ public class Socio extends Rol {
 	public void setDatosMedicos(FileInputStream datosMedicos) {
 		this.datosMedicos = datosMedicos;
 	}
+	
+	public Blob getBlob() {
+		return blob;
+	}
+	public void setBlob(Blob blob) {
+		this.blob = blob;
+	}
+	
 }

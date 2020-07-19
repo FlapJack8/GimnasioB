@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.sql.Date;
 import java.sql.ResultSet;
 
+import javax.swing.ImageIcon;
 import javax.swing.text.DateFormatter;
 
 import modelo.Administrador;
@@ -90,7 +91,7 @@ public class SistemaUsuarios {
 	
 			switch (rol.toLowerCase()) {
 				case "socio":
-					Socio v1= new Socio(p, rol, fechaVen, tipoAbono, fis);
+					Socio v1= new Socio(p, rol, fechaVen, tipoAbono, fis, null);
 					vSocios.add(v1);
 					break;
 		        case "administrador":
@@ -608,5 +609,10 @@ public class SistemaUsuarios {
 
 		UsrMapper.getInstance().actualizarEstadoDeAbonos();
 				
+	}
+	
+	public ImageIcon enviarImagen(int dni) {
+		ImageIcon imagen = new ImageIcon();
+		return imagen = UsrMapper.getInstance().getImage(dni);
 	}
 }

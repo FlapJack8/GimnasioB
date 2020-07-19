@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -18,6 +19,7 @@ import java.io.FileNotFoundException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -130,7 +132,7 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		txtFechaVenci.setColumns(10);
 		
 		JLabel lblDatosMedicos = new JLabel("Datos Medicos:");
-		lblDatosMedicos.setBounds(461, 84, 102, 14);
+		lblDatosMedicos.setBounds(452, 36, 102, 14);
 		getContentPane().add(lblDatosMedicos);
 		
 		JButton btnBuscarImagen = new JButton("Buscar Imagen");
@@ -159,13 +161,13 @@ public class ModificarSocioLlenarCampos extends JFrame{
 				}
 			//}
 		});
-		btnBuscarImagen.setBounds(525, 105, 108, 23);
+		btnBuscarImagen.setBounds(557, 155, 108, 23);
 		getContentPane().add(btnBuscarImagen);
 		
 		textField = new JTextField();
 		textField.setEnabled(false);
 		textField.setEditable(false);
-		textField.setBounds(525, 131, 108, 20);
+		textField.setBounds(557, 185, 108, 20);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
@@ -173,9 +175,9 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		comboBoxAbonos = new JComboBox<String>();
 		comboBoxAbonos.setBounds(221, 184, 86, 22);
 		getContentPane().add(comboBoxAbonos);
+		comboBoxAbonos.addItem("");
 		try {
 			while(listaAbonos.next()) {
-				comboBoxAbonos.addItem("");
 				comboBoxAbonos.addItem(listaAbonos.getString("tipoAbono"));
 			}
 		} catch (SQLException e2) {
@@ -192,6 +194,12 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		JLabel lblNewLabel = new JLabel("Bono Actual:");
 		lblNewLabel.setBounds(341, 169, 75, 14);
 		getContentPane().add(lblNewLabel);
+		
+		JLabel labelImage = new JLabel("");
+		ImageIcon img = usuariosControlador.enviarImagen(v.getDni());
+		labelImage.setIcon(img);
+		labelImage.setBounds(532, 25, 165, 123);
+		getContentPane().add(labelImage);
 		
 		
 		/*----BOTON ACEPTAR----*/
@@ -218,6 +226,7 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		});
 		btnAceptar.setBounds(368, 230, 89, 23);
 		getContentPane().add(btnAceptar);
+		
 
 	}
 }
