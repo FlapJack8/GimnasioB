@@ -72,5 +72,7 @@ public class EliminarSocio extends JFrame {
 		});
 		btnEliminar.setBounds(208, 113, 89, 23);
 		getContentPane().add(btnEliminar);
+		setLocationRelativeTo(null);
+
 	}
 }

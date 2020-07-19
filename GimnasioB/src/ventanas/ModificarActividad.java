@@ -22,7 +22,6 @@ public class ModificarActividad extends JFrame{
 	public ModificarActividad (SistemaActividades actividadControlador) {
 		
 		setResizable(false);
-		setLocationRelativeTo(null);
 		//seteo Marco
 		setTitle("Modificar Actividad");
 		setBounds(450,250,682,515);
@@ -63,7 +62,8 @@ public class ModificarActividad extends JFrame{
 		});
 		btnModificar.setBounds(268, 397, 89, 23);
 		getContentPane().add(btnModificar);
-		
+		setLocationRelativeTo(null);
+
 	}
 	
 	

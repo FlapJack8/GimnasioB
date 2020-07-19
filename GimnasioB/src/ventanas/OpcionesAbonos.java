@@ -18,7 +18,6 @@ public class OpcionesAbonos extends JFrame{
 	/*----Inicializar Interfaz de Opciones de Abonos----*/
 	
 	public OpcionesAbonos(SistemaAbonos abonosControlador, String rolLogeado) {
-		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Abonos");
 		setBounds(450, 250, 352, 225);
@@ -92,6 +91,8 @@ public class OpcionesAbonos extends JFrame{
 		});
 		btnModificarAbono.setBounds(90, 123, 142, 23);
 		getContentPane().add(btnModificarAbono);
+
+		setLocationRelativeTo(null);
 
 	}
 }

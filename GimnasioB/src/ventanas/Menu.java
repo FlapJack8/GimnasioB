@@ -42,13 +42,14 @@ public class Menu extends JFrame {
 	public Menu() {
 		
 		setResizable(false);
-		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
+
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
@@ -66,5 +67,6 @@ public class Menu extends JFrame {
 				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
 		});
+		
 	}
 }

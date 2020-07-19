@@ -42,7 +42,6 @@ public class ListarEstadoDeAbonos extends JFrame {
 	public ListarEstadoDeAbonos(SistemaUsuarios usuariosControlador) {
 
 		setResizable(false);
-		setLocationRelativeTo(null);
 		setTitle("Estado de Abonos");
 		setBounds(450, 250, 682, 515);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -64,6 +63,8 @@ public class ListarEstadoDeAbonos extends JFrame {
 		lblEmpleados.setFont(new Font("Tunga", Font.BOLD, 20));
 		lblEmpleados.setBounds(36, 21, 128, 16);
 		getContentPane().add(lblEmpleados);
+
+		setLocationRelativeTo(null);
 
 	}
 }

@@ -19,7 +19,6 @@ public class OpcionesActividades extends JFrame{
 	/*----Inicializar Interfaz de Opciones de Abonos----*/
 	
 	public OpcionesActividades(SistemaActividades actividadesControlador, String rolLogeado) {
-		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Actividades");
 		setBounds(450, 250, 352, 225);
@@ -93,6 +92,8 @@ public class OpcionesActividades extends JFrame{
 		});
 		btnModificarActividad.setBounds(90, 123, 142, 23);
 		getContentPane().add(btnModificarActividad);
+
+		setLocationRelativeTo(null);
 
 	}
 }

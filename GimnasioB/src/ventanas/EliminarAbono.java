@@ -111,6 +111,7 @@ public class EliminarAbono extends JFrame{
 		});
 		btnEliminar.setBounds(268, 397, 89, 23);
 		getContentPane().add(btnEliminar);
+		setLocationRelativeTo(null);
 
 	}
 }

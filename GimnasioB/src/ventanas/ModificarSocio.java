@@ -18,7 +18,6 @@ public class ModificarSocio extends JFrame{
 	private JTextField txtDniModif;
 
 	public ModificarSocio(SistemaUsuarios usuariosControlador) {
-		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Modificar Socio");
 		
@@ -64,6 +63,8 @@ public class ModificarSocio extends JFrame{
 		});
 		btnModificar.setBounds(157, 100, 89, 23);
 		getContentPane().add(btnModificar);
+		setLocationRelativeTo(null);
+
 	}
 
 }

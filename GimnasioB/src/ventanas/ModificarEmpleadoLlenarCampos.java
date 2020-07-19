@@ -56,7 +56,6 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 		setTitle("Modificar Empleado");
 
 		/*---------CREO VENTANA DE MODIFICACION DE EMPLEADO----*/
-			setLocationRelativeTo(null);
 			setResizable(false);
 			toFront();
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -629,6 +628,9 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 			lblActsProfe.setFont(new Font("Tahoma", Font.BOLD, 13));
 			lblActsProfe.setBounds(596, 34, 152, 18);
 			contentPane.add(lblActsProfe);
+		
+			setLocationRelativeTo(null);
+
 
 		}
 }

@@ -55,7 +55,6 @@ public class RegistrarEmpleado extends JFrame{
 		setTitle("Registrar Empleado");
 
 		/*---------CREO VENTANA DE REGISTRO----*/
-			setLocationRelativeTo(null);
 			setResizable(false);
 			toFront();
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -474,5 +473,8 @@ public class RegistrarEmpleado extends JFrame{
 			label_2.setFont(new Font("Tahoma", Font.BOLD, 13));
 			label_2.setBounds(596, 99, 152, 18);
 			contentPane.add(label_2);
+			
+			setLocationRelativeTo(null);
+
 		}
 }

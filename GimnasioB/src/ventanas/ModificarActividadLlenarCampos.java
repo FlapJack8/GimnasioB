@@ -28,7 +28,6 @@ public class ModificarActividadLlenarCampos extends JFrame{
 		
 		setForeground(SystemColor.textHighlight);
 		setTitle("Modificar Actividad");
-		setLocationRelativeTo(null);
 		setResizable(false);
 		toFront();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -68,5 +67,7 @@ public class ModificarActividadLlenarCampos extends JFrame{
 		});
 		btnAceptar.setBounds(368, 230, 89, 23);
 		getContentPane().add(btnAceptar);
+		setLocationRelativeTo(null);
+
 	}
 }

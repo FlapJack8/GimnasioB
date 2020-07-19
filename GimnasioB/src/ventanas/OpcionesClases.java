@@ -20,7 +20,6 @@ public class OpcionesClases extends JFrame{
 	/*----Inicializar Interfaz de Opciones de Usuarios----*/
 	
 	public OpcionesClases(SistemaClases clasesControlador, SistemaUsuarios usuariosControlador, SistemaActividades actividadesControlador, String rolLogeado) {
-		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Clases");
 		setBounds(450, 250, 352, 225);
@@ -94,6 +93,8 @@ public class OpcionesClases extends JFrame{
 		});
 		btnModificarClase.setBounds(90, 84, 142, 23);
 		getContentPane().add(btnModificarClase);
+		setLocationRelativeTo(null);
+
 
 		switch (rolLogeado.toLowerCase()) {
 		case "operador":

@@ -55,7 +55,6 @@ public class AltaClase extends JFrame{
 
 	public AltaClase(SistemaClases clasesControlador, SistemaUsuarios usuariosControlador, SistemaActividades actividadesControlador) {
 		
-		setLocationRelativeTo(null);
 		setForeground(SystemColor.textHighlight);
 		setTitle("Diagramar Clase");
 
@@ -349,5 +348,8 @@ public class AltaClase extends JFrame{
 				}
 			}
 		});
+		setLocationRelativeTo(null);
+
 	}
+	
 }

@@ -25,7 +25,6 @@ public class ModificarEmpleado extends JFrame{
 	public ModificarEmpleado(SistemaUsuarios usuariosControlador, SistemaActividades actividadesControlador) {
 		
 		setResizable(false);
-		setLocationRelativeTo(null);
 		setTitle("Modificar Empleado");
 		
 		setBounds(450, 250, 401, 185);
@@ -73,6 +72,8 @@ public class ModificarEmpleado extends JFrame{
 		});
 		btnModificar.setBounds(157, 100, 89, 23);
 		getContentPane().add(btnModificar);
+		setLocationRelativeTo(null);
+
 	}
 
 }

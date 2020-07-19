@@ -19,7 +19,6 @@ public class OpcionesUsuarios extends JFrame{
 	/*----Inicializar Interfaz de Opciones de Usuarios----*/
 	
 	public OpcionesUsuarios(SistemaUsuarios usuariosControlador, String rolLogeado, SistemaActividades actividadesControlador) {
-		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Usuarios");
 		setBounds(450, 250, 352, 225);
@@ -163,6 +162,8 @@ public class OpcionesUsuarios extends JFrame{
 		});
 		btnModificarEmpleado.setBounds(181, 123, 142, 23);
 		getContentPane().add(btnModificarEmpleado);
+		setLocationRelativeTo(null);
+
 		
 		switch (rolLogeado.toLowerCase()) {
 		case "operador":
