@@ -324,12 +324,14 @@ public class UsrMapper {
 					Date fechaDeInscripcion = result.getDate(6);
 					String estado = result.getString(7);
 					String tipoAbono = result.getString(8);
-					Date fechaVencimineto = result.getDate(9);
+					Date fechaVencimiento = result.getDate(9);
 					Blob blob = (Blob) result.getBlob(11);
+					String estadoAbono = result.getString(12);
+					Date fechaVencimientoAbono = result.getDate(13);
 					
 					
 					Persona p = new Persona(null, email, nombre, null, domicilio, dni, fechaDeNac, "socio", estado, fechaDeInscripcion);
-					socio = new Socio(p, "socio", fechaVencimineto, tipoAbono, null, blob);
+					socio = new Socio(p, "socio", fechaVencimiento, tipoAbono, null, blob, estadoAbono, fechaVencimientoAbono);
 				}
 				PoolConnection.getPoolConnection().realeaseConnection(con);
 				return socio;

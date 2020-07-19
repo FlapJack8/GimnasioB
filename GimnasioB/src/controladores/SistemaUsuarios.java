@@ -91,7 +91,7 @@ public class SistemaUsuarios {
 	
 			switch (rol.toLowerCase()) {
 				case "socio":
-					Socio v1= new Socio(p, rol, fechaVen, tipoAbono, fis, null);
+					Socio v1= new Socio(p, rol, fechaVen, tipoAbono, fis, null, null, null);
 					vSocios.add(v1);
 					break;
 		        case "administrador":
@@ -140,7 +140,7 @@ public class SistemaUsuarios {
 	 *------------------------------------
 	 */
 
-	public void modificarSocio(int dni, String nombre, String email, String domicilio, Date fechaNac, Date fechaIns, String tipoAbono, Date fechaVen, FileInputStream fis){
+	public void modificarSocio(int dni, String nombre, String email, String domicilio, Date fechaNac, Date fechaIns, String tipoAbono, Date fechaVen, FileInputStream fis, String estadoAbono, Date fechaVenAbono){
 		for(Socio s: vSocios) {
 			if(s.getDni() == dni) {
 				s.setNombre(nombre);
@@ -153,6 +153,8 @@ public class SistemaUsuarios {
 				s.setTipoAbono(tipoAbono);
 				s.setFechaVen(fechaVen);
 				s.setDatosMedicos(fis);
+				s.setEstadoAbono(estadoAbono);
+				s.setFechaVenAbono(fechaVenAbono);
 				UsrMapper.getInstance().updateSocio(s);
 			}
 				
