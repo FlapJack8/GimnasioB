@@ -245,7 +245,9 @@ public class Main extends JFrame{
 				}
 			});
 			getContentPane().add(btnConsultarEstAbonos);
-			
+
+			setLocationRelativeTo(null);
+
 			/*-------------------------------------------------------------
 			 *  *      DEPENDIENDO EL ROL HABILITAMOS LOS BOTONES      *  *
 			 *-------------------------------------------------------------
@@ -336,7 +338,7 @@ public class Main extends JFrame{
 			passwordField = new JPasswordField();
 			passwordField.setBounds(140, 139, 124, 20);
 			cpLogin.add(passwordField);
-			
+			setLocationRelativeTo(null);
 			setResizable(false);
 			
 			/*----BOTON INGRESAR----*/
