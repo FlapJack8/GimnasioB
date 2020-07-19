@@ -86,7 +86,7 @@ public class OpcionesClases extends JFrame{
 					
 					/*----ENVIA CONTROLADOR DE USUARIO A LA SIGUIENTE VISTA----*/
 					
-					ModificarClase modifClase = new ModificarClase(clasesControlador,usuariosControlador);
+					ModificarClase modifClase = new ModificarClase(clasesControlador, usuariosControlador, actividadesControlador);
 					modifClase.setVisible(true);
 				}
 			}

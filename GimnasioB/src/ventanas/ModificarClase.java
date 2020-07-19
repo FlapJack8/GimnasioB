@@ -17,6 +17,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import controladores.SistemaActividades;
 import controladores.SistemaClases;
 import controladores.SistemaUsuarios;
 import modelo.Clase;
@@ -27,17 +28,17 @@ import javax.swing.JTable;
 public class ModificarClase extends JFrame {
 	private JTable tbClases;
 	
-	public ModificarClase(SistemaClases clasesControlador, SistemaUsuarios usuariosControlador) {
+	public ModificarClase(SistemaClases clasesControlador, SistemaUsuarios usuariosControlador, SistemaActividades actividadesControlador) {
 
 		setTitle("Modificar Clase");
-		setBounds(450, 250, 682, 515);
+		setBounds(450, 250, 819, 515);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
 		ResultSet listaClases = clasesControlador.listarClasesTodas();
 		
 		tbClases = new JTable();
-		tbClases.setBounds(36, 50, 616, 295);
+		tbClases.setBounds(36, 50, 730, 295);
 		tbClases.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbClases.setModel(DbUtils.resultSetToTableModel(listaClases));
 		tbClases.setDefaultEditor(Object.class, null);
@@ -66,14 +67,14 @@ public class ModificarClase extends JFrame {
 
 				Clase cAux = new Clase(act, fech, hor, profe, dur, capMax, capMin, pub, dif, estado);
 				
-				ModificarClaseLlenarCampos modifClLlenarCampos = new ModificarClaseLlenarCampos(clasesControlador, cAux, usuariosControlador);
+				ModificarClaseLlenarCampos modifClLlenarCampos = new ModificarClaseLlenarCampos(clasesControlador, cAux, usuariosControlador, actividadesControlador);
 				modifClLlenarCampos.setVisible(true);
 				dispose();
 			}
 				
 			//}
 		});
-		btnModificar.setBounds(268, 397, 89, 23);
+		btnModificar.setBounds(358, 407, 89, 23);
 		getContentPane().add(btnModificar);
 
 	}

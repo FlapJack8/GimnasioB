@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
@@ -94,7 +95,12 @@ public class Main extends JFrame{
 			
 			setTitle("Ventana Principal");
 			getContentPane().setLayout(null);
-			setBounds(450, 250, 460, 300);
+			setBounds(450, 250, 460, 350);
+			
+			JLabel lblBienvenido = new JLabel("Bienvenido al \nGimnasio B!");
+			lblBienvenido.setFont(new Font("Tahoma", Font.BOLD, 20));
+			lblBienvenido.setBounds(80, 8, 300, 50);
+			cpLogin.add(lblBienvenido);
 			
 			/*-------------------------------------------
 			 *  *    1)        USUARIOS              *  *
@@ -103,7 +109,7 @@ public class Main extends JFrame{
 
 			
 			JButton btnSistemaUsuarios = new JButton("Usuarios");
-			btnSistemaUsuarios.setBounds(250, 75, 169, 23);
+			btnSistemaUsuarios.setBounds(250, 105, 169, 23);
 			btnSistemaUsuarios.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (usuariosControlador != null) {
@@ -123,7 +129,7 @@ public class Main extends JFrame{
 			 */
 			
 			JButton btnSistemaClases = new JButton("Clases");
-			btnSistemaClases.setBounds(20, 75, 169, 23);
+			btnSistemaClases.setBounds(20, 105, 169, 23);
 			btnSistemaClases.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (clasesControlador != null) {
@@ -143,7 +149,7 @@ public class Main extends JFrame{
 			 */
 			
 			JButton btnSistemaAbonos = new JButton("Abonos");
-			btnSistemaAbonos.setBounds(20, 120, 169, 23);
+			btnSistemaAbonos.setBounds(20, 150, 169, 23);
 			btnSistemaAbonos.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (clasesControlador != null) {
@@ -163,7 +169,7 @@ public class Main extends JFrame{
 			 */
 			
 			JButton btnSistemaActividades = new JButton("Actividades");
-			btnSistemaActividades.setBounds(250, 120, 169, 23);
+			btnSistemaActividades.setBounds(250, 150, 169, 23);
 			btnSistemaActividades.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (actividadesControlador != null) {
@@ -183,7 +189,7 @@ public class Main extends JFrame{
 			 */
 			
 			JButton btnLiquidarSueldos = new JButton("Liquidar Sueldos");
-			btnLiquidarSueldos.setBounds(20, 165, 169, 23);
+			btnLiquidarSueldos.setBounds(20, 195, 169, 23);
 			btnLiquidarSueldos.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (usuariosControlador != null) {
@@ -203,7 +209,7 @@ public class Main extends JFrame{
 			 */
 			
 			JButton btnFacturarSocio = new JButton("Facturar Cuota");
-			btnFacturarSocio.setBounds(250, 165, 169, 23);
+			btnFacturarSocio.setBounds(250, 195, 169, 23);
 			btnFacturarSocio.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (facturasControlador != null) {
@@ -223,7 +229,7 @@ public class Main extends JFrame{
 			 */
 			
 			JButton btnConsultarEstAbonos = new JButton("Consultar Estado de Abonos");
-			btnConsultarEstAbonos.setBounds(115, 210, 200, 23);
+			btnConsultarEstAbonos.setBounds(110, 240, 200, 23);
 			btnConsultarEstAbonos.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (usuariosControlador != null) {
@@ -255,6 +261,10 @@ public class Main extends JFrame{
 				btnSistemaAbonos.setEnabled(true);
 				btnSistemaActividades.setEnabled(true);
 				btnLiquidarSueldos.setEnabled(true);
+				JLabel lblUsuario = new JLabel("Administrador: " + usuariosControlador.buscarAdministrador(usuario).getNombre());
+				lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 15));
+				lblUsuario.setBounds(20, 50, 300, 50);
+				cpLogin.add(lblUsuario);
 			break;
 			case "operador":
 				btnSistemaUsuarios.setEnabled(true);
@@ -264,7 +274,14 @@ public class Main extends JFrame{
 				btnSistemaActividades.setEnabled(false);
 				btnSistemaActividades.setVisible(false);
 				btnLiquidarSueldos.setEnabled(false);
-				btnLiquidarSueldos.setEnabled(false);
+				btnLiquidarSueldos.setVisible(false);
+				btnFacturarSocio.setBounds(250, 150, 169, 23);
+				btnConsultarEstAbonos.setBounds(110, 210, 210, 50);
+				btnConsultarEstAbonos.setFont(new Font("Tahoma", Font.BOLD, 11));
+				JLabel lblUsuarioOp = new JLabel("Operador: " + usuariosControlador.buscarOperador(usuario).getNombre());
+				lblUsuarioOp.setFont(new Font("Tahoma", Font.BOLD, 15));
+				lblUsuarioOp.setBounds(20, 50, 300, 50);
+				cpLogin.add(lblUsuarioOp);
 				break;
 			/*default://Socio
 				btnSistemaUsuarios.setEnabled(false);
@@ -309,7 +326,7 @@ public class Main extends JFrame{
 			cpLogin.add(textUsuario);
 			textUsuario.setColumns(10);
 			
-			JLabel lblContra = new JLabel("Contrase\u00F1a");
+			JLabel lblContra = new JLabel("Clave");
 			lblContra.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			lblContra.setBounds(165, 105, 163, 23);
 			cpLogin.add(lblContra);

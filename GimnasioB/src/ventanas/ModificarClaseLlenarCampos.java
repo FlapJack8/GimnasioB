@@ -7,6 +7,7 @@ import java.awt.SystemColor;
 
 import javax.swing.JFrame;
 
+import controladores.SistemaActividades;
 import controladores.SistemaClases;
 import controladores.SistemaUsuarios;
 import modelo.Clase;
@@ -34,6 +35,7 @@ import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Time;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 
 public class ModificarClaseLlenarCampos extends JFrame{
@@ -52,7 +54,7 @@ public class ModificarClaseLlenarCampos extends JFrame{
 	
 	/*----LLENAR CAMPOS PARA MODIFICAR----*/
 	
-	public ModificarClaseLlenarCampos(SistemaClases clasesControlador, Clase c, SistemaUsuarios usuariosControlador) {
+	public ModificarClaseLlenarCampos(SistemaClases clasesControlador, Clase c, SistemaUsuarios usuariosControlador, SistemaActividades actividadesControlador) {
 		setForeground(SystemColor.textHighlight);
 		setTitle("Modificar Clase");
 
@@ -86,7 +88,7 @@ public class ModificarClaseLlenarCampos extends JFrame{
 		lblProfesor.setBounds(361, 178, 149, 16);
 		contentPane.add(lblProfesor);
 		
-		JLabel lblDuracion = new JLabel("Duracion:");
+		JLabel lblDuracion = new JLabel("Duracion (0.0 Horas):");
 		lblDuracion.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblDuracion.setBounds(22, 138, 149, 16);
 		contentPane.add(lblDuracion);
@@ -104,12 +106,14 @@ public class ModificarClaseLlenarCampos extends JFrame{
 		txtActividad.setColumns(10);
 		
 		txtFechaClase = new JTextField();
+		txtFechaClase.setEnabled(false);
 		txtFechaClase.setBounds(199, 41, 116, 22);
 		txtFechaClase.setText(c.getFecha().toString());
 		contentPane.add(txtFechaClase);
 		txtFechaClase.setColumns(10);
 		
 		txtHorario = new JTextField();
+		txtHorario.setEnabled(false);
 		txtHorario.setBounds(199, 86, 116, 22);
 		txtHorario.setText(c.getHorario().toString());
 		contentPane.add(txtHorario);
@@ -248,9 +252,22 @@ public class ModificarClaseLlenarCampos extends JFrame{
 		separator_4.setBounds(23, 481, 660, 2);
 		contentPane.add(separator_4);
 		
-		JList listActividades = new JList();
+		Vector<String> listaClases = actividadesControlador.jlistar();
+		
+		JList listActividades = new JList(listaClases);
 		listActividades.setBounds(361, 73, 323, 77);
+		listActividades.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listActividades.setLayoutOrientation(JList.VERTICAL);
+		listActividades.setVisible(true);
 		contentPane.add(listActividades);
+		
+		listActividades.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+            	String selectedRow = listActividades.getSelectedValue().toString();
+        		txtActividad.setText(selectedRow);
+            }
+        });
 		
 		ResultSet listaProfesores = usuariosControlador.listarProfesores();
 
@@ -348,29 +365,39 @@ public class ModificarClaseLlenarCampos extends JFrame{
 
 				}
 				else {
-					if(clasesControlador.existeClase(txtActividad.getText(),p.getNombreUsuario(),fechaClase,horario)) {
-						Clase clAux = clasesControlador.buscarClase(txtActividad.getText(),p.getNombreUsuario(),fechaClase,horario);
-						if(clAux.getEstado().equals("Inactivo")) {
-							clasesControlador.activarClase(txtActividad.getText(),p.getNombreUsuario(),fechaClase,horario);
-							JOptionPane.showMessageDialog(null, "Modificacion correcta");
-							dispose();
+					if(Integer.parseInt(txtCapacidadMax.getText())<Integer.parseInt(txtCapacidadMin.getText())||Integer.parseInt(txtCapacidadMax.getText())<=0||Integer.parseInt(txtCapacidadMin.getText())<=0||Float.parseFloat(txtDuracion.getText())<=0){
+						if(Float.parseFloat(txtDuracion.getText())<=0) {
+							JOptionPane.showMessageDialog(null, "La Duracion debe ser mayor a 0 horas","Atencion",JOptionPane.WARNING_MESSAGE);
 						}
 						else {
-						JOptionPane.showMessageDialog(null, "Clase ya existe","Atencion",JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(null, "La Capacidad Maxima y Minima deben ser mayores a 0 y la Maxima mayor a la Minima","Atencion",JOptionPane.WARNING_MESSAGE);
 						}
 					}
-					else {
-						
-						/*VALIDA QUE EL PROFESOR PUEDA DAR LA CLASE*/
-
-						if(p.getActividades().contains(txtActividad.getText())) {
-							clasesControlador.eliminarClase(c, 0);
-							clasesControlador.crearClase(txtActividad.getText(), fechaClase,horario,p.getNombreUsuario(), Float.parseFloat(txtDuracion.getText()), Integer.parseInt(txtCapacidadMax.getText()), Integer.parseInt(txtCapacidadMin.getText()), publico, dificultad);
-							JOptionPane.showMessageDialog(null, "Modificacion correcta");
-							dispose();
+					else{
+						if(clasesControlador.existeClase(txtActividad.getText(),p.getNombreUsuario(),fechaClase,horario)) {
+							Clase clAux = clasesControlador.buscarClase(txtActividad.getText(),p.getNombreUsuario(),fechaClase,horario);
+							if(clAux.getEstado().equals("Inactivo")) {
+								clasesControlador.activarClase(txtActividad.getText(),p.getNombreUsuario(),fechaClase,horario);
+								JOptionPane.showMessageDialog(null, "Modificacion correcta");
+								dispose();
+							}
+							else {
+							JOptionPane.showMessageDialog(null, "Clase ya existe","Atencion",JOptionPane.WARNING_MESSAGE);
+							}
 						}
 						else {
-							JOptionPane.showMessageDialog(null, "El Profesor seleccionado no puede dar esa clase","Atencion",JOptionPane.WARNING_MESSAGE);
+							
+							/*VALIDA QUE EL PROFESOR PUEDA DAR LA CLASE*/
+	
+							if(p.getActividades().contains(txtActividad.getText())) {
+								clasesControlador.eliminarClase(c, 0);
+								clasesControlador.crearClase(txtActividad.getText(), fechaClase,horario,p.getNombreUsuario(), Float.parseFloat(txtDuracion.getText()), Integer.parseInt(txtCapacidadMax.getText()), Integer.parseInt(txtCapacidadMin.getText()), publico, dificultad);
+								JOptionPane.showMessageDialog(null, "Modificacion correcta");
+								dispose();
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "El Profesor seleccionado no puede dar esa clase","Atencion",JOptionPane.WARNING_MESSAGE);
+							}
 						}
 					}
 				}
