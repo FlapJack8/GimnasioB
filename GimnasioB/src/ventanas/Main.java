@@ -265,6 +265,7 @@ public class Main extends JFrame{
 				lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 15));
 				lblUsuario.setBounds(20, 50, 300, 50);
 				cpLogin.add(lblUsuario);
+				setResizable(false);
 			break;
 			case "operador":
 				btnSistemaUsuarios.setEnabled(true);
@@ -282,6 +283,7 @@ public class Main extends JFrame{
 				lblUsuarioOp.setFont(new Font("Tahoma", Font.BOLD, 15));
 				lblUsuarioOp.setBounds(20, 50, 300, 50);
 				cpLogin.add(lblUsuarioOp);
+				setResizable(false);
 				break;
 			/*default://Socio
 				btnSistemaUsuarios.setEnabled(false);
@@ -334,6 +336,8 @@ public class Main extends JFrame{
 			passwordField = new JPasswordField();
 			passwordField.setBounds(140, 139, 124, 20);
 			cpLogin.add(passwordField);
+			
+			setResizable(false);
 			
 			/*----BOTON INGRESAR----*/
 			
