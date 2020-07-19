@@ -18,7 +18,7 @@ public class EliminarEmpleado extends JFrame {
 	private JTextField txtNombreUsuarioEliminar;
 	
 	public EliminarEmpleado(SistemaUsuarios usuariosControlador) {
-
+		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Eliminar Empleado");
 		setBounds(450, 250, 368, 204);

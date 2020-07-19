@@ -56,7 +56,7 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 		setTitle("Modificar Empleado");
 
 		/*---------CREO VENTANA DE MODIFICACION DE EMPLEADO----*/
-		
+			setLocationRelativeTo(null);
 			setResizable(false);
 			toFront();
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
