@@ -44,7 +44,6 @@ public class ModificarSocioLlenarCampos extends JFrame{
 	public ModificarSocioLlenarCampos(SistemaUsuarios usuariosControlador, Socio v) {
 		
 		abonosControl = new SistemaAbonos();
-		setLocationRelativeTo(null);
 		setResizable(false);
 		
 		setTitle("Modificar Socio");
@@ -229,6 +228,7 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		btnAceptar.setBounds(368, 230, 89, 23);
 		getContentPane().add(btnAceptar);
 		
+		setLocationRelativeTo(null);
 
 	}
 }
