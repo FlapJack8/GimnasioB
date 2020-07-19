@@ -19,6 +19,7 @@ public class EliminarActividad extends JFrame {
 	
 	public EliminarActividad (SistemaActividades actividadControlador) {
 		//seteo Marco
+		setResizable(false);
 		setTitle("Eliminar Actividad");
 		setBounds(450,250,682,515);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

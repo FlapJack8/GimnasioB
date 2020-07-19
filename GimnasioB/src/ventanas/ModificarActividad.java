@@ -20,6 +20,9 @@ public class ModificarActividad extends JFrame{
 
 	
 	public ModificarActividad (SistemaActividades actividadControlador) {
+		
+		setResizable(false);
+		
 		//seteo Marco
 		setTitle("Modificar Actividad");
 		setBounds(450,250,682,515);

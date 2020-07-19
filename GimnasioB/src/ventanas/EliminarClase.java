@@ -29,6 +29,7 @@ public class EliminarClase extends JFrame {
 	
 	public EliminarClase(SistemaClases clasesControlador) {
 
+		setResizable(false);
 		setTitle("Eliminar Clase");
 		setBounds(450, 250, 682, 515);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

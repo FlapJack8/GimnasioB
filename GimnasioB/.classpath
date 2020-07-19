@@ -7,5 +7,6 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="C:/Users/trian/Desktop/FACULTAD/Aplicaciones Interactivas/Interactivas_2/sqljdbc_7.0/enu/mssql-jdbc-7.0.0.jre8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/trian/Desktop/FACULTAD/Integración de Aplicaciones/rs2xml.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

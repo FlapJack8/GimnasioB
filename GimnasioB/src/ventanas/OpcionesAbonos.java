@@ -18,7 +18,7 @@ public class OpcionesAbonos extends JFrame{
 	/*----Inicializar Interfaz de Opciones de Abonos----*/
 	
 	public OpcionesAbonos(SistemaAbonos abonosControlador, String rolLogeado) {
-		
+		setResizable(false);
 		setTitle("Abonos");
 		setBounds(450, 250, 352, 225);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

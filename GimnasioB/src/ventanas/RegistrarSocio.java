@@ -44,6 +44,8 @@ public class RegistrarSocio extends JFrame {
 	
 	public RegistrarSocio(SistemaUsuarios usuariosControlador) {
 		
+		setResizable(false);
+		
 		abonosControl = new SistemaAbonos();
 		setTitle("Registrar Socio");
 		setResizable(false);

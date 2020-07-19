@@ -21,6 +21,8 @@ public class AltaActividad extends JFrame{
 
 	
 	public AltaActividad(SistemaActividades actividadesControlador) {
+		
+		setResizable(false);
 		setTitle("Agregar Actividad");
 		
 		/*---------CREO VENTANA----*/

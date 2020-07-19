@@ -23,6 +23,9 @@ public class ModificarEmpleado extends JFrame{
 	private JTextField txtNombreUsuarioModif;
 
 	public ModificarEmpleado(SistemaUsuarios usuariosControlador, SistemaActividades actividadesControlador) {
+		
+		setResizable(false);
+		
 		setTitle("Modificar Empleado");
 		
 		setBounds(450, 250, 401, 185);

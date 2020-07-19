@@ -18,6 +18,8 @@ public class ModificarSocio extends JFrame{
 	private JTextField txtDniModif;
 
 	public ModificarSocio(SistemaUsuarios usuariosControlador) {
+		
+		setResizable(false);
 		setTitle("Modificar Socio");
 		
 		setBounds(450, 250, 401, 185);
