@@ -26,7 +26,7 @@ public class Socio extends Rol {
 	
 	/*----CONSTRUCTOR BAJA LOGICA----*/
 	
-	public Socio(Persona persona,String rol, String estado, Date fechaVen, String tipoAbono, FileInputStream datosMedicos) {
+	public Socio(Persona persona,String rol, String estado, Date fechaVen, String tipoAbono, FileInputStream datosMedicos, Blob blob, String estadoAbono, Date fechaVenAbono) {
 		super(persona, rol);
 		//this.fechaIns = fechaIns;
 		this.fechaVen = fechaVen;
