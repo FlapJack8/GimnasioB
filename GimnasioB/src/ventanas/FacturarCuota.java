@@ -107,7 +107,7 @@ public class FacturarCuota extends JFrame{
 			lblMontoDeFacturacion.setBounds(22, 150, 293, 16);
 			contentPane.add(lblMontoDeFacturacion);
 			
-			JButton btnFacturar = new JButton("Liquidar");
+			JButton btnFacturar = new JButton("Facturar");
 			btnFacturar.setBounds(136, 360, 97, 25);
 			btnFacturar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
