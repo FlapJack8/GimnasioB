@@ -140,14 +140,9 @@ public class FacturarCuota extends JFrame{
 						        java.util.Date nuevaFechaVenAux = cal.getTime();
 						        java.sql.Date nuevaFechaVen = new java.sql.Date(nuevaFechaVenAux.getTime());
 						        
-						        if(facturasControlador.existeFactura(s.getDni(), hoy)) {
-									JOptionPane.showMessageDialog(null, "Abono facturado el dia de hoy","Error",JOptionPane.ERROR_MESSAGE);
-						        }
-						        else {
-									usuariosControlador.actualizarEstadoYFechaVenAbono(s.getDni(), nuevaFechaVen);
-									JOptionPane.showMessageDialog(null, "Facturado");
-									dispose();
-						        }
+								usuariosControlador.actualizarEstadoYFechaVenAbono(s.getDni(), nuevaFechaVen);
+								JOptionPane.showMessageDialog(null, "Facturado");
+								dispose();
 								
 							}
 							
