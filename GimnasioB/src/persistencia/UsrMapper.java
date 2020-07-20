@@ -686,4 +686,33 @@ public class UsrMapper {
 			System.out.println("rompio update abonos estado");
 		}
 	}
+	
+	public void actualizarEstadoYFechaAbono(Socio socio, Date fechaNueva) 
+	{
+		/*----TRY DE LA CONECCION UPDATE----*/
+		
+		try
+		{
+			Socio soc =(Socio) socio;
+			Connection con = PoolConnection.getPoolConnection().getConnection();
+			/*----STATEMENT QUERY DEL UPDATE----*/
+			PreparedStatement s = con.prepareStatement("update dbo.Socios " +
+					" set estadoAbono =?," +
+					" fechaVencimientoAbono =?" +
+					" where dni = ?");
+			/*----CAMPOS DE CLIENTE----*/
+			
+			s.setString(1, "Pago");
+			s.setDate(2, fechaNueva);
+			s.setInt(3, soc.getDni());
+			
+			s.executeUpdate();
+			PoolConnection.getPoolConnection().realeaseConnection(con);
+		}
+		catch (Exception e)
+		{
+			System.out.println("Stack Trace: " + e.getStackTrace() + e.getMessage());
+			System.out.println("rompio actualizar estado y fecha abono");
+		}
+	}
 }

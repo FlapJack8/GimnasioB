@@ -617,4 +617,15 @@ public class SistemaUsuarios {
 		ImageIcon imagen = new ImageIcon();
 		return imagen = UsrMapper.getInstance().getImage(dni);
 	}
+	
+	public void actualizarEstadoYFechaVenAbono(int dni, Date fechaNueva) {
+		for(Socio s: vSocios) {
+			if(s.getDni() == dni) {
+				s.setEstadoAbono("Pago");
+				s.setFechaVenAbono(fechaNueva);
+				UsrMapper.getInstance().actualizarEstadoYFechaAbono(s, fechaNueva);
+			}
+		}
+	}
+	
 }

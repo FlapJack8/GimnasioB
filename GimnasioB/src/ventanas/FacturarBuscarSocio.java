@@ -51,6 +51,7 @@ public class FacturarBuscarSocio extends JFrame{
 						{
 							FacturarCuota facturarCuota = new FacturarCuota(facturasControlador, usuariosControlador, v, abonosControlador);
 							facturarCuota.setVisible(true);
+							dispose();
 						}
 						else {
 							JOptionPane.showMessageDialog(null, "No se econtro el socio","Error",JOptionPane.ERROR_MESSAGE);

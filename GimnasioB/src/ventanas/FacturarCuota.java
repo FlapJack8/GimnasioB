@@ -131,8 +131,23 @@ public class FacturarCuota extends JFrame{
 							else if(respuesta==0) {
 
 								facturasControlador.generarFactura(0, s.getDni(), hoy, abonosControlador.buscarAbono(s.getTipoAbono()).getPrecio(), txtDescripcion.getText());
-								JOptionPane.showMessageDialog(null, "Sueldo liquidado");
-								dispose();
+								
+								/*-----CALCULAMOS NUEVA FECHA DE VENCIMIENTO Y ACTUALIZAMOS-----*/
+								
+								Calendar cal = Calendar.getInstance();
+						        cal.setTime(hoy);
+						        cal.add(Calendar.DATE, abonosControlador.buscarAbono(s.getTipoAbono()).getDuracion());
+						        java.util.Date nuevaFechaVenAux = cal.getTime();
+						        java.sql.Date nuevaFechaVen = new java.sql.Date(nuevaFechaVenAux.getTime());
+						        
+						        if(facturasControlador.existeFactura(s.getDni(), hoy)) {
+									JOptionPane.showMessageDialog(null, "Abono facturado el dia de hoy","Error",JOptionPane.ERROR_MESSAGE);
+						        }
+						        else {
+									usuariosControlador.actualizarEstadoYFechaVenAbono(s.getDni(), nuevaFechaVen);
+									JOptionPane.showMessageDialog(null, "Facturado");
+									dispose();
+						        }
 								
 							}
 							
