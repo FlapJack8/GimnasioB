@@ -38,6 +38,8 @@ public class ModificarSocioLlenarCampos extends JFrame{
 	private File selectedFile; 
 	private FileInputStream fis; 
 	private JTextField textBonoActual;
+	private JTextField textEstadoAbono;
+	private JTextField textVenciAbono;
 
 	/*----LLENAR CAMPOS PARA MODIFICAR----*/
 	
@@ -188,12 +190,12 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		textBonoActual = new JTextField();
 		textBonoActual.setText(v.getTipoAbono());
 		textBonoActual.setEditable(false);
-		textBonoActual.setBounds(341, 185, 86, 20);
+		textBonoActual.setBounds(317, 185, 86, 20);
 		getContentPane().add(textBonoActual);
 		textBonoActual.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Bono Actual:");
-		lblNewLabel.setBounds(341, 169, 75, 14);
+		lblNewLabel.setBounds(317, 162, 75, 14);
 		getContentPane().add(lblNewLabel);
 		
 		JLabel labelImage = new JLabel("");
@@ -202,6 +204,33 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		labelImage.setBounds(532, 25, 165, 123);
 		getContentPane().add(labelImage);
 		
+		
+		JLabel lblEstadoAbono = new JLabel("Estado abono:");
+		lblEstadoAbono.setBounds(317, 25, 86, 14);
+		getContentPane().add(lblEstadoAbono);
+		
+		textEstadoAbono = new JTextField();
+		if(v.getEstadoAbono() != null) {
+			textEstadoAbono.setText(v.getEstadoAbono());
+		}
+		textEstadoAbono.setEditable(false);
+		textEstadoAbono.setBounds(317, 47, 86, 20);
+		getContentPane().add(textEstadoAbono);
+		textEstadoAbono.setColumns(10);
+		
+		JLabel lblVencimientoAbono = new JLabel("Vencimiento del Abono:");
+		lblVencimientoAbono.setBounds(317, 97, 123, 14);
+		getContentPane().add(lblVencimientoAbono);
+		
+		textVenciAbono = new JTextField();
+		if(v.getFechaVenAbono() != null) {
+			String fechaVenciAbono = v.getFechaVenAbono().toString();
+			textVenciAbono.setText(fechaVenciAbono);
+		}
+		textVenciAbono.setEditable(false);
+		textVenciAbono.setBounds(317, 115, 86, 20);
+		getContentPane().add(textVenciAbono);
+		textVenciAbono.setColumns(10);
 		
 		/*----BOTON ACEPTAR----*/
 		
@@ -212,12 +241,13 @@ public class ModificarSocioLlenarCampos extends JFrame{
 				Date fechaIns=Date.valueOf(txtFechaIns.getText());
 				Date fechaVen=Date.valueOf(txtFechaVenci.getText());
 				String abono = (String) comboBoxAbonos.getSelectedItem();
+				Date fechaVenAbono = Date.valueOf(textVenciAbono.getText());
 				if(txtNombre.getText().equals("")||abono.equals("")||txtFechaNacimiento.getText().equals("")||txtDomicilio.getText().equals("")||fechaN.equals("")||fechaVen.equals("")||fechaIns.equals("")||txtEmail.getText().equals("")||txtDni.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
 				}
 				else {
 					//System.out.println(v.getEstado());
-					usuariosControlador.modificarSocio(Integer.parseInt(txtDni.getText()), txtNombre.getText(), txtEmail.getText(), txtDomicilio.getText(), fechaN, fechaIns, abono, fechaVen, fis);
+					usuariosControlador.modificarSocio(Integer.parseInt(txtDni.getText()), txtNombre.getText(), txtEmail.getText(), txtDomicilio.getText(), fechaN, fechaIns, abono, fechaVen, fis, textEstadoAbono.getText(), fechaVenAbono);
 					JOptionPane.showMessageDialog(null, "Modificado!");
 					usuariosControlador.imprimir();
 					dispose();
@@ -229,7 +259,6 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		getContentPane().add(btnAceptar);
 		
 		setLocationRelativeTo(null);
-
 
 	}
 }
