@@ -69,7 +69,7 @@ public class FacturarCuota extends JFrame{
 			setResizable(false);
 			toFront();
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			setBounds(400, 200, 380, 475);
+			setBounds(400, 200, 380, 452);
 			contentPane = new JPanel();
 			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 			setContentPane(contentPane);
@@ -78,11 +78,11 @@ public class FacturarCuota extends JFrame{
 			/*----CAMPOS Y LABELS A LLENAR----*/
 			
 			lblFechaDeVencimiento = new JLabel("Fecha de Vencimiento de Abono: " + s.getFechaVenAbono());
-			lblFechaDeVencimiento.setBounds(22, 175, 293, 22);
+			lblFechaDeVencimiento.setBounds(22, 180, 293, 22);
 			contentPane.add(lblFechaDeVencimiento);
 			
 			lblFechaDeFacturacion = new JLabel("Fecha de Facturacion: " + new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()));
-			lblFechaDeFacturacion.setBounds(22, 175, 293, 22);
+			lblFechaDeFacturacion.setBounds(22, 210, 293, 22);
 			contentPane.add(lblFechaDeFacturacion);
 	
 			lblLiquidarSueldo = new JLabel("Datos de Factura:");
@@ -96,7 +96,7 @@ public class FacturarCuota extends JFrame{
 			contentPane.add(lblNombre);
 			
 			lblDni = new JLabel("DNI: "+s.getDni());
-			lblDni.setBounds(22, 95, 286, 16);
+			lblDni.setBounds(22, 90, 286, 16);
 			contentPane.add(lblDni);
 			
 			lblTipoDeAbono = new JLabel("Tipo de Abono: "+s.getTipoAbono());
@@ -104,37 +104,33 @@ public class FacturarCuota extends JFrame{
 			contentPane.add(lblTipoDeAbono);
 			
 			lblMontoDeFacturacion = new JLabel("Monto a Facturar: "+abonosControlador.buscarAbono(s.getTipoAbono()).getPrecio());
-			lblMontoDeFacturacion.setBounds(22, 148, 293, 16);
+			lblMontoDeFacturacion.setBounds(22, 150, 293, 16);
 			contentPane.add(lblMontoDeFacturacion);
 			
 			JButton btnFacturar = new JButton("Liquidar");
-			btnFacturar.setBounds(136, 400, 97, 25);
+			btnFacturar.setBounds(136, 360, 97, 25);
 			btnFacturar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 
 					/*----VALIDA QUE TODOS LOS CAMPOS NECESARIOS ESTEN LLENOS----*/
 
-					Date fechaPago=Date.valueOf(txtFechaPago.getText());
 					
-					if(!txtExtras.getText().equals(""))
-					{
-						extras = Float.parseFloat(txtExtras.getText());
-						total = total+extras;
-					}
-					if(txtFechaPago.getText().equals("")) {
+					if(txtDescripcion.getText().equals("")) {
 							JOptionPane.showMessageDialog(null, "Llene los campos necesarios","Error",JOptionPane.ERROR_MESSAGE);
 
 					}
 					else {
-						if(usuariosControlador.existeEmpleado(nombreUsuario)) {
-							java.util.Date today = Calendar.getInstance().getTime();
-							int respuesta=JOptionPane.showConfirmDialog(null,"\nLiquidar sueldo del empleado: "+nombre+ "\nPor: "+total+"\n(Sueldo: "+sueldo+" + Extras: "+extras+")\nFecha de Pago: "+fechaPago+"\nDetalle: "+txtDescripcion.getText()+"\nFecha de Liquidacion: "+today, "Son estos los datos correctos?",JOptionPane.YES_NO_OPTION);
+						if(usuariosControlador.existeSocio(s.getDni())) {
+							java.util.Date today = new java.util.Date();
+							java.sql.Date hoy = new java.sql.Date(today.getTime());
+							
+							int respuesta=JOptionPane.showConfirmDialog(null,"\nFacturar a : "+s.getNombre()+ "\nPor: "+ abonosControlador.buscarAbono(s.getTipoAbono()).getPrecio()+"\nFecha de Pago: "+today+"\nDetalle: "+txtDescripcion.getText(), "Son estos los datos correctos?",JOptionPane.YES_NO_OPTION);
 							if(respuesta==1) {
 							
 							}
 							else if(respuesta==0) {
 
-								usuariosControlador.liquidarSueldoEmpleado(nombreUsuario, nombre, dni, sueldo, extras, fechaPago, txtDescripcion.getText());
+								facturasControlador.generarFactura(0, s.getDni(), hoy, abonosControlador.buscarAbono(s.getTipoAbono()).getPrecio(), txtDescripcion.getText());
 								JOptionPane.showMessageDialog(null, "Sueldo liquidado");
 								dispose();
 								
@@ -147,11 +143,11 @@ public class FacturarCuota extends JFrame{
 			contentPane.add(btnFacturar);
 			
 			JLabel lblDescripcion = new JLabel("Descripcion:");
-			lblDescripcion.setBounds(22, 280, 85, 16);
+			lblDescripcion.setBounds(22, 240, 85, 16);
 			contentPane.add(lblDescripcion);
 			
 			txtDescripcion = new JTextArea("Facturacion de abono " + s.getTipoAbono() + "\nel dia " + new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()));
-			txtDescripcion.setBounds(55, 300, 260, 73);
+			txtDescripcion.setBounds(55, 270, 260, 73);
 			contentPane.add(txtDescripcion);
 		
 			setLocationRelativeTo(null);

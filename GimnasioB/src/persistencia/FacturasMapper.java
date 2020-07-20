@@ -33,16 +33,16 @@ public class FacturasMapper {
 			Factura fac=(Factura) f;
 			Connection con = PoolConnection.getPoolConnection().getConnection();
 			PreparedStatement s= con.prepareStatement("insert into dbo.Facturas(dniSocio,fechaFactura,monto,detalle)values (?,?,?,?)");
-			s.setInt(2, fac.getDniSocio()); //posicion de la columna (?)
-			s.setDate(3,(Date) fac.getFechaFactura());
-			s.setFloat(4, fac.getMonto());
-			s.setString(5, fac.getDetalle());
+			s.setInt(1, fac.getDniSocio()); //posicion de la columna (?)
+			s.setDate(2,(Date) fac.getFechaFactura());
+			s.setFloat(3, fac.getMonto());
+			s.setString(4, fac.getDetalle());
 			s.execute();
 			PoolConnection.getPoolConnection().realeaseConnection(con);
 						
 		}
 		catch (Exception e){
-			System.out.println("rompio insert Factura");
+			System.out.println("rompio insert factura");
 			System.out.println("Stack Trace: " + e.getStackTrace() + e.getMessage());
 		}
 	}
