@@ -39,6 +39,7 @@ public class RegistrarSocio extends JFrame {
 	private FileInputStream fis; 
 	private SistemaAbonos abonosControl;
 	private JComboBox<String> comboBoxAbonos;
+	private JTextField textApellido;
 
 	/*---------CREO VENTANA DE REGISTRO----*/
 	
@@ -59,55 +60,51 @@ public class RegistrarSocio extends JFrame {
 		/*----CAMPOS A LLENAR----*/
 		
 		JLabel lblDNI = new JLabel("DNI:");
-		lblDNI.setBounds(11, 62, 46, 14);
+		lblDNI.setBounds(11, 93, 46, 14);
 		contentPane.add(lblDNI);
 		
 		JLabel lblDomicilio = new JLabel("Domicilio:");
-		lblDomicilio.setBounds(11, 124, 64, 14);
+		lblDomicilio.setBounds(11, 161, 64, 14);
 		contentPane.add(lblDomicilio);
-			
-		JLabel label = new JLabel("");
-		label.setBounds(191, 75, 86, 14);
-		contentPane.add(label);
 		
 		JLabel lblEmail = new JLabel("E-mail:");
-		lblEmail.setBounds(11, 93, 46, 14);
+		lblEmail.setBounds(11, 128, 46, 14);
 		contentPane.add(lblEmail);
 		
 		JLabel lblFechaNacimiento = new JLabel("Fecha Nacimiento:");
-		lblFechaNacimiento.setBounds(11, 157, 102, 14);
+		lblFechaNacimiento.setBounds(11, 190, 102, 14);
 		contentPane.add(lblFechaNacimiento);
 
 		JLabel lblFechaInscripcion = new JLabel("Fecha Inscripcion:");
-		lblFechaInscripcion.setBounds(11, 188, 102, 14);
+		lblFechaInscripcion.setBounds(11, 221, 102, 14);
 		contentPane.add(lblFechaInscripcion);
 		
 		JLabel lblTipoAbono = new JLabel("Tipo de Abono:");
-		lblTipoAbono.setBounds(11, 216, 191, 14);
+		lblTipoAbono.setBounds(11, 253, 191, 14);
 		contentPane.add(lblTipoAbono);
 
 		textDNI = new JTextField();
-		textDNI.setBounds(212, 59, 152, 20);
+		textDNI.setBounds(212, 90, 152, 20);
 		contentPane.add(textDNI);
 		textDNI.setColumns(10);
 		
 		textDomicilio = new JTextField();
-		textDomicilio.setBounds(212, 121, 152, 20);
+		textDomicilio.setBounds(212, 156, 152, 20);
 		contentPane.add(textDomicilio);
 		textDomicilio.setColumns(10);
 		
 		textMail = new JTextField();
-		textMail.setBounds(212, 90, 152, 20);
+		textMail.setBounds(212, 125, 152, 20);
 		contentPane.add(textMail);
 		textMail.setColumns(10);
 		
 		textFechaNacimiento = new JTextField();
-		textFechaNacimiento.setBounds(212, 154, 152, 20);
+		textFechaNacimiento.setBounds(212, 187, 152, 20);
 		contentPane.add(textFechaNacimiento);
 		textFechaNacimiento.setColumns(10);
 		
 		textFechaIns = new JTextField();
-		textFechaIns.setBounds(212, 185, 152, 20);
+		textFechaIns.setBounds(212, 218, 152, 20);
 		contentPane.add(textFechaIns);
 		textFechaIns.setColumns(10);
 		
@@ -119,6 +116,15 @@ public class RegistrarSocio extends JFrame {
 		textNombre.setBounds(212, 22, 152, 20);
 		contentPane.add(textNombre);
 		textNombre.setColumns(10);
+		
+		JLabel lblApellido = new JLabel("Apellido:");
+		lblApellido.setBounds(11, 62, 64, 14);
+		contentPane.add(lblApellido);
+		
+		textApellido = new JTextField();
+		textApellido.setBounds(212, 59, 152, 20);
+		contentPane.add(textApellido);
+		textApellido.setColumns(10);
 		
 		textField = new JTextField();
 		textField.setEditable(false);
@@ -174,7 +180,7 @@ public class RegistrarSocio extends JFrame {
 		
 		ResultSet listaAbonos = abonosControl.listarAbono();
 		comboBoxAbonos = new JComboBox<String>();
-		comboBoxAbonos.setBounds(212, 212, 152, 22);
+		comboBoxAbonos.setBounds(212, 249, 152, 22);
 		contentPane.add(comboBoxAbonos);
 		try {
 			while(listaAbonos.next()) {
@@ -220,6 +226,7 @@ public class RegistrarSocio extends JFrame {
 			}
 		});
 		contentPane.add(btnEnviar);		
+		
 		setLocationRelativeTo(null);
 
 	}

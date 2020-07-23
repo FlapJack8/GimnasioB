@@ -41,6 +41,7 @@ public class ModificarSocioLlenarCampos extends JFrame{
 	private JTextField textEstadoAbono;
 	private JTextField textVenciAbono;
 	private Date fechaVenAbono;
+	private JTextField textApellido;
 	
 	/*----LLENAR CAMPOS PARA MODIFICAR----*/
 	
@@ -95,6 +96,15 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		txtNombre.setBounds(221, 50, 86, 20);
 		getContentPane().add(txtNombre);
 		txtNombre.setColumns(10);
+		
+		JLabel lblApellido = new JLabel("Apellido:");
+		lblApellido.setBounds(317, 25, 55, 14);
+		getContentPane().add(lblApellido);
+		
+		textApellido = new JTextField();
+		textApellido.setBounds(317, 50, 86, 20);
+		getContentPane().add(textApellido);
+		textApellido.setColumns(10);
 		
 		txtDni = new JTextField();
 		txtDni.setEditable(false);
@@ -200,7 +210,7 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		}
 		
 		JLabel lblNewLabel = new JLabel("Bono Actual:");
-		lblNewLabel.setBounds(317, 162, 75, 14);
+		lblNewLabel.setBounds(317, 170, 75, 14);
 		getContentPane().add(lblNewLabel);
 		
 		JLabel labelImage = new JLabel("");
@@ -211,7 +221,7 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		
 		
 		JLabel lblEstadoAbono = new JLabel("Estado abono:");
-		lblEstadoAbono.setBounds(317, 25, 86, 14);
+		lblEstadoAbono.setBounds(317, 84, 86, 14);
 		getContentPane().add(lblEstadoAbono);
 		
 		textEstadoAbono = new JTextField();
@@ -221,12 +231,12 @@ public class ModificarSocioLlenarCampos extends JFrame{
 
 		}
 		textEstadoAbono.setEditable(false);
-		textEstadoAbono.setBounds(317, 47, 86, 20);
+		textEstadoAbono.setBounds(317, 103, 86, 20);
 		getContentPane().add(textEstadoAbono);
 		textEstadoAbono.setColumns(10);
 		
 		JLabel lblVencimientoAbono = new JLabel("Vencimiento del Abono:");
-		lblVencimientoAbono.setBounds(317, 97, 123, 14);
+		lblVencimientoAbono.setBounds(317, 130, 123, 14);
 		getContentPane().add(lblVencimientoAbono);
 		
 		textVenciAbono = new JTextField();
@@ -235,7 +245,7 @@ public class ModificarSocioLlenarCampos extends JFrame{
 			textVenciAbono.setText(fechaVenciAbono);
 		}
 		textVenciAbono.setEditable(false);
-		textVenciAbono.setBounds(317, 115, 86, 20);
+		textVenciAbono.setBounds(317, 143, 86, 20);
 		getContentPane().add(textVenciAbono);
 		textVenciAbono.setColumns(10);
 		
