@@ -138,6 +138,6 @@ public class Socio extends Rol {
 	}
 	
 	public void setEstadoAbono(String estadoAbono) {
-		this.tipoAbono = estadoAbono;
+		this.estadoAbono = estadoAbono;
 	}
 }

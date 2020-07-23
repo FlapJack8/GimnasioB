@@ -40,11 +40,14 @@ public class ModificarSocioLlenarCampos extends JFrame{
 	private JTextField textBonoActual;
 	private JTextField textEstadoAbono;
 	private JTextField textVenciAbono;
-
+	private Date fechaVenAbono;
+	
 	/*----LLENAR CAMPOS PARA MODIFICAR----*/
 	
 	public ModificarSocioLlenarCampos(SistemaUsuarios usuariosControlador, Socio v) {
 		
+		
+		fechaVenAbono = null;
 		abonosControl = new SistemaAbonos();
 		setResizable(false);
 		
@@ -174,6 +177,15 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
+		textBonoActual = new JTextField();
+		textBonoActual.setText(v.getTipoAbono());
+		textBonoActual.setEditable(false);
+		textBonoActual.setBounds(317, 185, 86, 20);
+		getContentPane().add(textBonoActual);
+		textBonoActual.setColumns(10);		
+		
+		String abono = textBonoActual.getText();
+		
 		ResultSet listaAbonos = abonosControl.listarAbono();
 		comboBoxAbonos = new JComboBox<String>();
 		comboBoxAbonos.setBounds(221, 184, 86, 22);
@@ -186,13 +198,6 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
-		
-		textBonoActual = new JTextField();
-		textBonoActual.setText(v.getTipoAbono());
-		textBonoActual.setEditable(false);
-		textBonoActual.setBounds(317, 185, 86, 20);
-		getContentPane().add(textBonoActual);
-		textBonoActual.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Bono Actual:");
 		lblNewLabel.setBounds(317, 162, 75, 14);
@@ -211,7 +216,9 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		
 		textEstadoAbono = new JTextField();
 		if(v.getEstadoAbono() != null) {
-			textEstadoAbono.setText(v.getEstadoAbono());
+			textEstadoAbono.setText(v.getEstadoAbono());					
+			System.out.println(textEstadoAbono.getText());
+
 		}
 		textEstadoAbono.setEditable(false);
 		textEstadoAbono.setBounds(317, 47, 86, 20);
@@ -241,12 +248,13 @@ public class ModificarSocioLlenarCampos extends JFrame{
 				Date fechaIns=Date.valueOf(txtFechaIns.getText());
 				Date fechaVen=Date.valueOf(txtFechaVenci.getText());
 				String abono = (String) comboBoxAbonos.getSelectedItem();
-				Date fechaVenAbono = Date.valueOf(textVenciAbono.getText());
+				
+			
+			
 				if(txtNombre.getText().equals("")||abono.equals("")||txtFechaNacimiento.getText().equals("")||txtDomicilio.getText().equals("")||fechaN.equals("")||fechaVen.equals("")||fechaIns.equals("")||txtEmail.getText().equals("")||txtDni.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
 				}
 				else {
-					//System.out.println(v.getEstado());
 					usuariosControlador.modificarSocio(Integer.parseInt(txtDni.getText()), txtNombre.getText(), txtEmail.getText(), txtDomicilio.getText(), fechaN, fechaIns, abono, fechaVen, fis, textEstadoAbono.getText(), fechaVenAbono);
 					JOptionPane.showMessageDialog(null, "Modificado!");
 					usuariosControlador.imprimir();
