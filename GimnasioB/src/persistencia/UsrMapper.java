@@ -592,7 +592,7 @@ public class UsrMapper {
 		}
 
 		public void liquidarSueldoEmpleado(String nombreUsuario, String nombreCompleto, int dni, Float importeTotal, 
-				Float sueldo, Float extras, Date fechaPago, String descripcion) {
+				Float sueldo, Float extras, Float porJub, Float porObra, Float porImpGen, Date fechaPago, String descripcion) {
 			
 		try {
 			String nombreComp = (String) nombreCompleto;
@@ -600,11 +600,14 @@ public class UsrMapper {
 			Float importeTot = (Float) importeTotal; 
 			Float sue = (Float) sueldo;
 			Float ext = (Float) extras;
+			Float pJub = (Float) porJub;
+			Float pObra = (Float) porObra;
+			Float pImpGen = (Float) porImpGen;
 			Date fPago = (Date) fechaPago;
 			String descr = (String) descripcion;
 
 			Connection con = PoolConnection.getPoolConnection().getConnection();
-			PreparedStatement s = con.prepareStatement("insert into dbo.LiquidacionDeSueldos (nombreCompleto, dni, importeTotal, sueldo, extras, fechaPago, descripcion, fechaLiquidacion) values (?,?,?,?,?,?,?,?)");
+			PreparedStatement s = con.prepareStatement("insert into dbo.LiquidacionDeSueldos (nombreCompleto, dni, importeTotal, sueldo, extras, fechaPago, descripcion, fechaLiquidacion, porAporteJub, porObraSoc, porImpGral) values (?,?,?,?,?,?,?,?,?,?,?)");
 			//agregar campos
 			
 			s.setString(1,nombreComp);
@@ -616,7 +619,10 @@ public class UsrMapper {
 			s.setString(7,descr);
 			java.util.Date today = Calendar.getInstance().getTime();
 			java.sql.Date fechaHoy = new java.sql.Date(today.getTime());
-			s.setDate(8,fechaHoy); // LOCAL DATE 
+			s.setDate(8,fechaHoy); // LOCAL DATE
+			s.setFloat(9,pJub);
+			s.setFloat(10,pObra);
+			s.setFloat(11,pImpGen);
 
 			s.execute();
 

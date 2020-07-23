@@ -570,11 +570,11 @@ public class SistemaUsuarios {
 
 	}
 	
-	public void liquidarSueldoEmpleado(String nombreUsuario, String nombreCompleto, int dni, Float sueldo, Float extras, Date fechaPago, String descripcion) {
+	public void liquidarSueldoEmpleado(String nombreUsuario, String nombreCompleto, int dni, Float sueldo, Float extras, Float porJub, Float porObra, Float porImpGen, Date fechaPago, String descripcion) {
 
-		Float importeTotal = sueldo+extras;
+		Float importeTotal = sueldo+extras-porJub-porObra-porImpGen;
 		
-		UsrMapper.getInstance().liquidarSueldoEmpleado(nombreUsuario, nombreCompleto, dni, importeTotal, sueldo, extras, fechaPago, descripcion);
+		UsrMapper.getInstance().liquidarSueldoEmpleado(nombreUsuario, nombreCompleto, dni, importeTotal, sueldo, extras, porJub, porObra, porImpGen, fechaPago, descripcion);
 			
 	}
 	
@@ -627,5 +627,23 @@ public class SistemaUsuarios {
 			}
 		}
 	}
+	
+	public Float getImpAporteJubPor() {
+		
+		Float imp = 0.11f;
+		return imp;
+	}
+	
+	public Float getImpObraSocialPor() {
+		
+		Float imp = 0.03f;
+		return imp;
+	}
+
+	public Float getImpSueldoGeneralPor() {
+	
+	Float imp = 0.03f;
+	return imp;
+}
 	
 }

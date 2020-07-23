@@ -143,13 +143,21 @@ public class LiquidarSueldo extends JFrame{
 					else {
 						if(usuariosControlador.existeEmpleado(nombreUsuario)) {
 							java.util.Date today = Calendar.getInstance().getTime();
-							int respuesta=JOptionPane.showConfirmDialog(null,"\nLiquidar sueldo del empleado: "+nombre+ "\nPor: "+total+"\n(Sueldo: "+sueldo+" + Extras: "+extras+")\nFecha de Pago: "+fechaPago+"\nDetalle: "+txtDescripcion.getText()+"\nFecha de Liquidacion: "+today, "Son estos los datos correctos?",JOptionPane.YES_NO_OPTION);
+							Float porJub, porObra, porImpGen;
+							
+							porJub = total*usuariosControlador.getImpAporteJubPor();
+							porObra = total*usuariosControlador.getImpObraSocialPor();
+							porImpGen = total*usuariosControlador.getImpSueldoGeneralPor();
+							
+							total = total-porJub-porObra-porImpGen;
+							
+							int respuesta=JOptionPane.showConfirmDialog(null,"\nLiquidar sueldo del empleado: "+nombre+ "\nPor: "+total+"\n(Sueldo: "+sueldo+" + Extras: "+extras+")\nImporte desc. aporte Jubilatorio: "+ porJub+ "\nImporte desc. obra social: "+porObra+"\nImporte desc. impuesto general sueldos: "+porImpGen+"\nFecha de Pago: "+fechaPago+"\nDetalle: "+txtDescripcion.getText()+"\nFecha de Liquidacion: "+today, "Son estos los datos correctos?",JOptionPane.YES_NO_OPTION);
 							if(respuesta==1) {
 							
 							}
 							else if(respuesta==0) {
 
-								usuariosControlador.liquidarSueldoEmpleado(nombreUsuario, nombre, dni, sueldo, extras, fechaPago, txtDescripcion.getText());
+								usuariosControlador.liquidarSueldoEmpleado(nombreUsuario, nombre, dni, sueldo, extras, porJub, porObra, porImpGen, fechaPago, txtDescripcion.getText());
 								JOptionPane.showMessageDialog(null, "Sueldo liquidado");
 								dispose();
 								

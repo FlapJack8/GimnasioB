@@ -97,9 +97,9 @@ public class Main extends JFrame{
 			getContentPane().setLayout(null);
 			setBounds(450, 250, 460, 350);
 			
-			JLabel lblBienvenido = new JLabel("Bienvenido al \nGimnasio B!");
+			JLabel lblBienvenido = new JLabel("Bienvenido al \nBIT Gym!");
 			lblBienvenido.setFont(new Font("Tahoma", Font.BOLD, 20));
-			lblBienvenido.setBounds(80, 8, 300, 50);
+			lblBienvenido.setBounds(90, 8, 300, 50);
 			cpLogin.add(lblBienvenido);
 			
 			/*-------------------------------------------
