@@ -102,6 +102,7 @@ public class ModificarSocioLlenarCampos extends JFrame{
 		getContentPane().add(lblApellido);
 		
 		textApellido = new JTextField();
+		textApellido.setText(v.getApellido());
 		textApellido.setBounds(317, 50, 86, 20);
 		getContentPane().add(textApellido);
 		textApellido.setColumns(10);
@@ -265,7 +266,7 @@ public class ModificarSocioLlenarCampos extends JFrame{
 					JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
 				}
 				else {
-					usuariosControlador.modificarSocio(Integer.parseInt(txtDni.getText()), txtNombre.getText(), txtEmail.getText(), txtDomicilio.getText(), fechaN, fechaIns, abono, fechaVen, fis, textEstadoAbono.getText(), fechaVenAbono);
+					usuariosControlador.modificarSocio(Integer.parseInt(txtDni.getText()), txtNombre.getText(), txtEmail.getText(), txtDomicilio.getText(), fechaN, fechaIns, abono, fechaVen, fis, textEstadoAbono.getText(), fechaVenAbono, textApellido.getText());
 					JOptionPane.showMessageDialog(null, "Modificado!");
 					usuariosControlador.imprimir();
 					dispose();

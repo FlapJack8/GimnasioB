@@ -216,7 +216,7 @@ public class RegistrarSocio extends JFrame {
 					}
 					else
 					{
-						usuariosControlador.altaUsuario(textNombre.getText(), textMail.getText(), null, null, textDomicilio.getText(), Integer.parseInt(textDNI.getText()),fechaN, "Socio", fechaI, null, null, null, abono, fechaV, fis);
+						usuariosControlador.altaUsuario(textNombre.getText(), textMail.getText(), null, null, textDomicilio.getText(), Integer.parseInt(textDNI.getText()),fechaN, "Socio", fechaI, null, null, null, abono, fechaV, fis, textApellido.getText());
 
 						JOptionPane.showMessageDialog(null, "Ingreso correcto");
 						usuariosControlador.imprimir();
