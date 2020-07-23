@@ -261,7 +261,7 @@ public class RegistrarEmpleado extends JFrame{
 			textContra2.setColumns(10);
 			
 			JLabel lblIngreseSuNombre_1 = new JLabel("Nombre:");
-			lblIngreseSuNombre_1.setBounds(13, 133, 141, 14);
+			lblIngreseSuNombre_1.setBounds(13, 130, 141, 14);
 			contentPane.add(lblIngreseSuNombre_1);
 			
 			txtNombre = new JTextField();
