@@ -115,4 +115,11 @@ public class Empleado extends Rol {
 	public void setDiasLaborales(String diasLaborales) {
 		this.diasLaborales = diasLaborales;
 	}
+	public String getApellido() {
+		return persona.getApellido();
+	}
+
+	public void setApellido(String apellido) {
+		persona.setApellido(apellido);
+	}
 }

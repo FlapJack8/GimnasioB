@@ -13,9 +13,10 @@ public class Persona {
 	private String rol;
 	private String estado;
 	private Date fechaInicioActividades;
+	private String apellido;
 
 	public Persona(String nombreUsuario, String email, String nombre, String password, String domicilio, int dni,
-			Date fechaDeNac, String rol,Date fechaInicioActividades) {
+			Date fechaDeNac, String rol,Date fechaInicioActividades, String apellido) {
 		super();
 		this.nombreUsuario = nombreUsuario;
 		this.email = email;
@@ -26,13 +27,14 @@ public class Persona {
 		this.fechaDeNac = fechaDeNac;
 		this.rol = rol;
 		this.fechaInicioActividades = fechaInicioActividades;
+		this.apellido = apellido;
 
 	}
 	
 	/*----CONSTRUCTOR BAJA LOGICA----*/
 	
 	public Persona(String nombreUsuario, String email, String nombre, String password, String domicilio, int dni,
-			Date fechaDeNac, String rol, String estado,Date fechaInicioActividades) {
+			Date fechaDeNac, String rol, String estado,Date fechaInicioActividades, String apellido) {
 		super();
 		this.nombreUsuario = nombreUsuario;
 		this.email = email;
@@ -44,6 +46,7 @@ public class Persona {
 		this.rol = rol;
 		this.estado = estado;
 		this.fechaInicioActividades = fechaInicioActividades;
+		this.apellido = apellido;
 	}
 
 	public void isActivo() {
@@ -135,5 +138,12 @@ public class Persona {
 		this.fechaInicioActividades = fechaInicioActividades;
 	}
 	
+	public String getApellido() {
+		return apellido;
+	}
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
 	
 }

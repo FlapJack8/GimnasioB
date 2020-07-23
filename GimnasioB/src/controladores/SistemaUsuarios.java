@@ -83,11 +83,11 @@ public class SistemaUsuarios {
 	 *-------------------------------
 	 */
 	
-	public void altaUsuario(String nombre, String email, String password, String nombreUsuario, String domicilio, int dni, Date fechaNac, String rol,Date fechaInicioActividades, Float sueldo, String diasLaborales,String actividades, String tipoAbono, Date fechaVen, FileInputStream fis)
+	public void altaUsuario(String nombre, String email, String password, String nombreUsuario, String domicilio, int dni, Date fechaNac, String rol,Date fechaInicioActividades, Float sueldo, String diasLaborales,String actividades, String tipoAbono, Date fechaVen, FileInputStream fis, String apellido)
 	{
 		if(!existeUsuario(nombreUsuario)) {
 	
-			Persona p = new Persona(nombreUsuario, email, nombre, password, domicilio, dni, fechaNac,rol,fechaInicioActividades);
+			Persona p = new Persona(nombreUsuario, email, nombre, password, domicilio, dni, fechaNac,rol,fechaInicioActividades, apellido);
 	
 			switch (rol.toLowerCase()) {
 				case "socio":
@@ -140,7 +140,7 @@ public class SistemaUsuarios {
 	 *------------------------------------
 	 */
 
-	public void modificarSocio(int dni, String nombre, String email, String domicilio, Date fechaNac, Date fechaIns, String tipoAbono, Date fechaVen, FileInputStream fis, String estadoAbono, Date fechaVenAbono){
+	public void modificarSocio(int dni, String nombre, String email, String domicilio, Date fechaNac, Date fechaIns, String tipoAbono, Date fechaVen, FileInputStream fis, String estadoAbono, Date fechaVenAbono, String apellido){
 		for(Socio s: vSocios) {
 			if(s.getDni() == dni) {
 				s.setNombre(nombre);
@@ -155,6 +155,7 @@ public class SistemaUsuarios {
 				s.setDatosMedicos(fis);
 				s.setEstadoAbono(estadoAbono);
 				s.setFechaVenAbono(fechaVenAbono);
+				s.setApellido(apellido);
 				UsrMapper.getInstance().updateSocio(s);
 			}
 				
@@ -229,7 +230,7 @@ public class SistemaUsuarios {
 	 *-------------------------------------
 	 */
 	
-	public void modificarEmpleado(String nombreUsuario, String email, String password, String nombre, String domicilio, int dni, Date fechaNacimiento, String rol, Date fechaInicioActividades, Float sueldo, String diasLaborales, String actividades){
+	public void modificarEmpleado(String nombreUsuario, String email, String password, String nombre, String domicilio, int dni, Date fechaNacimiento, String rol, Date fechaInicioActividades, Float sueldo, String diasLaborales, String actividades, String apellido){
 		
 		/*----Dependiendo el rol modificamos el empleado----*/
 		
@@ -248,6 +249,7 @@ public class SistemaUsuarios {
 						a.setDiasLaborales(diasLaborales);
 						a.setSueldo(sueldo);
 						a.setFechaInicioActividades(fechaInicioActividades);
+						a.setApellido(apellido);
 						UsrMapper.getInstance().updateEmpleado(a);
 					}
 				}
@@ -267,6 +269,7 @@ public class SistemaUsuarios {
 						pro.setSueldo(sueldo);
 						pro.setFechaInicioActividades(fechaInicioActividades);
 						pro.setActividades(actividades);
+						pro.setApellido(apellido);
 						UsrMapper.getInstance().updateEmpleado(pro);
 					}
 				}
@@ -285,6 +288,7 @@ public class SistemaUsuarios {
 						o.setDiasLaborales(diasLaborales);
 						o.setSueldo(sueldo);
 						o.setFechaInicioActividades(fechaInicioActividades);
+						o.setApellido(apellido);
 						UsrMapper.getInstance().updateEmpleado(o);
 					}
 				}

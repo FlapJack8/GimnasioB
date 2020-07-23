@@ -328,9 +328,10 @@ public class UsrMapper {
 					Blob blob = (Blob) result.getBlob(11);
 					String estadoAbono = result.getString(12);
 					Date fechaVencimientoAbono = result.getDate(13);
+					String apellido = result.getString(14);
 					
 					
-					Persona p = new Persona(null, email, nombre, null, domicilio, dni, fechaDeNac, "socio", estado, fechaDeInscripcion);
+					Persona p = new Persona(null, email, nombre, null, domicilio, dni, fechaDeNac, "socio", estado, fechaDeInscripcion, apellido);
 					socio = new Socio(p, "socio", fechaVencimiento, tipoAbono, null, blob, estadoAbono, fechaVencimientoAbono);
 				}
 				PoolConnection.getPoolConnection().realeaseConnection(con);
@@ -390,7 +391,8 @@ public class UsrMapper {
 					Float sueldo = res.getFloat(8);
 					Date fechaInicioActividades =res.getDate(9);
 					String diasLaborales = res.getString(10);
-					Persona p = new Persona(nombreUsuario,mail,nombre,password,domicilio,dni,fechaDeNac,rol,estado,fechaInicioActividades);
+					String apellido = res.getString(13);
+					Persona p = new Persona(nombreUsuario,mail,nombre,password,domicilio,dni,fechaDeNac,rol,estado,fechaInicioActividades, apellido);
 					adm = new Administrador(p,rol,sueldo,diasLaborales);
 				}
 				PoolConnection.getPoolConnection().realeaseConnection(con);
@@ -437,11 +439,12 @@ public class UsrMapper {
 					Date fechaDeNac = res.getDate(6);
 					String estado = res.getString(7);
 					Float sueldo = res.getFloat(8);
+					String apellido = res.getString(13);
 					
 					Date fechaInicioActividades = res.getDate(9);
 					String diasLaborales = res.getString(10);
 					
-					Persona p = new Persona(nombreUsuario,mail,nombre,password,domicilio,dni,fechaDeNac,rol,estado,fechaInicioActividades);
+					Persona p = new Persona(nombreUsuario,mail,nombre,password,domicilio,dni,fechaDeNac,rol,estado,fechaInicioActividades, apellido);
 					o = new Operador(p,rol,sueldo,diasLaborales);
 				}
 				PoolConnection.getPoolConnection().realeaseConnection(con);
@@ -492,8 +495,9 @@ public class UsrMapper {
 					Date fechaInicioActividades = res.getDate(9);
 					String diasLaborales = res.getString(10);
 					String rol= res.getString(11);
+					String apellido = res.getString(13);
 
-					Persona p = new Persona(nombreUsuario,mail,nombre,null,domicilio,dni,fechaDeNac,rol,estado,fechaInicioActividades);
+					Persona p = new Persona(nombreUsuario,mail,nombre,null,domicilio,dni,fechaDeNac,rol,estado,fechaInicioActividades, apellido);
 					o = new Profesor(p,rol,sueldo,diasLaborales,actividades);
 
 				}

@@ -140,4 +140,12 @@ public class Socio extends Rol {
 	public void setEstadoAbono(String estadoAbono) {
 		this.estadoAbono = estadoAbono;
 	}
+	
+	public String getApellido() {
+		return persona.getApellido();
+	}
+
+	public void setApellido(String apellido) {
+		persona.setApellido(apellido);
+	}
 }
