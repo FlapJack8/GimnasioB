@@ -56,7 +56,7 @@ public class LiquidarSueldo extends JFrame{
 	private JLabel lblFechaDePago;
 	private JTextArea txtDescripcion;
 
-	public LiquidarSueldo(SistemaUsuarios usuariosControlador, String nombreUsuario, String nombreCompleto, String email, int dni, Float sueldo, Date fechaInicioActs, String diasLaborales, String rol) {
+	public LiquidarSueldo(SistemaUsuarios usuariosControlador, String nombreUsuario, String nombre, String apellido, String email, int dni, Float sueldo, Date fechaInicioActs, String diasLaborales, String rol) {
 		setTitle("Modificar Empleado");
 
 		/*---------CREO VENTANA DE MODIFICACION DE EMPLEADO----*/
@@ -86,7 +86,7 @@ public class LiquidarSueldo extends JFrame{
 			lblLiquidarSueldo.setFont(new Font("Tunga", Font.BOLD, 20));
 			lblLiquidarSueldo.setBounds(12, 24, 303, 29);
 			contentPane.add(lblLiquidarSueldo);
-			
+			String nombreCompleto = nombre.concat(" ").concat(apellido);
 			lblNombre = new JLabel("("+nombreUsuario+") "+nombreCompleto);
 			lblNombre.setFont(new Font("Tunga", Font.BOLD, 20));
 			lblNombre.setBounds(83, 66, 296, 16);

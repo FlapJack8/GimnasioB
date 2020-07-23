@@ -78,8 +78,7 @@ public class ListarEmpleadosLiquidarSueldo extends JFrame {
 				String diasLaborales = modelo.getValueAt(selectedRow, 7).toString();
 				String rol = modelo.getValueAt(selectedRow, 8).toString();
 				
-				String nombreCompleto = nombre.concat(" ").concat(apellido);
-				LiquidarSueldo liquidarSueldo = new LiquidarSueldo(usuariosControlador, nombreUsr, nombreCompleto, email,dni, sueldo,fechInicioActs,diasLaborales,rol);
+				LiquidarSueldo liquidarSueldo = new LiquidarSueldo(usuariosControlador, nombreUsr, nombre, apellido, email,dni, sueldo,fechInicioActs,diasLaborales,rol);
 				liquidarSueldo.setVisible(true);
 				dispose();
 			}
