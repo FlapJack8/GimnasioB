@@ -211,8 +211,8 @@ public class UsrMapper {
 				s.setDate(7, (Date) soc.getFechaVen());
 				s.setString(8, soc.getEstado());
 				s.setBinaryStream(9, (InputStream) soc.getDatosMedicos());
-				s.setInt(10, soc.getDni());
-				s.setString(11, soc.getApellido());
+				s.setString(10, soc.getApellido());
+				s.setInt(11, soc.getDni());
 				
 				s.executeUpdate();
 				PoolConnection.getPoolConnection().realeaseConnection(con);
@@ -287,11 +287,10 @@ public class UsrMapper {
 				s2.setString(6,e.getEstado());
 				s2.setFloat(7,e.getSueldo());
 				s2.setDate(8, (Date) e.getFechaInicioActividades());
-
 				s2.setString(9,e.getDiasLaborales());
+				s2.setString(10, e.getApellido());
 				
-				s2.setString(10, e.getNombreUsuario());
-				s2.setString(11, e.getApellido());
+				s2.setString(11, e.getNombreUsuario());
 				
 				s.execute();
 				s2.execute();
