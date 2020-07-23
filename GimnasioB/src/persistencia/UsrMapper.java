@@ -57,7 +57,7 @@ public class UsrMapper {
 				Connection con = PoolConnection.getPoolConnection().getConnection();
 				/*----STATEMENT QUERY DEL INSERT----*/
 				if(per.getRol().equalsIgnoreCase("socio")) {
-					PreparedStatement s = con.prepareStatement("insert into dbo.Socios(nombre, dni, email, domicilio, fechaNacimiento, fechaInscipcion, estado, tipoAbono, fechaVencimientoApto, datosMedicos) values (?,?,?,?,?,?,?,?,?,?)");
+					PreparedStatement s = con.prepareStatement("insert into dbo.Socios(nombre, dni, email, domicilio, fechaNacimiento, fechaInscipcion, estado, tipoAbono, fechaVencimientoApto, datosMedicos, apellido) values (?,?,?,?,?,?,?,?,?,?,?)");
 					/*-----CAMPOS DEL SOCIO----*/
 					s.setString(1, per.getNombre());
 					s.setInt(2, per.getDni());
@@ -69,6 +69,7 @@ public class UsrMapper {
 					s.setString(8, tipoAb);
 					s.setDate(9, (Date) vencimiento);
 					s.setBinaryStream(10, (InputStream) fileIS);
+					s.setString(11, per.getApellido());
 					s.execute();
 					PoolConnection.getPoolConnection().realeaseConnection(con);
 				}
@@ -79,7 +80,7 @@ public class UsrMapper {
 						s.setString(1, per.getNombreUsuario());
 						s.setString(2, acts);
 						
-						PreparedStatement sProfes = con.prepareStatement("insert into dbo.Empleados (nombreusuario,nombre,domicilio,email,dni,fechaNacimiento,estado,sueldo,fechaInicioActividades,diasLaborales,rol) values (?,?,?,?,?,?,?,?,?,?,?)");
+						PreparedStatement sProfes = con.prepareStatement("insert into dbo.Empleados (nombreusuario,nombre,domicilio,email,dni,fechaNacimiento,estado,sueldo,fechaInicioActividades,diasLaborales,rol, apellido) values (?,?,?,?,?,?,?,?,?,?,?,?)");
 						/*----CAMPOS DE EMPLEADOS----*/			
 						sProfes.setString(1, per.getNombreUsuario());
 						sProfes.setString(2, per.getNombre());
@@ -98,7 +99,7 @@ public class UsrMapper {
 						PoolConnection.getPoolConnection().realeaseConnection(con);
 					}
 					else {
-						PreparedStatement s = con.prepareStatement("insert into dbo.Empleados (nombreusuario,nombre,domicilio,email,dni,fechaNacimiento,estado,sueldo,fechaInicioActividades,diasLaborales,rol) values (?,?,?,?,?,?,?,?,?,?,?)");
+						PreparedStatement s = con.prepareStatement("insert into dbo.Empleados (nombreusuario,nombre,domicilio,email,dni,fechaNacimiento,estado,sueldo,fechaInicioActividades,diasLaborales,rol, apellido) values (?,?,?,?,?,?,?,?,?,?,?,?)");
 						/*----CAMPOS DE EMPLEADOS----*/			
 						s.setString(1, per.getNombreUsuario());
 						s.setString(2, per.getNombre());
@@ -111,6 +112,8 @@ public class UsrMapper {
 						s.setDate(9, (Date) per.getFechaInicioActividades());
 						s.setString(10, diasLab);
 						s.setString(11, per.getRol());
+						s.setString(12, per.getRol());
+
 						
 						PreparedStatement sUsrs = con.prepareStatement("insert into dbo.Usuarios (nombreUsuario,password,rol) values (?,?,?)");
 						/*----CAMPOS DE USUARIOS----*/			
@@ -192,7 +195,8 @@ public class UsrMapper {
 						" tipoAbono =?," +
 						" fechaVencimientoApto=?," +
 						" estado = ?," +
-						" datosMedicos = ?" +
+						" datosMedicos = ?," +
+						" apellido = ?" +
 						" where dni = ?");
 				/*----CAMPOS DE CLIENTE----*/
 				
@@ -206,6 +210,7 @@ public class UsrMapper {
 				s.setString(8, soc.getEstado());
 				s.setBinaryStream(9, (InputStream) soc.getDatosMedicos());
 				s.setInt(10, soc.getDni());
+				s.setString(11, soc.getApellido());
 				
 				s.executeUpdate();
 				PoolConnection.getPoolConnection().realeaseConnection(con);
@@ -267,7 +272,8 @@ public class UsrMapper {
 						" estado = ?," +
 						" sueldo = ?," +
 						" fechaInicioActividades = ?," +
-						" diasLaborales = ?" +
+						" diasLaborales = ?," +
+						" apellido = ?" +
 						" where nombreUsuario = ?");
 				/*----CAMPOS DE EMPLEADO----*/
 				
@@ -283,6 +289,7 @@ public class UsrMapper {
 				s2.setString(9,e.getDiasLaborales());
 				
 				s2.setString(10, e.getNombreUsuario());
+				s2.setString(11, e.getApellido());
 				
 				s.execute();
 				s2.execute();
