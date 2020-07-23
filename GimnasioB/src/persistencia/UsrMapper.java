@@ -558,7 +558,7 @@ public class UsrMapper {
 			try {
 				Empleado emp = null;
 				Connection con = PoolConnection.getPoolConnection().getConnection();
-				PreparedStatement s = con.prepareStatement("select nombreUsuario, nombre, email, dni, sueldo, fechaInicioActividades, diasLaborales, rol from dbo.Empleados where estado = 'Activo'");
+				PreparedStatement s = con.prepareStatement("select nombreUsuario, nombre, apellido, email, dni, sueldo, fechaInicioActividades, diasLaborales, rol from dbo.Empleados where estado = 'Activo'");
 
 				ResultSet result = s.executeQuery();
 				

@@ -56,7 +56,7 @@ public class LiquidarSueldo extends JFrame{
 	private JLabel lblFechaDePago;
 	private JTextArea txtDescripcion;
 
-	public LiquidarSueldo(SistemaUsuarios usuariosControlador, String nombreUsuario, String nombre, String email, int dni, Float sueldo, Date fechaInicioActs, String diasLaborales, String rol) {
+	public LiquidarSueldo(SistemaUsuarios usuariosControlador, String nombreUsuario, String nombreCompleto, String email, int dni, Float sueldo, Date fechaInicioActs, String diasLaborales, String rol) {
 		setTitle("Modificar Empleado");
 
 		/*---------CREO VENTANA DE MODIFICACION DE EMPLEADO----*/
@@ -87,7 +87,7 @@ public class LiquidarSueldo extends JFrame{
 			lblLiquidarSueldo.setBounds(12, 24, 303, 29);
 			contentPane.add(lblLiquidarSueldo);
 			
-			lblNombre = new JLabel("("+nombreUsuario+") "+nombre);
+			lblNombre = new JLabel("("+nombreUsuario+") "+nombreCompleto);
 			lblNombre.setFont(new Font("Tunga", Font.BOLD, 20));
 			lblNombre.setBounds(83, 66, 296, 16);
 			contentPane.add(lblNombre);
@@ -151,13 +151,13 @@ public class LiquidarSueldo extends JFrame{
 							
 							total = total-porJub-porObra-porImpGen;
 							
-							int respuesta=JOptionPane.showConfirmDialog(null,"\nLiquidar sueldo del empleado: "+nombre+ "\nPor: "+total+"\n(Sueldo: "+sueldo+" + Extras: "+extras+")\nImporte desc. aporte Jubilatorio: "+ porJub+ "\nImporte desc. obra social: "+porObra+"\nImporte desc. impuesto general sueldos: "+porImpGen+"\nFecha de Pago: "+fechaPago+"\nDetalle: "+txtDescripcion.getText()+"\nFecha de Liquidacion: "+today, "Son estos los datos correctos?",JOptionPane.YES_NO_OPTION);
+							int respuesta=JOptionPane.showConfirmDialog(null,"\nLiquidar sueldo del empleado: "+nombreCompleto+ "\nPor: "+total+"\n(Sueldo: "+sueldo+" + Extras: "+extras+")\nImporte desc. aporte Jubilatorio: "+ porJub+ "\nImporte desc. obra social: "+porObra+"\nImporte desc. impuesto general sueldos: "+porImpGen+"\nFecha de Pago: "+fechaPago+"\nDetalle: "+txtDescripcion.getText()+"\nFecha de Liquidacion: "+today, "Son estos los datos correctos?",JOptionPane.YES_NO_OPTION);
 							if(respuesta==1) {
 							
 							}
 							else if(respuesta==0) {
 
-								usuariosControlador.liquidarSueldoEmpleado(nombreUsuario, nombre, dni, sueldo, extras, porJub, porObra, porImpGen, fechaPago, txtDescripcion.getText());
+								usuariosControlador.liquidarSueldoEmpleado(nombreUsuario, nombreCompleto, dni, sueldo, extras, porJub, porObra, porImpGen, fechaPago, txtDescripcion.getText());
 								JOptionPane.showMessageDialog(null, "Sueldo liquidado");
 								dispose();
 								

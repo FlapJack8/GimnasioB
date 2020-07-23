@@ -42,7 +42,7 @@ public class ListarEmpleadosLiquidarSueldo extends JFrame {
 		
 		ResultSet listaEmpleados = usuariosControlador.listarEmpleados();
 		
-		String columnas [] = {"Nombre Usuario","Nombre", "E-Mail","DNI","Sueldo","Inicio de Actividades","Dias Laborales","Rol"};
+		String columnas [] = {"Nombre Usuario","Nombre", "Apellido", "E-Mail","DNI","Sueldo","Inicio de Actividades","Dias Laborales","Rol"};
 		tbEmpleados = new JTable();
 		tbEmpleados.setBounds(36, 50, 616, 295);
 		tbEmpleados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -70,14 +70,16 @@ public class ListarEmpleadosLiquidarSueldo extends JFrame {
 				
 				String nombreUsr = modelo.getValueAt(selectedRow, 0).toString();
 				String nombre = modelo.getValueAt(selectedRow, 1).toString();
-				String email = modelo.getValueAt(selectedRow, 2).toString();
-				int dni = Integer.parseInt(modelo.getValueAt(selectedRow, 3).toString());
-				Float sueldo = Float.parseFloat(modelo.getValueAt(selectedRow, 4).toString());
-				Date fechInicioActs = Date.valueOf(modelo.getValueAt(selectedRow, 5).toString());
-				String diasLaborales = modelo.getValueAt(selectedRow, 6).toString();
-				String rol = modelo.getValueAt(selectedRow, 7).toString();
+				String apellido = modelo.getValueAt(selectedRow, 2).toString();
+				String email = modelo.getValueAt(selectedRow, 3).toString();
+				int dni = Integer.parseInt(modelo.getValueAt(selectedRow, 4).toString());
+				Float sueldo = Float.parseFloat(modelo.getValueAt(selectedRow, 5).toString());
+				Date fechInicioActs = Date.valueOf(modelo.getValueAt(selectedRow, 6).toString());
+				String diasLaborales = modelo.getValueAt(selectedRow, 7).toString();
+				String rol = modelo.getValueAt(selectedRow, 8).toString();
 				
-				LiquidarSueldo liquidarSueldo = new LiquidarSueldo(usuariosControlador, nombreUsr, nombre, email,dni, sueldo,fechInicioActs,diasLaborales,rol);
+				String nombreCompleto = nombre.concat(" ").concat(apellido);
+				LiquidarSueldo liquidarSueldo = new LiquidarSueldo(usuariosControlador, nombreUsr, nombreCompleto, email,dni, sueldo,fechInicioActs,diasLaborales,rol);
 				liquidarSueldo.setVisible(true);
 				dispose();
 			}

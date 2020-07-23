@@ -44,6 +44,7 @@ public class RegistrarEmpleado extends JFrame{
 	private JTextField textContra1;
 	private JTextField textContra2;
 	private JTextField txtNombre;
+	private JTextField txtApellido;
 	private final ButtonGroup roles = new ButtonGroup();
 	private JTextField txtInicioActs;
 	private JTextField txtSueldo;
@@ -58,7 +59,7 @@ public class RegistrarEmpleado extends JFrame{
 			setResizable(false);
 			toFront();
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			setBounds(400, 200, 754, 608);
+			setBounds(400, 200, 754, 672);
 			contentPane = new JPanel();
 			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 			setContentPane(contentPane);
@@ -187,8 +188,17 @@ public class RegistrarEmpleado extends JFrame{
 			lblIngreseSuNombre.setBounds(13, 103, 152, 14);
 			contentPane.add(lblIngreseSuNombre);
 			
+			txtApellido = new JTextField();
+			txtApellido.setBounds(214, 158, 152, 20);
+			contentPane.add(txtApellido);
+			txtApellido.setColumns(10);
+			
+			JLabel lblApellido = new JLabel("Apellido:");
+			lblApellido.setBounds(13, 158, 56, 16);
+			contentPane.add(lblApellido);
+			
 			JLabel lblDomicilio = new JLabel("Domicilio:");
-			lblDomicilio.setBounds(13, 163, 152, 14);
+			lblDomicilio.setBounds(14, 189, 152, 14);
 			contentPane.add(lblDomicilio);
 				
 			JLabel label = new JLabel("");
@@ -196,23 +206,23 @@ public class RegistrarEmpleado extends JFrame{
 			contentPane.add(label);
 			
 			JLabel lblEmail = new JLabel("E-mail:");
-			lblEmail.setBounds(13, 194, 46, 14);
+			lblEmail.setBounds(14, 220, 46, 14);
 			contentPane.add(lblEmail);
 			
 			JLabel lblNewLabel = new JLabel("DNI:");
-			lblNewLabel.setBounds(13, 227, 46, 14);
+			lblNewLabel.setBounds(14, 253, 46, 14);
 			contentPane.add(lblNewLabel);
 
 			JLabel lblFechaNacimiento = new JLabel("Fecha nacimiento:");
-			lblFechaNacimiento.setBounds(13, 258, 152, 14);
+			lblFechaNacimiento.setBounds(14, 284, 152, 14);
 			contentPane.add(lblFechaNacimiento);
 			
 			JLabel lblIngreseSuContrasea = new JLabel("Ingrese su contrase\u00F1a:");
-			lblIngreseSuContrasea.setBounds(12, 291, 142, 17);
+			lblIngreseSuContrasea.setBounds(13, 317, 142, 17);
 			contentPane.add(lblIngreseSuContrasea);
 			
 			JLabel lblIngresaNuevamente = new JLabel("Ingresa nuevamente:");
-			lblIngresaNuevamente.setBounds(13, 321, 191, 17);
+			lblIngresaNuevamente.setBounds(14, 347, 191, 17);
 			contentPane.add(lblIngresaNuevamente);
 
 			textUsuario = new JTextField();
@@ -221,32 +231,32 @@ public class RegistrarEmpleado extends JFrame{
 			textUsuario.setColumns(10);
 			
 			textDomicilio = new JTextField();
-			textDomicilio.setBounds(214, 160, 152, 20);
+			textDomicilio.setBounds(215, 186, 152, 20);
 			contentPane.add(textDomicilio);
 			textDomicilio.setColumns(10);
 			
 			textMail = new JTextField();
-			textMail.setBounds(214, 191, 152, 20);
+			textMail.setBounds(215, 217, 152, 20);
 			contentPane.add(textMail);
 			textMail.setColumns(10);
 			
 			textDNI = new JTextField();
-			textDNI.setBounds(214, 224, 152, 20);
+			textDNI.setBounds(215, 250, 152, 20);
 			contentPane.add(textDNI);
 			textDNI.setColumns(10);
 			
 			textFechaNac = new JTextField();
-			textFechaNac.setBounds(214, 255, 152, 20);
+			textFechaNac.setBounds(215, 281, 152, 20);
 			contentPane.add(textFechaNac);
 			textFechaNac.setColumns(10);
 			
 			textContra1 = new JTextField();
-			textContra1.setBounds(214, 288, 152, 20);
+			textContra1.setBounds(215, 314, 152, 20);
 			contentPane.add(textContra1);
 			textContra1.setColumns(10);
 			
 			textContra2 = new JTextField();
-			textContra2.setBounds(214, 318, 152, 20);
+			textContra2.setBounds(215, 344, 152, 20);
 			contentPane.add(textContra2);
 			textContra2.setColumns(10);
 			
@@ -259,39 +269,39 @@ public class RegistrarEmpleado extends JFrame{
 			contentPane.add(txtNombre);
 			txtNombre.setColumns(10);
 			JCheckBox chckbxLunes = new JCheckBox("Lunes");
-			chckbxLunes.setBounds(52, 461, 113, 25);
+			chckbxLunes.setBounds(53, 487, 113, 25);
 			contentPane.add(chckbxLunes);
 			
 			JCheckBox chckbxMartes = new JCheckBox("Martes");
-			chckbxMartes.setBounds(52, 491, 113, 25);
+			chckbxMartes.setBounds(53, 517, 113, 25);
 			contentPane.add(chckbxMartes);
 			
 			JCheckBox chckbxMiercoles = new JCheckBox("Miercoles");
-			chckbxMiercoles.setBounds(208, 461, 113, 25);
+			chckbxMiercoles.setBounds(209, 487, 113, 25);
 			contentPane.add(chckbxMiercoles);
 			
 			JCheckBox chckbxJueves = new JCheckBox("Jueves");
-			chckbxJueves.setBounds(208, 491, 113, 25);
+			chckbxJueves.setBounds(209, 517, 113, 25);
 			contentPane.add(chckbxJueves);
 			
 			JCheckBox chckbxViernes = new JCheckBox("Viernes");
-			chckbxViernes.setBounds(345, 461, 113, 25);
+			chckbxViernes.setBounds(346, 487, 113, 25);
 			contentPane.add(chckbxViernes);
 			
 			JCheckBox chckbxSabado = new JCheckBox("Sabado");
-			chckbxSabado.setBounds(345, 491, 113, 25);
+			chckbxSabado.setBounds(346, 517, 113, 25);
 			contentPane.add(chckbxSabado);
 			
 			JCheckBox chckbxDomingo = new JCheckBox("Domingo");
-			chckbxDomingo.setBounds(472, 461, 113, 25);
+			chckbxDomingo.setBounds(473, 487, 113, 25);
 			contentPane.add(chckbxDomingo);
 			
 			
 			/*----BOTON ENVIAR----*/
 			
-			JButton btnEnviar = new JButton("Enviar");
-			btnEnviar.setBounds(214, 537, 152, 23);
-			btnEnviar.addActionListener(new ActionListener() {
+			JButton btnRegistrar = new JButton("Registrar");
+			btnRegistrar.setBounds(288, 601, 152, 23);
+			btnRegistrar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 
 					int flagDiasSelected=0;
@@ -341,7 +351,7 @@ public class RegistrarEmpleado extends JFrame{
 					    }
 					        //activ.add(list.getModel().getElement(i));    
 					        
-						if(txtNombre.getText().equals("")||textDNI.getText().equals("")||textDomicilio.getText().equals("")||fechaN.equals("")||textMail.getText().equals("")||textUsuario.getText().equals("")||rol==null||txtInicioActs.getText().equals("")||txtSueldo.getText().equals("")||flagDiasSelected==0) {
+						if(txtNombre.getText().equals("")||txtApellido.getText().equals("")||textDNI.getText().equals("")||textDomicilio.getText().equals("")||fechaN.equals("")||textMail.getText().equals("")||textUsuario.getText().equals("")||rol==null||txtInicioActs.getText().equals("")||txtSueldo.getText().equals("")||flagDiasSelected==0) {
 							JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
 
 						}
@@ -379,7 +389,7 @@ public class RegistrarEmpleado extends JFrame{
 								}
 								
 								
-								usuariosControlador.altaUsuario(txtNombre.getText(), textMail.getText(), null, textUsuario.getText(), textDomicilio.getText(), Integer.parseInt(textDNI.getText()), fechaN, rol,fechaInicioActs,Float.parseFloat(txtSueldo.getText()),diasLaborales,actividades, null, null, null);
+								usuariosControlador.altaUsuario(txtNombre.getText(), textMail.getText(), null, textUsuario.getText(), textDomicilio.getText(), Integer.parseInt(textDNI.getText()), fechaN, rol,fechaInicioActs,Float.parseFloat(txtSueldo.getText()),diasLaborales,actividades, null, null, null,txtApellido.getText());
 								JOptionPane.showMessageDialog(null, "Ingreso correcto");
 								usuariosControlador.imprimirEmpleados();
 								dispose();
@@ -387,7 +397,7 @@ public class RegistrarEmpleado extends JFrame{
 						}
 					}
 					else {
-						if(txtNombre.getText().equals("")||textContra1.getText().equals("")||textContra2.getText().equals("")||textDNI.getText().equals("")||textDomicilio.getText().equals("")||fechaN.equals("")||textMail.getText().equals("")||textUsuario.getText().equals("")||rol==null||txtInicioActs.getText().equals("")||txtSueldo.getText().equals("")||flagDiasSelected==0) {
+						if(txtNombre.getText().equals("")||txtApellido.getText().equals("")||textContra1.getText().equals("")||textContra2.getText().equals("")||textDNI.getText().equals("")||textDomicilio.getText().equals("")||fechaN.equals("")||textMail.getText().equals("")||textUsuario.getText().equals("")||rol==null||txtInicioActs.getText().equals("")||txtSueldo.getText().equals("")||flagDiasSelected==0) {
 								JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
 	
 						}
@@ -425,7 +435,7 @@ public class RegistrarEmpleado extends JFrame{
 										diasLaborales.concat("domingo-");
 									}
 										
-									usuariosControlador.altaUsuario(txtNombre.getText(), textMail.getText(), textContra1.getText(), textUsuario.getText(), textDomicilio.getText(), Integer.parseInt(textDNI.getText()), fechaN, rol,fechaInicioActs,Float.parseFloat(txtSueldo.getText()),diasLaborales,null, null, null, null);
+									usuariosControlador.altaUsuario(txtNombre.getText(), textMail.getText(), textContra1.getText(), textUsuario.getText(), textDomicilio.getText(), Integer.parseInt(textDNI.getText()), fechaN, rol,fechaInicioActs,Float.parseFloat(txtSueldo.getText()),diasLaborales,null, null, null, null,txtApellido.getText());
 									JOptionPane.showMessageDialog(null, "Ingreso correcto");
 									usuariosControlador.imprimirEmpleados();
 									dispose();
@@ -438,27 +448,27 @@ public class RegistrarEmpleado extends JFrame{
 					}
 				}
 			});
-			contentPane.add(btnEnviar);
+			contentPane.add(btnRegistrar);
 			
 			txtInicioActs = new JTextField();
-			txtInicioActs.setBounds(214, 351, 152, 20);
+			txtInicioActs.setBounds(215, 377, 152, 20);
 			contentPane.add(txtInicioActs);
 			txtInicioActs.setColumns(10);
 			
 			JLabel lblInicioActs = new JLabel("Inicio de Actividades:");
-			lblInicioActs.setBounds(13, 354, 152, 16);
+			lblInicioActs.setBounds(14, 380, 152, 16);
 			contentPane.add(lblInicioActs);
 			
 			JLabel lblDias = new JLabel("Dias Laborales:");
-			lblDias.setBounds(13, 436, 110, 16);
+			lblDias.setBounds(14, 462, 110, 16);
 			contentPane.add(lblDias);
 			
 			JLabel lblSueldo = new JLabel("Sueldo:");
-			lblSueldo.setBounds(13, 386, 56, 16);
+			lblSueldo.setBounds(14, 412, 56, 16);
 			contentPane.add(lblSueldo);
 			
 			txtSueldo = new JTextField();
-			txtSueldo.setBounds(214, 384, 152, 20);
+			txtSueldo.setBounds(215, 410, 152, 20);
 			contentPane.add(txtSueldo);
 			txtSueldo.setColumns(10);
 			
