@@ -70,6 +70,7 @@ public class UsrMapper {
 					s.setDate(9, (Date) vencimiento);
 					s.setBinaryStream(10, (InputStream) fileIS);
 					s.setString(11, per.getApellido());
+					
 					s.execute();
 					PoolConnection.getPoolConnection().realeaseConnection(con);
 				}
@@ -93,7 +94,8 @@ public class UsrMapper {
 						sProfes.setDate(9, (Date) per.getFechaInicioActividades());
 						sProfes.setString(10, diasLab);
 						sProfes.setString(11, per.getRol());
-						
+						sProfes.setString(12, per.getApellido());
+
 						s.execute();
 						sProfes.execute();
 						PoolConnection.getPoolConnection().realeaseConnection(con);
@@ -112,7 +114,7 @@ public class UsrMapper {
 						s.setDate(9, (Date) per.getFechaInicioActividades());
 						s.setString(10, diasLab);
 						s.setString(11, per.getRol());
-						s.setString(12, per.getRol());
+						s.setString(12, per.getApellido());
 
 						
 						PreparedStatement sUsrs = con.prepareStatement("insert into dbo.Usuarios (nombreUsuario,password,rol) values (?,?,?)");
