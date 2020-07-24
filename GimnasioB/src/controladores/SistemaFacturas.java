@@ -26,7 +26,7 @@ import persistencia.FacturasMapper;
 		return instanciaSistemaFacturas;
 		}
 	
-	public void generarFactura(int nroFactura,int dniSocio,Date fecha, float monto, String detalle){
+	public void generarFactura(int nroFactura,int dniSocio,Date fecha, float monto, String detalle, String tipoPago){
 		
 		if(!existeFactura(dniSocio,fecha)) {
 			
@@ -37,7 +37,7 @@ import persistencia.FacturasMapper;
 				fc=new Factura (nroFactura,dniSocio, fecha,monto,detalle); 
 				vFacturas.add(fc);
 				
-				FacturasMapper.getInstance().generarFactura(fc);
+				FacturasMapper.getInstance().generarFactura(fc,tipoPago);
 			}
 		}
 	}

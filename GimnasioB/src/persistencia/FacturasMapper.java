@@ -27,16 +27,18 @@ public class FacturasMapper {
 		return instancia;
 	}
 	
-	public void generarFactura(Factura f) {
+	public void generarFactura(Factura f, String tipoPago) {
 		
 		try {
 			Factura fac=(Factura) f;
+			String tipoPag = (String) tipoPago;
 			Connection con = PoolConnection.getPoolConnection().getConnection();
-			PreparedStatement s= con.prepareStatement("insert into dbo.Facturas(dniSocio,fechaFactura,monto,detalle)values (?,?,?,?)");
+			PreparedStatement s= con.prepareStatement("insert into dbo.Facturas(dniSocio,fechaFactura,monto,detalle,tipoPago)values (?,?,?,?,?)");
 			s.setInt(1, fac.getDniSocio()); //posicion de la columna (?)
 			s.setDate(2,(Date) fac.getFechaFactura());
 			s.setFloat(3, fac.getMonto());
 			s.setString(4, fac.getDetalle());
+			s.setString(5, tipoPag);
 			s.execute();
 			PoolConnection.getPoolConnection().realeaseConnection(con);
 						
@@ -82,6 +84,7 @@ public class FacturasMapper {
 		}
 		return null;
 	}
+	
 	public ResultSet listarFacturas() {
 		try {
 	

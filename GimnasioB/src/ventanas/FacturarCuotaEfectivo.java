@@ -49,7 +49,7 @@ import java.awt.List;
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
 
-public class FacturarCuota extends JFrame{
+public class FacturarCuotaEfectivo extends JFrame{
 
 	private JPanel contentPane;
 	private JLabel lblNombre;
@@ -61,10 +61,8 @@ public class FacturarCuota extends JFrame{
 	private JLabel lblLiquidarSueldo;
 	private JTextArea txtDescripcion;
 
-	public FacturarCuota(SistemaFacturas facturasControlador, SistemaUsuarios usuariosControlador, Socio s, SistemaAbonos abonosControlador) {
+	public FacturarCuotaEfectivo(SistemaFacturas facturasControlador, SistemaUsuarios usuariosControlador, Socio s, SistemaAbonos abonosControlador) {
 		setTitle("Facturar Cuota");
-
-		/*---------CREO VENTANA DE MODIFICACION DE EMPLEADO----*/
 		
 			setResizable(false);
 			toFront();
@@ -130,7 +128,7 @@ public class FacturarCuota extends JFrame{
 							}
 							else if(respuesta==0) {
 
-								facturasControlador.generarFactura(0, s.getDni(), hoy, abonosControlador.buscarAbono(s.getTipoAbono()).getPrecio(), txtDescripcion.getText());
+								facturasControlador.generarFactura(0, s.getDni(), hoy, abonosControlador.buscarAbono(s.getTipoAbono()).getPrecio(), txtDescripcion.getText(), "Efectivo");
 								
 								/*-----CALCULAMOS NUEVA FECHA DE VENCIMIENTO Y ACTUALIZAMOS-----*/
 								
@@ -161,7 +159,6 @@ public class FacturarCuota extends JFrame{
 			contentPane.add(txtDescripcion);
 		
 			setLocationRelativeTo(null);
-
 
 	}
 
