@@ -142,7 +142,7 @@ public class FacturarCuotaTarjeta extends JFrame{
 						java.util.Date today = new java.util.Date();
 						java.sql.Date hoy = new java.sql.Date(today.getTime());
 						
-						int respuesta=JOptionPane.showConfirmDialog(null,"\nFacturar a : "+s.getNombre()+ "\nPor: "+ abonosControlador.buscarAbono(s.getTipoAbono()).getPrecio()+"\nFecha de Pago: "+today+"\nDetalle:\n"+txtDetalle.getText(), "Son estos los datos correctos?",JOptionPane.YES_NO_OPTION);
+						int respuesta=JOptionPane.showConfirmDialog(null,"\nFacturar a : "+txtNombre.getText().concat(" ").concat(txtApellido.getText())+ "\nPor: "+ abonosControlador.buscarAbono(s.getTipoAbono()).getPrecio()+"\nFecha de Pago: "+today+"\nDetalle:\n"+txtDetalle.getText(), "Son estos los datos correctos?",JOptionPane.YES_NO_OPTION);
 						if(respuesta==1) {
 						
 						}
