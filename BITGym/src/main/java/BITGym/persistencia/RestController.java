@@ -95,8 +95,8 @@ public class RestController {
 	public void postLiquidarSueldoBanco(String cuentaEmpleado, String cuentaGym, String detalle, Float total,
 			String nombreEmpleado, String nombreGym) {
 		
-		String usrPassApi = Base64.getEncoder().encodeToString(("20301234563:triana").getBytes());
-
+		String usrPassApi = Base64.getEncoder().encodeToString(("27407486957:trianaficca").getBytes());
+		
 		try {
 			URL url = new URL("https://integracion-app-backend.herokuapp.com/usuarios/transferencias");
 			URLConnection con = url.openConnection();
