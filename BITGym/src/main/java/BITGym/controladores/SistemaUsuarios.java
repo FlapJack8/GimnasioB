@@ -18,6 +18,7 @@ import BITGym.modelo.Operador;
 import BITGym.modelo.Persona;
 import BITGym.modelo.Profesor;
 import BITGym.persistencia.ClasesMapper;
+import BITGym.persistencia.RestController;
 import BITGym.persistencia.UsrMapper;
 
 
@@ -649,5 +650,12 @@ public class SistemaUsuarios {
 	Float imp = 0.03f;
 	return imp;
 }
+
+	public void liquidarSueldoBanco(String cuentaEmpleado, String detalle, Float total, String nombreEmpleado) {
+		
+		String cuentaGym = "30025253";
+		RestController.getInstance().postLiquidarSueldoBanco(cuentaEmpleado, cuentaGym, detalle, total, nombreEmpleado, "BIT Gym");
+		
+	}
 	
 }

@@ -150,7 +150,8 @@ public class FacturarCuotaTarjeta extends JFrame{
 							
 							/*Conexion con API*/
 							Date fechaVen=Date.valueOf(txtFechaVencimiento.getText());
-							RestController.post(txtNombre.getText(), 
+
+							facturasControlador.facturarTarjeta(txtNombre.getText(), 
 									txtApellido.getText(), 
 									Integer.parseInt(txtDni.getText()), 
 									"BITGym",

@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.util.Vector;
 import BITGym.modelo.Factura;
 import BITGym.persistencia.FacturasMapper;
+import BITGym.persistencia.RestController;
 
 
 	public class SistemaFacturas {
@@ -75,6 +76,13 @@ import BITGym.persistencia.FacturasMapper;
 		if(f!=null)
 			vFacturas.add(f);
 		return f;
+	}
+
+	public void facturarTarjeta(String nombre, String apellido, int dni, String comercio, long cuit, long numTarjeta,
+			Date fechaVen, int cvc, Float monto, int cuotas) {
+		
+		RestController.getInstance().postFacturarTarjeta(nombre, apellido, dni, comercio, cuit, numTarjeta, fechaVen, cvc, monto, cuotas);
+		
 	}
 	
 	

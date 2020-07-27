@@ -55,6 +55,7 @@ public class LiquidarSueldo extends JFrame{
 	private JLabel lblExtras;
 	private JLabel lblFechaDePago;
 	private JTextArea txtDescripcion;
+	private JTextField txtCuenta;
 
 	public LiquidarSueldo(SistemaUsuarios usuariosControlador, String nombreUsuario, String nombre, String apellido, String email, int dni, Float sueldo, Date fechaInicioActs, String diasLaborales, String rol) {
 		setTitle("Modificar Empleado");
@@ -136,7 +137,7 @@ public class LiquidarSueldo extends JFrame{
 						extras = Float.parseFloat(txtExtras.getText());
 						total = total+extras;
 					}
-					if(txtFechaPago.getText().equals("")) {
+					if(txtFechaPago.getText().equals("")||txtCuenta.getText().contentEquals("")) {
 							JOptionPane.showMessageDialog(null, "Llene los campos necesarios","Error",JOptionPane.ERROR_MESSAGE);
 
 					}
@@ -156,7 +157,13 @@ public class LiquidarSueldo extends JFrame{
 							
 							}
 							else if(respuesta==0) {
-
+								
+								/*Conexion con API*/
+								
+								usuariosControlador.liquidarSueldoBanco(txtCuenta.getText(), txtDescripcion.getText(), total, nombreCompleto);
+								
+								/*Actualizamos nuestra base*/
+								
 								usuariosControlador.liquidarSueldoEmpleado(nombreUsuario, nombreCompleto, dni, sueldo, extras, porJub, porObra, porImpGen, fechaPago, txtDescripcion.getText());
 								JOptionPane.showMessageDialog(null, "Sueldo liquidado");
 								dispose();
@@ -178,6 +185,15 @@ public class LiquidarSueldo extends JFrame{
 			txtDescripcion = new JTextArea("Liquidacion de sueldo del mes " + mesliq);
 			txtDescripcion.setBounds(98, 366, 260, 73);
 			contentPane.add(txtDescripcion);
+			
+			txtCuenta = new JTextField();
+			txtCuenta.setBounds(338, 126, 116, 22);
+			contentPane.add(txtCuenta);
+			txtCuenta.setColumns(10);
+			
+			JLabel lblCuenta = new JLabel("Cuenta bancaria: ");
+			lblCuenta.setBounds(213, 126, 102, 16);
+			contentPane.add(lblCuenta);
 		
 			setLocationRelativeTo(null);
 	
