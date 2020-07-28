@@ -57,6 +57,7 @@ public class LiquidarSueldo extends JFrame {
 	private JTextArea txtDescripcion;
 	private JTextField txtCuenta;
 	private JTextField txtHorasTrabajadas;
+	private JTextField txtCuil;
 
 	public LiquidarSueldo(SistemaUsuarios usuariosControlador, String nombreUsuario, String nombre, String apellido,
 			String email, int dni, Float sueldo, Date fechaInicioActs, String diasLaborales, String rol) {
@@ -100,7 +101,7 @@ public class LiquidarSueldo extends JFrame {
 		contentPane.add(lblDni);
 
 		lblFechaInicioActs = new JLabel("Inicio Actividades: " + fechaInicioActs);
-		lblFechaInicioActs.setBounds(22, 163, 260, 16);
+		lblFechaInicioActs.setBounds(22, 163, 193, 16);
 		contentPane.add(lblFechaInicioActs);
 
 		lblSueldo = new JLabel("Importe de sueldo: " + sueldo);
@@ -127,6 +128,11 @@ public class LiquidarSueldo extends JFrame {
 		txtHorasTrabajadas.setBounds(338, 198, 116, 22);
 		contentPane.add(txtHorasTrabajadas);
 		txtHorasTrabajadas.setColumns(10);
+		
+		txtCuil = new JTextField();
+		txtCuil.setBounds(338, 162, 116, 22);
+		contentPane.add(txtCuil);
+		txtCuil.setColumns(10);
 
 		JButton btnLiquidar = new JButton("Liquidar");
 		btnLiquidar.setBounds(185, 460, 97, 25);
@@ -140,7 +146,7 @@ public class LiquidarSueldo extends JFrame {
 				Float extras = 0.0f;
 
 				if (txtFechaPago.getText().equals("") || txtCuenta.getText().contentEquals("")
-						|| txtHorasTrabajadas.getText().contentEquals("")) {
+						|| txtHorasTrabajadas.getText().contentEquals("")||txtCuil.getText().contentEquals("")) {
 					JOptionPane.showMessageDialog(null, "Llene los campos necesarios", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
@@ -177,15 +183,33 @@ public class LiquidarSueldo extends JFrame {
 
 							/* Conexion con API */
 
-							usuariosControlador.liquidarSueldoBanco(txtCuenta.getText(), txtDescripcion.getText(),
-									total, nombreCompleto);
+							switch(usuariosControlador.liquidarSueldoBanco(txtCuenta.getText(), txtDescripcion.getText(),
+									total, txtCuil.getText())){
+							case 200:
+								/* Actualizamos nuestra base */
 
-							/* Actualizamos nuestra base */
-
-							usuariosControlador.liquidarSueldoEmpleado(nombreUsuario, nombreCompleto, dni, sueldo,
-									extras, porJub, porObra, porImpGen, fechaPago, txtDescripcion.getText());
-							JOptionPane.showMessageDialog(null, "Sueldo liquidado");
-							dispose();
+								usuariosControlador.liquidarSueldoEmpleado(nombreUsuario, nombreCompleto, dni, total, sueldo,
+										extras, porJub, porObra, porImpGen, fechaPago, txtDescripcion.getText());
+								JOptionPane.showMessageDialog(null, "Sueldo liquidado");
+								dispose();
+							break;
+							case 400:
+								JOptionPane.showMessageDialog(null, "La cuenta ingresada no es valida", "Error",
+										JOptionPane.ERROR_MESSAGE);
+							break;
+							case 401:
+								JOptionPane.showMessageDialog(null, "Sin autorizacion", "Error",
+										JOptionPane.ERROR_MESSAGE);
+							break;
+							case 403:
+								JOptionPane.showMessageDialog(null, "Forbidden", "Error",
+										JOptionPane.ERROR_MESSAGE);
+							break;
+							case 404:
+								JOptionPane.showMessageDialog(null, "No encontrado", "Error",
+										JOptionPane.ERROR_MESSAGE);
+							break;
+							}
 
 						}
 
@@ -211,12 +235,16 @@ public class LiquidarSueldo extends JFrame {
 		txtCuenta.setColumns(10);
 
 		JLabel lblCuenta = new JLabel("Cuenta bancaria: ");
-		lblCuenta.setBounds(213, 126, 102, 16);
+		lblCuenta.setBounds(220, 126, 102, 16);
 		contentPane.add(lblCuenta);
 
 		JLabel lblHorasTrabajadas = new JLabel("Horas trabajadas:");
 		lblHorasTrabajadas.setBounds(220, 198, 106, 16);
 		contentPane.add(lblHorasTrabajadas);
+		
+		JLabel lblCuil = new JLabel("CUIL:");
+		lblCuil.setBounds(220, 162, 95, 16);
+		contentPane.add(lblCuil);
 
 		setLocationRelativeTo(null);
 

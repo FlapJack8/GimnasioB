@@ -261,9 +261,8 @@ public class UsrMapper {
 				
 				s.setString(1, e.getPassword());
 				s.setString(2, e.getRol());
-				
 				s.setString(3, e.getNombreUsuario());
-				
+
 				/*----STATEMENT QUERY DEL UPDATE----*/
 				PreparedStatement s2 = con.prepareStatement("update dbo.Empleados " +
 						"set nombre =?," +
@@ -278,7 +277,7 @@ public class UsrMapper {
 						" apellido = ?" +
 						" where nombreUsuario = ?");
 				/*----CAMPOS DE EMPLEADO----*/
-				
+
 				s2.setString(1, e.getNombre());
 				s2.setString(2, e.getDomicilio());
 				s2.setString(3, e.getEmail());
@@ -289,11 +288,25 @@ public class UsrMapper {
 				s2.setDate(8, (Date) e.getFechaInicioActividades());
 				s2.setString(9,e.getDiasLaborales());
 				s2.setString(10, e.getApellido());
-				
+
 				s2.setString(11, e.getNombreUsuario());
-				
 				s.execute();
 				s2.execute();
+				
+				if(e.getRol().equals("Profesor")) {
+					PreparedStatement s3 = con.prepareStatement("update dbo.Profesores " +
+							"set actividades = ?" +
+							" where nombreUsuario = ?");
+					/*----CAMPOS DE EMPLEADO----*/
+					Profesor p = buscarProfesor(e.getNombreUsuario());
+					s3.setString(1, p.getActividades());
+					s3.setString(2, e.getNombreUsuario());
+					
+					s3.execute();
+				}
+				
+				
+				
 				PoolConnection.getPoolConnection().realeaseConnection(con);
 			}
 			catch (Exception e)

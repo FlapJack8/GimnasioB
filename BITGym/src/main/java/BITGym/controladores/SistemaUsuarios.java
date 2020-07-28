@@ -575,11 +575,9 @@ public class SistemaUsuarios {
 
 	}
 	
-	public void liquidarSueldoEmpleado(String nombreUsuario, String nombreCompleto, int dni, Float sueldo, Float extras, Float porJub, Float porObra, Float porImpGen, Date fechaPago, String descripcion) {
-
-		Float importeTotal = sueldo+extras-porJub-porObra-porImpGen;
+	public void liquidarSueldoEmpleado(String nombreUsuario, String nombreCompleto, int dni, Float total, Float sueldo, Float extras, Float porJub, Float porObra, Float porImpGen, Date fechaPago, String descripcion) {
 		
-		UsrMapper.getInstance().liquidarSueldoEmpleado(nombreUsuario, nombreCompleto, dni, importeTotal, sueldo, extras, porJub, porObra, porImpGen, fechaPago, descripcion);
+		UsrMapper.getInstance().liquidarSueldoEmpleado(nombreUsuario, nombreCompleto, dni, total, sueldo, extras, porJub, porObra, porImpGen, fechaPago, descripcion);
 			
 	}
 	
@@ -651,10 +649,11 @@ public class SistemaUsuarios {
 	return imp;
 }
 
-	public void liquidarSueldoBanco(String cuentaEmpleado, String detalle, Float total, String nombreEmpleado) {
+	public int liquidarSueldoBanco(String cuentaEmpleado, String detalle, Float total, String cuil) {
 		
-		String cuentaGym = "30025253";
-		RestController.getInstance().postLiquidarSueldoBanco(cuentaEmpleado, cuentaGym, detalle, total, nombreEmpleado, "BIT Gym");
+		String cuentaGym = "82007900";
+		String cuitGym = "27407486957";
+		return RestController.getInstance().postLiquidarSueldoBanco(cuentaEmpleado, cuentaGym, detalle, total, cuil, cuitGym);
 		
 	}
 	

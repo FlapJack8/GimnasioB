@@ -512,7 +512,7 @@ public class ModificarEmpleadoLlenarCampos extends JFrame{
 					    	actividades = actividades.concat(listActsProfe.getModel().getElementAt(i).toString());
 					        actividades = actividades.concat("-");
 					    }
-					    
+					    System.out.println(actividades);
 						if(textNombre.getText().equals("")||txtApellido.getText().equals("")||textDNI.getText().equals("")||textDomicilio.getText().equals("")||textFechaNac.getText().equals("")||textMail.getText().equals("")||textUsuario.getText().equals("")||txtFechaInicioActs.getText().equals("")||rol==null) {
 							JOptionPane.showMessageDialog(null, "Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
 

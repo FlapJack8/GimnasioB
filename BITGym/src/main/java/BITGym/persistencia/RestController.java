@@ -1,6 +1,7 @@
 package BITGym.persistencia;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -10,10 +11,16 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.StringJoiner;
 import java.util.Vector;
+
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -21,7 +28,6 @@ import org.json.simple.parser.JSONParser;
 import java.util.Base64;
 
 import BITGym.modelo.Factura;
-
 
 public class RestController {
 
@@ -92,69 +98,72 @@ public class RestController {
 		}
 	}
 
-	public void postLiquidarSueldoBanco(String cuentaEmpleado, String cuentaGym, String detalle, Float total,
-			String nombreEmpleado, String nombreGym) {
-		
+	public int postLiquidarSueldoBanco(String cuentaEmpleado, String cuentaGym, String detalle, Float total,
+			String cuil, String cuitGym) {
+
 		String usrPassApi = Base64.getEncoder().encodeToString(("27407486957:trianaficca").getBytes());
-		
+
 		try {
 			URL url = new URL("https://integracion-app-backend.herokuapp.com/usuarios/transferencias");
-			URLConnection con = url.openConnection();
-			HttpURLConnection http = (HttpURLConnection) con;
+			// URLConnection con = url.openConnection();
+			HttpURLConnection http = (HttpURLConnection) url.openConnection();
 			http.setRequestMethod("POST");
+			http.setRequestProperty("Authorization", "Basic " + usrPassApi);
+			http.setRequestProperty("Accept", "application/json");
+			http.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 			http.setDoOutput(true);
 
 			/*
 			 * EJEMPLO
 			 * 
-			 * { 
-			 * "cuentaDestino": "02345671", 
-			 * "cuentaOrigen": "30025253", 
-			 * "detalle": "prueba gym b postman", 
-			 * "montoTransaccion": 500, 
-			 * "usuarioDestino": "Antonio Ruiz", 
-			 * "usuarioOrigen": "BIT Gym"
-			 * }
+			 * { "cuentaDestino": "02345671", "cuentaOrigen": "30025253", "detalle":
+			 * "prueba gym b postman", "montoTransaccion": 500, "usuarioDestino":
+			 * "Antonio Ruiz", "usuarioOrigen": "BIT Gym" }
 			 * 
 			 */
-
-			Map<String, String> arguments = new HashMap<>();
-			arguments.put("cuentaDestino", cuentaEmpleado);
-			arguments.put("cuentaOrigen", cuentaGym);
-			arguments.put("detalle", detalle);
-			arguments.put("montoTransaccion", Float.toString(total));
-			arguments.put("usuarioDestino", nombreEmpleado);
-			arguments.put("usuarioOrigen", nombreGym);
-
 			/*
-			 * Como le agregamos los headers de autenticacion?
+			 * String totalString = Float.toString(total); Map<String, String> arguments =
+			 * new LinkedHashMap<>(); arguments.put("cuentaDestino", cuentaEmpleado);
+			 * arguments.put("cuentaOrigen", cuentaGym); arguments.put("detalle", detalle);
+			 * arguments.put("montoTransaccion", totalString);
+			 * arguments.put("usuarioDestino", cuil); arguments.put("usuarioOrigen",
+			 * cuitGym);
 			 * 
-			 * headers:{
-			 * 'Authorization': 'Basic' + usrPassApi,
-			 * }
+			 * StringJoiner sj = new StringJoiner(","); for (Map.Entry<String, String> entry
+			 * : arguments.entrySet()) { sj.add(URLEncoder.encode(entry.getKey(), "UTF-8") +
+			 * ":" + URLEncoder.encode(entry.getValue(), "UTF-8")); } byte[] out =
+			 * sj.toString().getBytes(StandardCharsets.UTF_8); int length = out.length;
 			 */
-			
-			StringJoiner sj = new StringJoiner("&");
-			for (Map.Entry<String, String> entry : arguments.entrySet())
-				sj.add(URLEncoder.encode(entry.getKey(), "UTF-8") + "=" + URLEncoder.encode(entry.getValue(), "UTF-8"));
-			byte[] out = sj.toString().getBytes(StandardCharsets.UTF_8);
-			System.out.println(sj);
-			int length = out.length;
 
-			http.setFixedLengthStreamingMode(length);
-			http.setRequestProperty("Content-Type", "application/JSON; charset=UTF-8");
-			http.connect();
-			try (OutputStream os = http.getOutputStream()) {
-				os.write(out);
-			} catch (Exception e) {
-				System.out.println("rompio post liquidar write (out)");
-				System.out.println("Stack Trace: " + e.getStackTrace() + e.getMessage());
+			String totalString = Float.toString(total);
+			JsonObject param = Json.createObjectBuilder()
+					.add("cuentaDestino", cuentaEmpleado)
+					.add("cuentaOrigen", cuentaGym)
+					.add("detalle", detalle)
+					.add("montoTransaccion", totalString)
+					.add("usuarioDestino", cuil)
+					.add("usuarioOrigen", cuitGym)
+					.build();
+
+			// Cargar parametros a EndPoint
+			OutputStream os = http.getOutputStream();
+			os.write(param.toString().getBytes("UTF-8"));
+			os.close();
+
+			if (http.getResponseCode() != 200) {
+
+				System.out.println("Failed : HTTP Error code : " + http.getResponseCode());
 			}
+			http.disconnect();
+			System.out.println(http.getResponseCode());
+			return http.getResponseCode();
+
 			// Do something with http.getInputStream()
 		} catch (Exception e) {
 			System.out.println("rompio post banco A");
 			System.out.println("Stack Trace: " + e.getStackTrace() + e.getMessage());
 		}
+		return 0;
 	}
 
 	public void testPostLiquidarSueldoBanco(String cuentaEmpleado, String cuentaGym, String detalle, Float total,
