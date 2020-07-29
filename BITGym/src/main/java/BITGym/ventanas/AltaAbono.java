@@ -31,7 +31,7 @@ public class AltaAbono extends JFrame {
 		 setResizable(false);
 		 toFront();
 		 setDefaultCloseOperation (JFrame.DISPOSE_ON_CLOSE);
-		 setBounds(400, 200, 720, 356);
+		 setBounds(400, 200, 417, 256);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane (contentPane);
@@ -40,38 +40,38 @@ public class AltaAbono extends JFrame {
 		/*----CAMPOS A LLENAR----*/
 		
 				
-		JLabel lblTIPOABONO = new JLabel("TIPO ABONO:");
-		lblTIPOABONO.setBounds(14, 62, 86, 14);
+		JLabel lblTIPOABONO = new JLabel("Tipo de Abono:");
+		lblTIPOABONO.setBounds(24, 62, 121, 14);
 		contentPane.add(lblTIPOABONO);
 			
-		JLabel lblPRECIO = new JLabel("PRECIO:");
-		lblPRECIO.setBounds(24, 124, 86, 14);
+		JLabel lblPRECIO = new JLabel("Precio:");
+		lblPRECIO.setBounds(24, 121, 86, 14);
 		contentPane.add(lblPRECIO);
 		
-		JLabel lblDURACION = new JLabel("DURACION:");
-		lblDURACION.setBounds(14, 99, 76, 14);
+		JLabel lblDURACION = new JLabel("Duracion:");
+		lblDURACION.setBounds(24, 90, 76, 14);
 		contentPane.add(lblDURACION);
 		
 			
 		JTextField textTIPOABONO = new JTextField();
-		textTIPOABONO.setBounds(100, 59, 152, 20);
+		textTIPOABONO.setBounds(164, 59, 152, 20);
 		contentPane.add(textTIPOABONO);
 		textTIPOABONO.setColumns(10);
 		
 		JTextField textPRECIO = new JTextField();
-		textPRECIO.setBounds(100, 96, 152, 20);
+		textPRECIO.setBounds(164, 90, 152, 20);
 		contentPane.add(textPRECIO);
 		textPRECIO.setColumns(10);
 		
 		JTextField textDURACION = new JTextField();
-		textDURACION.setBounds(100, 121, 152, 20);
+		textDURACION.setBounds(164, 121, 152, 20);
 		contentPane.add(textDURACION);
 		textDURACION.setColumns(10);
 		
 		/*----BOTON ENVIAR----*/
 		
 		JButton btnEnviar = new JButton("Enviar");
-		btnEnviar.setBounds(209, 182, 152, 23);
+		btnEnviar.setBounds(128, 173, 152, 23);
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				

@@ -39,12 +39,12 @@ public class AltaActividad extends JFrame{
 		
 		//Datos Actividad
 		
-		JLabel lblIngreseActividad= new JLabel("Nombre actividad:");
+		JLabel lblIngreseActividad= new JLabel("Nombre de actividad:");
 		lblIngreseActividad.setBounds(12, 55, 152, 14);
 		contentPane.add(lblIngreseActividad);
 		
 		textActividad = new JTextField();
-		textActividad.setBounds(213, 52, 152, 20);
+		textActividad.setBounds(176, 55, 152, 20);
 		contentPane.add(textActividad);
 		textActividad.setColumns(10);
 		

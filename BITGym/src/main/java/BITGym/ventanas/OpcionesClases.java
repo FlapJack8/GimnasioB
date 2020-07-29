@@ -13,6 +13,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+
 import java.awt.Font;
 
 public class OpcionesClases extends JFrame{
@@ -22,7 +24,7 @@ public class OpcionesClases extends JFrame{
 	public OpcionesClases(SistemaClases clasesControlador, SistemaUsuarios usuariosControlador, SistemaActividades actividadesControlador, String rolLogeado) {
 		setResizable(false);
 		setTitle("Clases");
-		setBounds(450, 250, 352, 225);
+		setBounds(450, 250, 308, 225);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
@@ -52,7 +54,7 @@ public class OpcionesClases extends JFrame{
 				}
 			}
 		});
-		btnAltaClase.setBounds(90, 50, 142, 23);
+		btnAltaClase.setBounds(78, 77, 142, 23);
 		getContentPane().add(btnAltaClase);
 		
 		/*------------------------------------
@@ -71,7 +73,7 @@ public class OpcionesClases extends JFrame{
 				}
 			}
 		});
-		btnBajaClase.setBounds(90, 116, 142, 23);
+		btnBajaClase.setBounds(78, 137, 142, 23);
 		getContentPane().add(btnBajaClase);
 		
 		/*-------------------------------------
@@ -91,8 +93,15 @@ public class OpcionesClases extends JFrame{
 				}
 			}
 		});
-		btnModificarClase.setBounds(90, 84, 142, 23);
+		btnModificarClase.setBounds(78, 107, 142, 23);
 		getContentPane().add(btnModificarClase);
+		
+		JLabel lblClases = new JLabel("Clases");
+		lblClases.setHorizontalAlignment(SwingConstants.CENTER);
+		lblClases.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblClases.setBounds(95, 40, 111, 16);
+		getContentPane().add(lblClases);
+		
 		setLocationRelativeTo(null);
 
 

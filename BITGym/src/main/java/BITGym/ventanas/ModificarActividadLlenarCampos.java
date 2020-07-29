@@ -31,20 +31,20 @@ public class ModificarActividadLlenarCampos extends JFrame{
 		setResizable(false);
 		toFront();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(400, 200, 715, 600);
+		setBounds(400, 200, 325, 185);
 		contentPane = new JPanel();
 		contentPane.setForeground(new Color(51, 153, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblActividad = new JLabel("Actividad:");
-		lblActividad.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblActividad.setBounds(13, 103, 152, 14);
+		JLabel lblActividad = new JLabel("Nombre de actividad:");
+		lblActividad.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblActividad.setBounds(12, 47, 128, 14);
 		contentPane.add(lblActividad);
 		String actividadAux = a.getNombreActividad();
 		txtActividad = new JTextField();
-		txtActividad.setBounds(214, 100, 152, 20);
+		txtActividad.setBounds(145, 44, 152, 20);
 		contentPane.add(txtActividad);
 		txtActividad.setText(actividadAux);
 		txtActividad.setColumns(10);
@@ -65,7 +65,7 @@ public class ModificarActividadLlenarCampos extends JFrame{
 				}
 			}
 		});
-		btnAceptar.setBounds(368, 230, 89, 23);
+		btnAceptar.setBounds(107, 93, 89, 23);
 		getContentPane().add(btnAceptar);
 		setLocationRelativeTo(null);
 

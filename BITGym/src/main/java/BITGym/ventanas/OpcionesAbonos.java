@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class OpcionesAbonos extends JFrame{
 
@@ -50,7 +51,7 @@ public class OpcionesAbonos extends JFrame{
 				}
 			}
 		});
-		btnAltaAbono.setBounds(90, 57, 142, 23);
+		btnAltaAbono.setBounds(90, 100, 142, 23);
 		getContentPane().add(btnAltaAbono);
 		
 		/*------------------------------------
@@ -69,7 +70,7 @@ public class OpcionesAbonos extends JFrame{
 				}
 			}
 		});
-		btnBajaAbono.setBounds(90, 91, 142, 23);
+		btnBajaAbono.setBounds(90, 134, 142, 23);
 		getContentPane().add(btnBajaAbono);
 		
 		/*-------------------------------------
@@ -89,8 +90,14 @@ public class OpcionesAbonos extends JFrame{
 				}
 			}
 		});
-		btnModificarAbono.setBounds(90, 123, 142, 23);
+		btnModificarAbono.setBounds(90, 66, 142, 23);
 		getContentPane().add(btnModificarAbono);
+		
+		JLabel lblAbonos = new JLabel("Abonos");
+		lblAbonos.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAbonos.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblAbonos.setBounds(107, 33, 111, 16);
+		getContentPane().add(lblAbonos);
 
 		setLocationRelativeTo(null);
 

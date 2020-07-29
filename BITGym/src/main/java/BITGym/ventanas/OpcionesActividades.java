@@ -12,6 +12,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+
 import java.awt.Font;
 
 public class OpcionesActividades extends JFrame{
@@ -51,7 +53,7 @@ public class OpcionesActividades extends JFrame{
 				}
 			}
 		});
-		btnAltaActividad.setBounds(90, 57, 142, 23);
+		btnAltaActividad.setBounds(90, 74, 142, 23);
 		getContentPane().add(btnAltaActividad);
 		
 		/*------------------------------------
@@ -70,7 +72,7 @@ public class OpcionesActividades extends JFrame{
 				}
 			}
 		});
-		btnBajaActividad.setBounds(90, 91, 142, 23);
+		btnBajaActividad.setBounds(90, 134, 142, 23);
 		getContentPane().add(btnBajaActividad);
 		
 		/*-------------------------------------
@@ -90,9 +92,15 @@ public class OpcionesActividades extends JFrame{
 				}
 			}
 		});
-		btnModificarActividad.setBounds(90, 123, 142, 23);
+		btnModificarActividad.setBounds(90, 104, 142, 23);
 		getContentPane().add(btnModificarActividad);
 
+		JLabel lblActividades = new JLabel("Actividades");
+		lblActividades.setHorizontalAlignment(SwingConstants.CENTER);
+		lblActividades.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblActividades.setBounds(107, 40, 111, 16);
+		getContentPane().add(lblActividades);
+		
 		setLocationRelativeTo(null);
 
 	}
