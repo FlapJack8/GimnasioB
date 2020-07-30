@@ -88,12 +88,12 @@ public class LiquidarSueldo extends JFrame {
 
 		JLabel lblLiquidarSueldo = new JLabel("Liquidar sueldo del/la " + rol + "/a: ");
 		lblLiquidarSueldo.setFont(new Font("Tunga", Font.BOLD, 20));
-		lblLiquidarSueldo.setBounds(12, 24, 303, 29);
+		lblLiquidarSueldo.setBounds(12, 24, 346, 29);
 		contentPane.add(lblLiquidarSueldo);
 		String nombreCompleto = nombre.concat(" ").concat(apellido);
 		lblNombre = new JLabel("(" + nombreUsuario + ") " + nombreCompleto);
 		lblNombre.setFont(new Font("Tunga", Font.BOLD, 20));
-		lblNombre.setBounds(83, 66, 296, 16);
+		lblNombre.setBounds(83, 66, 325, 29);
 		contentPane.add(lblNombre);
 
 		lblDni = new JLabel("DNI: " + dni);
