@@ -27,7 +27,7 @@ import BITGym.persistencia.RestController;
 		return instanciaSistemaFacturas;
 		}
 	
-	public void generarFactura(int nroFactura,int dniSocio,Date fecha, float monto, String detalle, String tipoPago){
+	public void generarFactura(int nroFactura,int dniSocio,Date fecha, float monto, String detalle, String tipoPago, String idTransaccion){
 		
 		if(!existeFactura(dniSocio,fecha)) {
 			
@@ -35,10 +35,10 @@ import BITGym.persistencia.RestController;
 			
 			if(fc==null) {
 				
-				fc=new Factura (nroFactura,dniSocio, fecha,monto,detalle); 
+				fc=new Factura (nroFactura,dniSocio, fecha,monto,detalle, tipoPago, idTransaccion); 
 				vFacturas.add(fc);
 				
-				FacturasMapper.getInstance().generarFactura(fc,tipoPago);
+				FacturasMapper.getInstance().generarFactura(fc,tipoPago, idTransaccion);
 			}
 		}
 	}

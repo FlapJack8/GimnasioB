@@ -23,7 +23,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.JTextArea;
 
-public class FacturarCuotaTarjeta extends JFrame{
+public class FacturarCuotaTarjetaAPI extends JFrame{
 	private JPanel contentPane;
 	private JTextField txtDniBuscar;
 	private JTextField txtNombre;
@@ -34,7 +34,7 @@ public class FacturarCuotaTarjeta extends JFrame{
 	private JTextField txtCuotas;
 	private JTextField txtCvc;
 
-	public FacturarCuotaTarjeta(SistemaFacturas facturasControlador, SistemaUsuarios usuariosControlador, Socio s, SistemaAbonos abonosControlador) {
+	public FacturarCuotaTarjetaAPI(SistemaFacturas facturasControlador, SistemaUsuarios usuariosControlador, Socio s, SistemaAbonos abonosControlador) {
 		setTitle("Pago con Tarjeta de Credito");
 		
 		/*---------CREO VENTANA DE MODIFICACION DE EMPLEADO----*/
@@ -164,7 +164,7 @@ public class FacturarCuotaTarjeta extends JFrame{
 							
 							/*Si API devuelve que pago*/
 							
-								facturasControlador.generarFactura(0, s.getDni(), hoy, abonosControlador.buscarAbono(s.getTipoAbono()).getPrecio(), txtDetalle.getText(), "Tarjeta");
+								facturasControlador.generarFactura(0, s.getDni(), hoy, abonosControlador.buscarAbono(s.getTipoAbono()).getPrecio(), txtDetalle.getText(), "Tarjeta","");
 								
 								/*-----CALCULAMOS NUEVA FECHA DE VENCIMIENTO Y ACTUALIZAMOS-----*/
 								

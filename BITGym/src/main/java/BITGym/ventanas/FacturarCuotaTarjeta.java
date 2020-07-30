@@ -49,7 +49,7 @@ import java.awt.List;
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
 
-public class FacturarCuotaEfectivo extends JFrame{
+public class FacturarCuotaTarjeta extends JFrame{
 
 	private JPanel contentPane;
 	private JLabel lblNombre;
@@ -60,14 +60,15 @@ public class FacturarCuotaEfectivo extends JFrame{
 	private JLabel lblFechaDeVencimiento;
 	private JLabel lblLiquidarSueldo;
 	private JTextArea txtDescripcion;
+	private JTextField txtIdTransaccion;
 
-	public FacturarCuotaEfectivo(SistemaFacturas facturasControlador, SistemaUsuarios usuariosControlador, Socio s, SistemaAbonos abonosControlador) {
+	public FacturarCuotaTarjeta(SistemaFacturas facturasControlador, SistemaUsuarios usuariosControlador, Socio s, SistemaAbonos abonosControlador) {
 		setTitle("Facturar Cuota");
 		
 			setResizable(false);
 			toFront();
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			setBounds(400, 200, 380, 452);
+			setBounds(400, 200, 380, 480);
 			contentPane = new JPanel();
 			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 			setContentPane(contentPane);
@@ -105,15 +106,20 @@ public class FacturarCuotaEfectivo extends JFrame{
 			lblMontoDeFacturacion.setBounds(22, 150, 293, 16);
 			contentPane.add(lblMontoDeFacturacion);
 			
+			txtIdTransaccion = new JTextField();
+			txtIdTransaccion.setBounds(161, 240, 116, 22);
+			contentPane.add(txtIdTransaccion);
+			txtIdTransaccion.setColumns(10);
+			
 			JButton btnFacturar = new JButton("Facturar");
-			btnFacturar.setBounds(136, 360, 97, 25);
+			btnFacturar.setBounds(136, 400, 97, 25);
 			btnFacturar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 
 					/*----VALIDA QUE TODOS LOS CAMPOS NECESARIOS ESTEN LLENOS----*/
 
 					
-					if(txtDescripcion.getText().equals("")) {
+					if(txtDescripcion.getText().equals("")||txtIdTransaccion.getText().equals("")) {
 							JOptionPane.showMessageDialog(null, "Llene los campos necesarios","Error",JOptionPane.ERROR_MESSAGE);
 
 					}
@@ -128,7 +134,7 @@ public class FacturarCuotaEfectivo extends JFrame{
 							}
 							else if(respuesta==0) {
 
-								facturasControlador.generarFactura(0, s.getDni(), hoy, abonosControlador.buscarAbono(s.getTipoAbono()).getPrecio(), txtDescripcion.getText(), "Efectivo", null);
+								facturasControlador.generarFactura(0, s.getDni(), hoy, abonosControlador.buscarAbono(s.getTipoAbono()).getPrecio(), txtDescripcion.getText(), "Tarjeta", txtIdTransaccion.getText());
 								
 								/*-----CALCULAMOS NUEVA FECHA DE VENCIMIENTO Y ACTUALIZAMOS-----*/
 								
@@ -151,15 +157,18 @@ public class FacturarCuotaEfectivo extends JFrame{
 			contentPane.add(btnFacturar);
 			
 			JLabel lblDescripcion = new JLabel("Descripcion:");
-			lblDescripcion.setBounds(22, 240, 85, 16);
+			lblDescripcion.setBounds(22, 270, 85, 16);
 			contentPane.add(lblDescripcion);
 			
 			txtDescripcion = new JTextArea("Facturacion de abono " + s.getTipoAbono() + "\nel dia " + new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()));
-			txtDescripcion.setBounds(55, 270, 260, 73);
+			txtDescripcion.setBounds(55, 300, 260, 73);
 			contentPane.add(txtDescripcion);
+			
+			JLabel lblIdTransaccion = new JLabel("Id de Transaccion:");
+			lblIdTransaccion.setBounds(22, 240, 127, 16);
+			contentPane.add(lblIdTransaccion);
 		
 			setLocationRelativeTo(null);
 
 	}
-
 }

@@ -9,15 +9,19 @@ public class Factura {
 	private Date fechaFactura;
 	private float monto;
 	private String detalle;
+	private String tipoPago;
+	private String idTransaccion;
 	
 	
-	public Factura(int nroFactura, int dniSocio, Date fechaFactura, float monto, String detalle) {
+	public Factura(int nroFactura, int dniSocio, Date fechaFactura, float monto, String detalle, String tipoPago, String idTransaccion) {
 		super();
 		this.nroFactura = nroFactura;
 		this.dniSocio = dniSocio;
 		this.fechaFactura = fechaFactura;
 		this.monto = monto;
 		this.detalle = detalle;
+		this.tipoPago = tipoPago;
+		this.idTransaccion = idTransaccion;
 	}
 	
 	
@@ -50,6 +54,18 @@ public class Factura {
 	}
 	public void setDetalle(String detalle) {
 		this.detalle = detalle;
+	}
+	public String getIdTransaccion() {
+		return idTransaccion;
+	}
+	public void setIdTransaccion(String idTransaccion) {
+		this.idTransaccion = idTransaccion;
+	}
+	public String getTipoPago() {
+		return tipoPago;
+	}
+	public void setTipoPago(String tipoPago) {
+		this.tipoPago = tipoPago;
 	}
 	
 	

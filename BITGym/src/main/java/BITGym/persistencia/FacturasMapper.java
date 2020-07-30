@@ -27,18 +27,22 @@ public class FacturasMapper {
 		return instancia;
 	}
 	
-	public void generarFactura(Factura f, String tipoPago) {
+	public void generarFactura(Factura f, String tipoPago, String idTransaccion) {
 		
 		try {
 			Factura fac=(Factura) f;
 			String tipoPag = (String) tipoPago;
+			String idTransac = (String) idTransaccion;
+
 			Connection con = PoolConnection.getPoolConnection().getConnection();
-			PreparedStatement s= con.prepareStatement("insert into dbo.Facturas(dniSocio,fechaFactura,monto,detalle,tipoPago)values (?,?,?,?,?)");
+			PreparedStatement s= con.prepareStatement("insert into dbo.Facturas(dniSocio,fechaFactura,monto,detalle,tipoPago,idPagoTarjeta)values (?,?,?,?,?,?)");
 			s.setInt(1, fac.getDniSocio()); //posicion de la columna (?)
 			s.setDate(2,(Date) fac.getFechaFactura());
 			s.setFloat(3, fac.getMonto());
 			s.setString(4, fac.getDetalle());
 			s.setString(5, tipoPag);
+			s.setString(6, idTransac);
+
 			s.execute();
 			PoolConnection.getPoolConnection().realeaseConnection(con);
 						
@@ -63,16 +67,19 @@ public class FacturasMapper {
 			s.setDate(2,df);
 			ResultSet result = s.executeQuery();
 			while (result.next()) {
-				int num=result.getInt(1);
-				int soc = result.getInt(2);
+				int numF = result.getInt(1);
+				int dniSoc = result.getInt(2);
 				Date fe = result.getDate(3);
 				Float pre=result.getFloat(4);
-				String d= result.getString(4);
+				String det= result.getString(5);
+				String tipoPag= result.getString(6);
+				String idTransac= result.getString(7);
+
 				
-				Socio buscarSoc=SistemaUsuarios.getInstancia().buscarSocio(soc);
+				Socio buscarSoc=SistemaUsuarios.getInstancia().buscarSocio(dniSoc);
 				
 				Abono buscarAb=SistemaAbonos.getInstancia().buscarAbono(buscarSoc.getTipoAbono());
-				fac=new Factura (num,buscarSoc.getDni(),fe,buscarAb.getPrecio(),d);
+				fac=new Factura (numF,buscarSoc.getDni(),fe,buscarAb.getPrecio(),det,tipoPag,idTransac);
 				
 			}
 			PoolConnection.getPoolConnection().realeaseConnection(con);
@@ -89,7 +96,7 @@ public class FacturasMapper {
 		try {
 	
 			Connection con = PoolConnection.getPoolConnection().getConnection();
-			PreparedStatement s = con.prepareStatement("select * from dbo.Facturas");
+			PreparedStatement s = con.prepareStatement("select * from dbo.Facturas order by fechaFactura DESC");
 
 			ResultSet result = s.executeQuery();
 			
