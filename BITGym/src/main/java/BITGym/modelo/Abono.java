@@ -8,7 +8,7 @@ public class Abono {
 	private int duracion;
 	
 
-	public Abono(String tipoAbono,Float precio,int duracion) {
+	public Abono(String tipoAbono, Float precio,int duracion) {
 		super();
 		this.tipoAbono = tipoAbono;
 		this.precio = precio;
